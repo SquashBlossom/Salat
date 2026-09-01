@@ -1,6 +1,6 @@
 # Salat NY
 
-Prayer times for New York, calculated on-device from solar position. No account, no API, no tracking. Runs fully offline once installed.
+Prayer times anywhere in the world, calculated on-device from solar position. No account, no API, no tracking. Runs fully offline once installed.
 
 Two files. Both must sit in the same folder on the server.
 
@@ -27,7 +27,7 @@ Do all of this from Safari on your phone. If the GitHub interface feels cramped,
 It now opens full screen with its own icon and no address bar.
 
 ### Updating it later
-Upload a new `index.html` to the repo, then open the app while online. Bump `VERSION` at the top of `sw.js` (`salat-ny-v1` → `salat-ny-v2`) whenever you change `index.html`, or the old cached copy may stick around.
+Upload a new `index.html` to the repo, then open the app while online. Bump `VERSION` at the top of `sw.js` (`salat-v2` → `salat-v3`) whenever you change `index.html`, or the old cached copy may stick around.
 
 ### If you want your own address
 Point a subdomain at the repo: add a CNAME record for `salat.nasadotrading.com` → `YOURUSERNAME.github.io` at your DNS host, then enter that domain under **Settings → Pages → Custom domain**. Do not try to serve this from a Shopify storefront — Shopify strips scripts from pages and will break it.
@@ -64,7 +64,7 @@ More setup, more upkeep, but the Clock app rings through Silent mode and can use
    https://api.aladhan.com/v1/timings/[Formatted Date]?latitude=40.6782&longitude=-73.9442&method=2&school=0
    ```
 
-   Those coordinates are Brooklyn. `method=2` is ISNA and `school=0` is Standard Asr, matching the app's defaults. For Hanafi Asr use `school=1`.
+   Those coordinates are Brooklyn — change them to wherever you are. `method=2` is ISNA and `school=0` is Standard Asr, matching the app's defaults. For Hanafi Asr use `school=1`. Above 48° latitude add `&latitudeAdjustmentMethod=3` for the angle-based rule.
 4. **Get Contents of URL** — input is the Text above
 5. **Get Dictionary Value** — Get `Value` for Key `data.timings.Fajr`
 6. **Create Alarm** — Time: the Dictionary Value from step 5. Label: `Fajr`. Repeat: Never.
@@ -79,14 +79,41 @@ If **Create Alarm** refuses the text value, insert a **Date** action between 5 a
 
 ---
 
+## Location
+
+Three ways to set it, all working offline:
+
+- **Search** — 278 cities across every continent, each with its own IANA time zone so daylight saving is handled correctly wherever you are.
+- **Use my current location** — GPS, with the time zone taken from the device.
+- **Enter coordinates manually** — latitude, longitude and time zone, for anywhere not in the list.
+
+Whatever you pick is remembered, and the calendar export follows it.
+
+## High latitudes
+
+Above roughly 48° in summer the sun never dips far enough below the horizon for Fajr or Isha to occur by calculation — the equations have no solution, and a naive app shows blank rows. London, Berlin, Stockholm, Oslo, Moscow and Anchorage all hit this in June.
+
+Three standard correction rules are available under Settings, defaulting to **angle based**. When one is in use for the day being shown, a notice appears above the timetable saying so. Below about 48° the rule changes nothing at all.
+
+Further north still, inside the Arctic and Antarctic circles, the sun may not rise or set at all. The app says so plainly rather than inventing a time — in that case follow the timetable of the nearest city where the sun does rise, or whatever your scholars advise.
+
+## Colour schemes
+
+Four, switchable under Settings, remembered between launches:
+
+- **Midnight** — deep navy, aquamarine, yellow, green
+- **Amethyst** — purple, aquamarine, orange
+- **Grove** — deep green, orange, yellow
+- **Blossom** — pink, violet, sky blue (light)
+
 ## Notes on the calculation
 
 Times come from standard solar position formulas — Julian date, equation of time, solar declination, hour angle — iterated three times per event for accuracy. Nothing is fetched.
 
-Defaults are ISNA (15° Fajr, 15° Isha) and Standard Asr, which is what most masjids in the New York area publish. Seven methods are available under Settings, along with per-prayer minute adjustments if you want to match a specific masjid's printed timetable exactly.
+Defaults are ISNA (15° Fajr, 15° Isha) and Standard Asr, which is what most masjids in the New York area publish. Thirteen methods are available under Settings — including Umm al-Qura, Karachi, Egyptian, Diyanet, MUIS Singapore, Dubai, Qatar, Kuwait and UOIF France — along with per-prayer minute adjustments if you want to match a specific masjid's printed timetable exactly.
 
 Dhuhr carries a one-minute margin past true solar zenith.
 
 The Hijri date is the calendrical Umm al-Qura conversion. Local moon sighting may differ by a day.
 
-Qibla from Brooklyn is 58.5° from true north. The live compass reads magnetic north, so it will differ by roughly 13° of declination in the New York area — the printed bearing is the accurate one.
+Qibla is computed by great-circle bearing and works from anywhere — 58.5° from Brooklyn, 277.5° from Sydney, 148.2° from Stockholm. The live compass reads magnetic north, which differs from true north by roughly 13° in the New York area and by varying amounts elsewhere, so the printed bearing is the accurate one.
