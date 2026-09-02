@@ -5,7 +5,7 @@
      fonts (CDN) -> cache first, refresh in background
    Bump VERSION whenever index.html changes. */
 
-const VERSION   = 'salat-v2';
+const VERSION   = 'salat-v3';
 const SHELL     = VERSION + '-shell';
 const FONTS     = VERSION + '-fonts';
 const SHELL_URLS = ['./', './index.html'];

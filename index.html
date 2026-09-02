@@ -16,7 +16,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <script>
 /* set the theme before first paint so there is no flash of the wrong palette */
-try{var _t=localStorage.getItem('salat-theme');if(_t)document.documentElement.setAttribute('data-theme',_t);}catch(e){}
+try{
+  var _t=localStorage.getItem('salat-theme');
+  if(_t){document.documentElement.setAttribute('data-theme',_t);
+    if(_t==='custom'){var _c=localStorage.getItem('salat-customcss');if(_c)document.documentElement.style.cssText=_c;}}
+}catch(e){}
 </script>
 <style>
 /* ============ THEMES ============ */
@@ -202,6 +206,15 @@ input[type=number]{font-family:'IBM Plex Mono',monospace}
 .hint{font-size:11.5px;color:var(--label);line-height:1.6;margin:-8px 0 16px}
 
 .themes{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.custompanel{display:none;margin-top:12px;padding:13px;border-radius:12px;border:1px solid var(--rule2);background:var(--ink)}
+.custompanel.on{display:block}
+.colorgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+.colorgrid > div > label{display:block;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--label);margin-bottom:5px}
+input[type=color]{width:100%;height:46px;padding:3px;border-radius:11px;border:1px solid var(--rule2);background:var(--btn);appearance:none;-webkit-appearance:none;cursor:pointer}
+input[type=color]::-webkit-color-swatch-wrapper{padding:0}
+input[type=color]::-webkit-color-swatch{border:none;border-radius:8px}
+.adjnote{font-size:11.5px;color:var(--warn);line-height:1.5;margin:11px 0 0;display:none}
+.adjnote.on{display:block}
 .swatch{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;
   border:1px solid var(--rule2);background:var(--ink);font-size:13px;font-weight:500;color:var(--muted)}
 .swatch[aria-pressed=true]{border-color:var(--accent);color:var(--text);background:var(--sel)}
@@ -326,6 +339,16 @@ details .btn{margin-bottom:13px}
   <div class="field">
     <label>Colour scheme</label>
     <div class="themes" id="fTheme"></div>
+    <div class="custompanel" id="customPanel">
+      <div class="colorgrid">
+        <div><label for="cBg">Background</label><input type="color" id="cBg"></div>
+        <div><label for="cAccent">Primary &middot; now</label><input type="color" id="cAccent"></div>
+        <div><label for="cWarn">Second &middot; upcoming</label><input type="color" id="cWarn"></div>
+        <div><label for="cOk">Third &middot; completed</label><input type="color" id="cOk"></div>
+      </div>
+      <p class="adjnote" id="adjNote"></p>
+      <button class="btn" id="cReset" style="margin-top:12px;padding:11px;font-size:13px">Reset custom colours</button>
+    </div>
   </div>
 
   <div class="field">
@@ -779,11 +802,59 @@ const METHODS={
   moonsighting:{name:'Moonsighting Committee',fajrAngle:18,ishaAngle:18},
   jafari:{name:'Jaʿfari (Leva Institute)',fajrAngle:16,ishaAngle:14}
 };
+/* ---- colour derivation: four picks become a full, readable token set ---- */
+function hex2rgb(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(c=>c+c).join('');
+  return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+const clampv=(v,a,b)=>Math.min(b,Math.max(a,v));
+const rgb2hex=r=>'#'+r.map(v=>clampv(Math.round(v),0,255).toString(16).padStart(2,'0')).join('');
+function lum(c){const a=hex2rgb(c).map(v=>{v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);});
+  return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2];}
+function contrast(a,b){const L1=lum(a),L2=lum(b);return (Math.max(L1,L2)+0.05)/(Math.min(L1,L2)+0.05);}
+function mix(a,b,t){const A=hex2rgb(a),B=hex2rgb(b);return rgb2hex([0,1,2].map(i=>A[i]+(B[i]-A[i])*t));}
+function ensure(fg,bg,target){
+  if(contrast(fg,bg)>=target) return fg;
+  let best=fg,bestC=contrast(fg,bg);
+  for(const dest of ['#ffffff','#000000']){
+    for(let t=0.05;t<=1.0001;t+=0.05){
+      const c=mix(fg,dest,t),cc=contrast(c,bg);
+      if(cc>bestC){bestC=cc;best=c;}
+      if(cc>=target) return c;
+    }
+  }
+  return best;
+}
+const rgbaOf=(hex,a)=>{const [r,g,b]=hex2rgb(hex);return 'rgba('+r+','+g+','+b+','+a+')';};
+function deriveTheme(bg,accent,warn,ok){
+  const ink=bg, L=lum(ink);
+  const step=0.09+0.45*Math.max(0,(L-0.25)/0.75);
+  let panel=mix(ink,'#ffffff',step);
+  let tp=contrast('#ffffff',panel)>=contrast('#000000',panel)?'#ffffff':'#000000';
+  const away=tp==='#000000'?'#ffffff':'#000000';
+  for(let i=0;i<14&&contrast(tp,panel)<9;i++) panel=mix(panel,away,0.08);
+  const night=mix(ink,panel,0.55), btn=mix(ink,panel,0.85);
+  const rule=mix(panel,tp,0.15), rule2=mix(panel,tp,0.27), btnHi=mix(btn,tp,0.09);
+  const text=ensure(mix(tp,ink,0.08),panel,8);
+  const muted=ensure(mix(tp,ink,0.34),panel,4.5);
+  const dim=ensure(mix(tp,ink,0.48),panel,3.2);
+  const A=ensure(ensure(accent,ink,4.0),panel,4.0);
+  const W=ensure(ensure(warn,ink,4.0),panel,4.0);
+  const K=ensure(ensure(ok,ink,3.4),panel,3.4);
+  const sel=mix(ink,A,0.15), accText=ensure(A,sel,4.5);
+  return {'--ink':ink,'--glow1':mix(ink,A,0.16),'--glow2':mix(ink,W,0.12),
+    '--panel':panel,'--night':night,'--rule':rule,'--rule2':rule2,
+    '--btn':btn,'--btn-hi':btnHi,'--sel':sel,
+    '--accent':A,'--warn':W,'--ok':K,
+    '--acc-fade':rgbaOf(A,0.15),'--warn-fade':rgbaOf(W,0.15),
+    '--acc-line':rgbaOf(A,0.55),'--acc-text':accText,
+    '--text':text,'--muted':muted,'--dim':dim,'--label':dim,'--statusbar':ink};
+}
+
 const THEMES=[
   {id:'midnight',name:'Midnight',chips:['#04101F','#5FE3C8','#FFC94A','#48D597']},
   {id:'amethyst',name:'Amethyst',chips:['#140A26','#5FE3C8','#FF9A4D','#A98BFF']},
   {id:'grove',   name:'Grove',   chips:['#05170F','#FF9F45','#FFD84A','#7EE8AE']},
-  {id:'blossom', name:'Blossom', chips:['#FDF0F5','#7A45D6','#1E93DB','#2E9C86']}
+  {id:'blossom', name:'Blossom', chips:['#FDF0F5','#7A45D6','#1E93DB','#2E9C86']},
+  {id:'custom',  name:'Custom',  chips:['#1A1033','#5FE3C8','#FFC94A','#48D597']}
 ];
 const PRAYERS=[
   {k:'fajr',en:'Fajr',ar:'الفجر',icon:'i-fajr',sub:'First light',obl:true},
@@ -796,11 +867,12 @@ const PRAYERS=[
 
 const DEFAULTS={
   theme:'midnight',
+  custom:{bg:'#1A1033',accent:'#5FE3C8',warn:'#FFC94A',ok:'#48D597'},
   loc:{name:'Brooklyn, NY, USA',lat:40.6782,lng:-73.9442,zone:'America/New_York'},
   method:'isna',asr:1,hiLat:'angle',fmt:12,alarm:10,
   adj:{fajr:0,sunrise:0,dhuhr:0,asr:0,maghrib:0,isha:0}
 };
-let S={...DEFAULTS,loc:{...DEFAULTS.loc},adj:{...DEFAULTS.adj}};
+let S={...DEFAULTS,loc:{...DEFAULTS.loc},adj:{...DEFAULTS.adj},custom:{...DEFAULTS.custom}};
 let viewDate=new Date();
 
 const Store={
@@ -870,10 +942,32 @@ function toast(msg){
   clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('on'),2600);
 }
 function applyTheme(){
-  document.documentElement.setAttribute('data-theme',S.theme);
+  const root=document.documentElement;
+  root.style.cssText='';
+  root.setAttribute('data-theme',S.theme);
+  if(S.theme==='custom'){
+    const t=deriveTheme(S.custom.bg,S.custom.accent,S.custom.warn,S.custom.ok);
+    let css='';
+    for(const k in t){ root.style.setProperty(k,t[k]); css+=k+':'+t[k]+';'; }
+    try{ localStorage.setItem('salat-customcss',css); }catch(e){}
+    /* tell the user if a pick had to be corrected to stay readable */
+    const moved=[['accent','Primary'],['warn','Second'],['ok','Third']]
+      .filter(([k])=>contrast(S.custom[k],S.custom.bg)<3.6)
+      .map(([,n])=>n);
+    const note=$('adjNote');
+    if(note){
+      note.classList.toggle('on',moved.length>0);
+      note.textContent=moved.length?moved.join(' and ')+(moved.length>1?' highlights were':' highlight was')+
+        ' too close to the background, so they have been lightened to stay readable.':'';
+    }
+  }
   const cs=getComputedStyle(document.body);
   $('themeColor').setAttribute('content',cs.getPropertyValue('--statusbar').trim()||'#04101F');
   document.querySelectorAll('#fTheme .swatch').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.theme));
+  const cp=$('customPanel'); if(cp) cp.classList.toggle('on',S.theme==='custom');
+  const cw=document.querySelector('.swatch[data-v="custom"] .chips');
+  if(cw) cw.innerHTML=[S.custom.bg,S.custom.accent,S.custom.warn,S.custom.ok]
+    .map(c=>'<i style="background:'+c+'"></i>').join('');
 }
 
 /* =====================================================================
@@ -1140,6 +1234,26 @@ THEMES.forEach(t=>{
   $('fTheme').appendChild(b);
 });
 
+/* custom colour pickers */
+const CKEYS={cBg:'bg',cAccent:'accent',cWarn:'warn',cOk:'ok'};
+let colourSaveTimer;
+Object.entries(CKEYS).forEach(([id,key])=>{
+  const el=$(id);
+  const live=()=>{
+    S.custom[key]=el.value; S.theme='custom';
+    applyTheme(); render();
+    clearTimeout(colourSaveTimer);
+    colourSaveTimer=setTimeout(()=>Store.save(S),400);   // debounced, so nothing is lost
+  };
+  el.addEventListener('input',live);
+  el.addEventListener('change',()=>{ live(); Store.save(S); });
+});
+$('cReset').addEventListener('click',()=>{
+  S.custom={...DEFAULTS.custom};
+  Object.entries(CKEYS).forEach(([id,key])=>{ $(id).value=S.custom[key]; });
+  applyTheme(); commit(); toast('Custom colours reset');
+});
+
 /* methods */
 Object.entries(METHODS).forEach(([k,v])=>{
   const o=document.createElement('option'); o.value=k; o.textContent=v.name; $('fMethod').appendChild(o);
@@ -1272,7 +1386,8 @@ document.addEventListener('touchend',e=>{
 /* boot */
 (async()=>{
   const saved=await Store.load();
-  if(saved) S={...S,...saved,loc:{...S.loc,...(saved.loc||{})},adj:{...S.adj,...(saved.adj||{})}};
+  if(saved) S={...S,...saved,loc:{...S.loc,...(saved.loc||{})},adj:{...S.adj,...(saved.adj||{})},custom:{...S.custom,...(saved.custom||{})}};
+  Object.entries(CKEYS).forEach(([id,key])=>{ $(id).value=S.custom[key]; });
   applyTheme();
   syncControls();
   render();

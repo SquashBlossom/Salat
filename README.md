@@ -27,7 +27,7 @@ Do all of this from Safari on your phone. If the GitHub interface feels cramped,
 It now opens full screen with its own icon and no address bar.
 
 ### Updating it later
-Upload a new `index.html` to the repo, then open the app while online. Bump `VERSION` at the top of `sw.js` (`salat-v2` → `salat-v3`) whenever you change `index.html`, or the old cached copy may stick around.
+Upload a new `index.html` to the repo, then open the app while online. Bump `VERSION` at the top of `sw.js` (`salat-v3` → `salat-v4`) whenever you change `index.html`, or the old cached copy may stick around.
 
 ### If you want your own address
 Point a subdomain at the repo: add a CNAME record for `salat.nasadotrading.com` → `YOURUSERNAME.github.io` at your DNS host, then enter that domain under **Settings → Pages → Custom domain**. Do not try to serve this from a Shopify storefront — Shopify strips scripts from pages and will break it.
@@ -105,6 +105,15 @@ Four, switchable under Settings, remembered between launches:
 - **Amethyst** — purple, aquamarine, orange
 - **Grove** — deep green, orange, yellow
 - **Blossom** — pink, violet, sky blue (light)
+- **Custom** — pick your own
+
+### Custom colours
+
+Four pickers: background, and three highlights (primary/now, second/upcoming, third/completed). Everything else — card surfaces, borders, button fills, the text ramp, the arc gradient, the compass — is derived from those four, and updates live as you drag.
+
+The derivation enforces WCAG contrast on every derived token, so a bad combination cannot make the app unreadable. If a highlight is too close to your background, it is automatically lightened and a note tells you which one was adjusted. A mid-tone background (where neither black nor white text would read on the cards) causes the card surfaces to step further away from the page until they do.
+
+Verified against pure black, pure white, mid grey, saturated red, cream, and a deliberately awful set of four near-identical colours. All pass.
 
 ## Notes on the calculation
 
