@@ -1,69 +1,134 @@
 ---
 name: Salat
 version: 2.0
+source_of_truth: app/src/styles/tokens.css
+living_kit: app/kit.html   # live at https://squashblossom.github.io/Salat/kit.html
 themes: [midnight, amethyst, grove, blossom, custom]
-tokens:
-  color:
-    ink: "var(--ink)"         # page background
-    panel: "var(--panel)"     # card surface (top of the card gradient)
-    night: "var(--night)"     # card surface (bottom), insets
-    text: "var(--text)"       # body text, >= 8:1 on panel
-    muted: "var(--muted)"     # secondary text, >= 4.5:1
-    dim: "var(--dim)"         # labels, >= 3.2:1
-    accent: "var(--accent)"   # NOW: the current prayer, primary actions
-    warn: "var(--warn)"       # NEXT: the coming prayer, the sun, Arabic in the moment
-    ok: "var(--ok)"           # DONE: prayers already passed, the horizon
-  font:
-    ui: "Space Grotesk"       # 400 500 600 700
-    numbers: "IBM Plex Mono"  # every time and countdown, tabular figures
-    arabic: "Amiri"           # every Arabic word
-  radius: { card: 18px, control: 11-13px, chip: 999px }
-  touch_target_min: 44px
+colour_roles: [bg, surface, surface-sunk, line, line-strong, control, control-pressed, selected, text, text-2, text-3, label]
+signal_colours: { now: current prayer + primary actions, next: coming prayer + sun + soon, done: passed + horizon + success }
+fonts: { ui: Space Grotesk, figures: IBM Plex Mono, arabic: Amiri }
+type_scale: [label 10, caption 12, small 13, ui 14, body 15, title-3 17, lead 20, title-2 22, title-1 26, figure 30, display 38-52, hero-arabic 64]
+space: [sp-1 4, sp-2 8, sp-3 12, sp-4 16, sp-5 20, sp-6 24, sp-8 32, sp-12 48]
+radius: [r-xs 4, r-sm 8, r-md 12, r-lg 16, r-xl 22, r-pill]
+touch_min: 44
+motion: [rise, fade, draw, breathe, glow, slide, spring, press, ripple, twinkle]
+components: [Button, IconButton, Card, Notice, Chip, Segmented, Switch, Tag, StatusPill, Label, Field, Sheet, Toast, Swatch, Icon]
 ---
 
-# Salat design
+# Salat design language
 
-## Feeling
+**The designer decides. The engineer builds.** This file and the kit page are how we talk. Open the kit at
+`/kit.html` (on the live site, or `npm run dev` then http://localhost:5173/kit.html) to see every piece for real.
 
-Calm, night-sky, precise. A prayer app is opened five times a day, often half-awake. It must be readable in one glance and never shout.
+## The feeling
 
-## Colour has one meaning each
+Calm, night-sky, precise. Salat is opened five times a day, often half awake. One glance must answer
+"what's next, and how long?". Nothing shouts.
 
-- **Accent = now.** The prayer whose time it is. Primary buttons.
-- **Warn (gold) = next.** The prayer coming up, the sun, the countdown when under 10 minutes.
-- **OK (green) = done.** Prayers that have passed. The horizon line.
+## How to ask for a change
 
-Never use a colour for decoration only. Every theme, including Custom, derives all tokens from four picks in `app/src/core/theme.js`, which enforces WCAG contrast. Never hard-code a hex colour in a component; use a CSS variable.
+Name the piece and what to change, using the words below. For example:
 
-## Type
+| You say | Claude does |
+|---|---|
+| "Make *Test the alert* a **quiet** button." | Changes that one button's `variant`. Nothing else moves. |
+| "Make **all secondary buttons** taller." | Changes the Button component. Says first: "this changes 9 buttons on 3 screens". |
+| "Give the Night card **step 5** padding." | Uses `--sp-5`. Never a raw number. |
+| "The countdown should **glow** from 15 minutes, not 10." | Changes when `m-glow` turns on. |
+| "I want a **new** kind of card for the tracker." | Proposes it as a Card variant in the kit first, shows you, then uses it. |
 
-- Times and countdowns: IBM Plex Mono, tabular figures, so digits do not jump.
-- Arabic: Amiri, always with `lang="ar"`. When Arabic sits next to English or numbers in one line, wrap it in Unicode isolates (`⁨…⁩`) so the order never breaks.
-- Words: the answer first, short sentences, active voice.
+## Rules that protect your design
 
-## Motion
+1. **No side effects.** Claude never restyles a component while doing something else.
+2. **One change, one place.** A shared component changes everywhere, so Claude says where before changing it.
+3. **New looks are variants.** Added to the kit first, then used on a screen.
+4. **Tokens only.** A test (`app/src/__tests__/design-guard.test.js`) fails the build if a colour, font size,
+   corner or timing is typed in by hand, or if a screen builds its own button, card, chip, switch or notice.
+5. **Before and after.** Every visual change is checked with screenshots of each screen before it ships.
 
-Motion is procedural (drawn by code, not video or GIF) and slow.
+## Vocabulary
 
-- The sky behind the app follows the real sun at the chosen location: warm glow by day, stars after dusk.
-- The sun arc draws itself in once; the sun's halo breathes every 3.2 s.
-- The countdown glows gold under 10 minutes.
-- The prayer moment: rings rise from the centre at 7.2 s per cycle.
-- `prefers-reduced-motion`: every animation stops; the sky draws one still frame.
-- Animations pause when the page is hidden (battery).
+### Colour: one meaning each
+- **Now** (`--now`): the current prayer, the main action on a screen.
+- **Next** (`--next`): the coming prayer, the sun, the countdown when under 10 minutes.
+- **Done** (`--done`): prayers already passed, the horizon line, a success.
+- Calm roles: **bg** (page), **surface** / **surface-sunk** (a card's gradient), **line** / **line-strong**,
+  **control** (button fill), **selected** (a chosen option), **text** / **text-2** / **text-3** / **label**.
 
-## Layout
+Never use a colour for decoration only. The Custom theme derives every role from four picks and checks contrast.
 
-One column, max 520 px wide, 16 px side gutter, cards with 12 px between them. Phone first; works on iPad and desktop. Safe-area insets on every edge (notch, home bar). Every control at least 44 px tall.
+### Type: three families, twelve sizes by role
+Words in **Space Grotesk**. Every time and number in **IBM Plex Mono** (digits never jump). Every Arabic word in
+**Amiri**, marked `lang="ar"`; when Arabic shares a line with English or numbers, it is wrapped in isolates (`⁨…⁩`).
 
-## Do
+Sizes: **Label** 10 (uppercase) · **Caption** 12 · **Small** 13 · **UI** 14 · **Body** 15 · **Title 3** 17 ·
+**Lead** 20 · **Title 2** 22 · **Title 1** 26 · **Figure** 30 · **Display** 38 to 52 · **Hero Arabic** 64.
 
-- Show the next prayer and how long until it, before anything else.
-- Say plainly what a feature can and cannot do on this device (see the Alerts status line).
-- Keep everything working offline.
+### Space and shape
+A 4-point grid: **step 1** = 4 … **step 4** = 16 … **step 12** = 48. Named spaces: **gutter** (16, screen edge),
+**stack** (12, between cards), **card pad** (16, inside a card). Anything tappable is at least **44** tall.
+Corners: **xs** 4 (bars, tags), **sm** 8, **md** 12 (controls), **lg** 16 (cards), **xl** 22 (sheets), **pill**.
 
-## Don't
+### Icons
+One drawing style: 24 grid, 1.6 stroke, round ends, no fills, colour from the words beside them.
+Sizes **sm** 15, **md** 20, **lg** 22. The set: fajr, sunrise, dhuhr, asr, maghrib, isha, gear, pin, left, right,
+cal, compass, target, today, alert, globe, bell, lock, share.
 
-- Don't add a colour that has no meaning.
-- Don't put text in images.
-- Don't let a model (AI) state a religious ruling. Models find, read, organise and translate; answers point to sources and to the person's own imam.
+### Components (and their variants)
+| Component | Variants / options | Use it for |
+|---|---|---|
+| **Button** | primary · secondary (default) · quiet; size md · sm; disabled | Primary: the one main action. Secondary: the rest. Quiet: low-stakes links. |
+| **Icon button** | icon + label (always) | Header actions |
+| **Card** | plain · padded | Every grouped block |
+| **Notice** | info · caution | One or two plain sentences about state |
+| **Chip** | on · off (in a ChipRow) | Many-of choices |
+| **Segmented** | options, one selected | One-of choices |
+| **Switch** | on · off | A whole feature |
+| **Tag** | now · next | A state word inside a row |
+| **Status pill** | neutral · good | A quiet status with a dot |
+| **Label** | — | Uppercase eyebrow over a group |
+| **Field** | label, control, hint | Every form control |
+| **Sheet** | title | Settings and other panels |
+| **Toast** | message | A short confirmation |
+| **Swatch** | on · off, colour dots | Theme choice |
+
+### Motion: slow, calm, named
+| Name | What it does | Where |
+|---|---|---|
+| **Rise** | fades in while moving up | text in the prayer moment (staggered 80 ms) |
+| **Fade** | opacity only | the moment's background |
+| **Draw** | a line draws itself, once | the sun arc |
+| **Breathe** | slow grow-and-fade loop | the sun's halo |
+| **Glow** | soft pulse of light | countdown under 10 minutes |
+| **Slide** | slides up from the bottom | sheets |
+| **Spring** | small overshoot | the switch knob |
+| **Press** | darkens while held | every button |
+| **Ripple** | rings spread from the centre | the prayer moment (canvas) |
+| **Twinkle**, **Shooting star** | stars brighten and dim; a rare streak | the night sky (canvas) |
+
+Loops pause when the page is hidden. With Reduce Motion on, everything is still.
+
+## Where it lives in code
+
+| Piece | File |
+|---|---|
+| Every raw value | `app/src/styles/tokens.css` |
+| Page, text styles, icon rules | `app/src/styles/base.css` |
+| Named motions | `app/src/styles/motion.css`, canvas numbers in `app/src/ui/motion.js` |
+| Components | `app/src/styles/components.css` + `app/src/ui/index.jsx` |
+| Screen layout | `app/src/styles/screens.css` |
+| Icons | `app/src/ui/icons.jsx` |
+| The kit page | `app/src/kit/` → `/kit.html` |
+
+## Open design questions (yours to decide)
+
+- **Typeface.** Space Grotesk is clear but very common in AI-made apps. A more personal face could set Salat apart.
+- **Custom theme labels** say "Primary / Second / Third". Should they say "Now / Next / Done" to match the language?
+- **Light themes.** Blossom is the only light theme. Is one enough for daytime use?
+- **Adhan sound.** The chime is made in code. A licensed adhan recording would need choosing.
+
+## Never
+
+- Let an AI state a religious ruling. Models find, read, sort and translate; answers point to sources and her imam.
+- Put words inside images.
+- Add a colour with no meaning.

@@ -1,0 +1,108 @@
+/* THE SALAT UI KIT — every reusable building block.
+   Screens use these and nothing else for controls. Each one maps to a block in
+   styles/components.css and a section in the kit page (kit.html).
+   Variants are fixed lists: a new look is a new variant here, never a one-off on a screen. */
+import { Icon } from './icons.jsx';
+
+export { Icon, IconSprite, ICON_NAMES } from './icons.jsx';
+
+const cx = (...a) => a.filter(Boolean).join(' ');
+
+/** BUTTON. variant: 'secondary' (default) | 'primary' | 'quiet'. size: 'md' | 'sm'. */
+export function Button({ variant = 'secondary', size = 'md', icon, children, ...rest }) {
+  return (
+    <button type="button" className={cx('btn', variant !== 'secondary' && variant, size === 'sm' && 'sm')} {...rest}>
+      {icon && <Icon name={icon} />}{children}
+    </button>
+  );
+}
+
+/** ICON BUTTON. Always needs a label, read aloud by screen readers. */
+export function IconButton({ icon, label, ...rest }) {
+  return <button type="button" className="icon-btn" aria-label={label} {...rest}><Icon name={icon} /></button>;
+}
+
+/** CARD. padded: true for content cards; false when the inside has its own rows. */
+export function Card({ padded = false, as: Tag = 'section', className, children, ...rest }) {
+  return <Tag className={cx('card', padded && 'padded', className)} {...rest}>{children}</Tag>;
+}
+
+/** NOTICE. tone: 'info' (default) | 'caution'. One plain sentence or two. */
+export function Notice({ tone = 'info', icon, children }) {
+  return (
+    <div className={cx('notice', tone === 'caution' && 'caution')} role="note">
+      <Icon name={icon || (tone === 'caution' ? 'alert' : 'bell')} size="sm" /><span>{children}</span>
+    </div>
+  );
+}
+
+/** CHIP. A toggle; many in a ChipRow can be on at once. */
+export function Chip({ on, icon, children, ...rest }) {
+  return <button type="button" className="chip" aria-pressed={!!on} {...rest}>{icon && <Icon name={icon} size="sm" />}{children}</button>;
+}
+export const ChipRow = ({ children }) => <div className="chip-row">{children}</div>;
+
+/** SEGMENTED. Pick exactly one. options: [[value, label], ...] */
+export function Segmented({ options, value, onChange, label }) {
+  return (
+    <div className="segmented" role="group" aria-label={label}>
+      {options.map(([v, text]) => (
+        <button key={v} type="button" aria-pressed={value === v} onClick={() => onChange(v)}>{text}</button>
+      ))}
+    </div>
+  );
+}
+
+/** SWITCH. Turns a whole feature on or off. */
+export function Switch({ on, label, onChange }) {
+  return <button type="button" className="switch" role="switch" aria-checked={!!on} aria-label={label} onClick={() => onChange(!on)} />;
+}
+
+/** TAG. A tiny state word inside a row. tone: 'now' | 'next'. */
+export const Tag = ({ tone, children }) => <span className={cx('tag', tone)}>{children}</span>;
+
+/** STATUS PILL. A quiet status with a dot. tone: 'neutral' | 'good'. */
+export const StatusPill = ({ tone = 'neutral', children }) => <span className={cx('status-pill', tone === 'good' && 'good')}>{children}</span>;
+
+/** LABEL (eyebrow). Small uppercase words above a group. */
+export const Label = ({ children, htmlFor, as: Tag = htmlFor ? 'label' : 'div' }) =>
+  <Tag className="t-label" htmlFor={htmlFor}>{children}</Tag>;
+
+/** FIELD. A label above a control, with an optional hint below. */
+export function Field({ label, htmlFor, hint, children }) {
+  return (
+    <div className="field">
+      {label && <Label htmlFor={htmlFor}>{label}</Label>}
+      {children}
+      {hint && <p className="hint">{hint}</p>}
+    </div>
+  );
+}
+
+/** SHEET. Slides up over the page; the scrim behind closes it. */
+export function Sheet({ open, title, onClose, children }) {
+  return (
+    <>
+      <div className={cx('scrim', open && 'on')} onClick={onClose} />
+      <div className={cx('sheet', open && 'on')} role="dialog" aria-modal="true" aria-label={title} aria-hidden={!open}>
+        <div className="grab" />
+        <div className="sheet-body">
+          <h2 className="t-title-3">{title}</h2>
+          {children}
+        </div>
+      </div>
+    </>
+  );
+}
+
+/** TOAST. A short confirmation. Shows while `message` is not empty. */
+export const Toast = ({ message }) => <div className={cx('toast', message && 'on')} role="status">{message}</div>;
+
+/** SWATCH. A theme choice showing its colours as dots. */
+export function Swatch({ on, colors, children, ...rest }) {
+  return (
+    <button type="button" className="swatch" aria-pressed={!!on} {...rest}>
+      <span className="dots">{colors.map((c, i) => <i key={i} style={{ background: c }} />)}</span>{children}
+    </button>
+  );
+}

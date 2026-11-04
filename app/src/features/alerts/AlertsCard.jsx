@@ -5,7 +5,7 @@
 import { useEffect, useState } from 'react';
 import { PRAYERS } from '@salat/shared/methods';
 import { upcomingAlerts } from '@salat/shared/schedule';
-import { Icon } from '../../components/Icons.jsx';
+import { Button, Card, Chip, ChipRow, Field, Icon, Notice, Segmented, Switch } from '../../ui/index.jsx';
 import { fmtFull } from '../../core/format.js';
 import { askPermission, capability, syncPush, stopPush, testPush, isIOS } from './push.js';
 import { playChime, unlockAudio } from './chime.js';
@@ -63,50 +63,39 @@ export function AlertsCard({ settings, update, toast }) {
   const shown = STATUS[cap === 'push' && pushOk === false ? 'push-failed' : cap];
 
   return (
-    <section className="card pad alerts" aria-labelledby="alerts-title">
-      <div className="head">
-        <Icon name="bell" />
+    <Card padded aria-labelledby="alerts-title">
+      <div className="alerts-head">
+        <Icon name="bell" size="lg" />
         <div className="title">
           <b id="alerts-title">Prayer alerts</b>
-          <span>{a.enabled ? 'A gentle chime and a notice at each prayer you choose.' : 'Get a notice at each prayer, on your lock screen.'}</span>
+          <span className="t-caption">{a.enabled ? 'A gentle chime and a notice at each prayer you choose.' : 'Get a notice at each prayer, on your lock screen.'}</span>
         </div>
-        <button className="switch" role="switch" aria-checked={a.enabled} aria-label="Prayer alerts" onClick={toggle} />
+        <Switch on={a.enabled} label="Prayer alerts" onChange={toggle} />
       </div>
 
       {a.enabled && (
-        <div className="body">
-          <div>
-            <div className="eyebrow" style={{ marginBottom: 7 }}>Which prayers</div>
-            <div className="pchips">
+        <div className="alerts-body">
+          <Field label="Which prayers">
+            <ChipRow>
               {PRAYERS.map((p) => (
-                <button key={p.k} className="chip" aria-pressed={!!a.prayers[p.k]}
-                  onClick={() => setAlerts({ prayers: { ...a.prayers, [p.k]: !a.prayers[p.k] } })}>
-                  <Icon name={p.k} />{p.en}
-                </button>
+                <Chip key={p.k} icon={p.k} on={a.prayers[p.k]}
+                  onClick={() => setAlerts({ prayers: { ...a.prayers, [p.k]: !a.prayers[p.k] } })}>{p.en}</Chip>
               ))}
-            </div>
-          </div>
-          <div>
-            <div className="eyebrow" style={{ marginBottom: 7 }}>When</div>
-            <div className="seg">
-              {LEADS.map(([v, label]) => (
-                <button key={v} aria-pressed={a.lead === v} onClick={() => setAlerts({ lead: v })}>{label}</button>
-              ))}
-            </div>
-          </div>
-          {next && (
-            <div className="nextline">Next alert: <b>{next.en} · {fmtFull(next.h - a.lead / 60, settings.fmt)}</b></div>
-          )}
-          <div className={'status' + (shown.warn ? ' warn' : '')}>
-            <Icon name={shown.icon} />
-            <span>{shown.text}{isIOS() && cap === 'push' ? ' Keep Salat on your Home Screen; removing it turns alerts off.' : ''}</span>
-          </div>
-          <button className="btn" onClick={test}><Icon name="bell" />Test the alert</button>
+            </ChipRow>
+          </Field>
+          <Field label="When">
+            <Segmented label="When" options={LEADS} value={a.lead} onChange={(v) => setAlerts({ lead: v })} />
+          </Field>
+          {next && <div className="next-alert">Next alert: <b>{next.en} · {fmtFull(next.h - a.lead / 60, settings.fmt)}</b></div>}
+          <Notice tone={shown.warn ? 'caution' : 'info'} icon={shown.icon}>
+            {shown.text}{isIOS() && cap === 'push' ? ' Keep Salat on your Home Screen; removing it turns alerts off.' : ''}
+          </Notice>
+          <Button icon="bell" onClick={test}>Test the alert</Button>
         </div>
       )}
       {!a.enabled && cap === 'needs-home-screen' && (
-        <div className="body"><div className="status warn"><Icon name="share" /><span>{STATUS['needs-home-screen'].text}</span></div></div>
+        <div className="alerts-body"><Notice tone="caution" icon="share">{STATUS['needs-home-screen'].text}</Notice></div>
       )}
-    </section>
+    </Card>
   );
 }

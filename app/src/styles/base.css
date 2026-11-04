@@ -1,0 +1,45 @@
+/* BASE — the page itself and the text styles. Uses tokens only. */
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:var(--font-ui); font-size:var(--fs-body); line-height:var(--lh-body);
+  -webkit-font-smoothing:antialiased;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  min-height:100vh; touch-action:pan-y;
+}
+/* the page's soft light */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(120% 70% at 50% -10%, var(--glow-1) 0%, transparent 60%),
+    radial-gradient(90% 50% at 100% 100%, var(--glow-2) 0%, transparent 60%),
+    var(--bg);
+}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--now);outline-offset:2px;border-radius:var(--r-sm)}
+h1,h2,h3,p{margin:0}
+
+/* ---- PAGE: one column, centred ---- */
+.page{max-width:var(--page-max);margin:0 auto;position:relative;z-index:var(--z-page);
+  padding:var(--sp-3) var(--gutter) calc(var(--sp-12) + var(--sp-2) + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;gap:var(--stack)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:var(--stack)}
+.stack{display:grid;gap:var(--sp-3)}
+
+/* ---- TEXT STYLES (class = role) ---- */
+.t-label{font-size:var(--fs-label);font-weight:var(--fw-semibold);letter-spacing:var(--ls-eyebrow);text-transform:uppercase;color:var(--label)}
+.t-caption{font-size:var(--fs-caption);color:var(--text-2);line-height:var(--lh-body)}
+.t-small{font-size:var(--fs-small)}
+.t-title-3{font-size:var(--fs-title-3);font-weight:var(--fw-semibold)}
+.t-title-2{font-size:var(--fs-title-2);font-weight:var(--fw-semibold);letter-spacing:var(--ls-snug)}
+.t-title-1{font-size:var(--fs-title-1);font-weight:var(--fw-semibold);letter-spacing:var(--ls-snug)}
+.t-figure{font-family:var(--font-figures);font-size:var(--fs-figure);font-weight:var(--fw-medium);letter-spacing:var(--ls-tight);line-height:var(--lh-tight)}
+.figures,.mono{font-family:var(--font-figures);font-variant-numeric:tabular-nums}
+.ar{font-family:var(--font-arabic)}
+
+/* ---- ICON: 24 grid, 1.6 stroke, round ends, colour from text ---- */
+.icon{width:var(--icon-md);height:var(--icon-md);flex:none;stroke-width:var(--icon-stroke);fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+.icon.sm{width:var(--icon-sm);height:var(--icon-sm)}
+.icon.lg{width:var(--icon-lg);height:var(--icon-lg)}

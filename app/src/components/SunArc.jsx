@@ -51,37 +51,37 @@ export function SunArc({ day, loc, now, fmt }) {
       role="img" aria-label="Sun altitude through the day with prayer times marked">
       <defs>
         <linearGradient id="dayfill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" style={{ stopColor: 'var(--warn)', stopOpacity: 0.22 }} />
-          <stop offset="100%" style={{ stopColor: 'var(--warn)', stopOpacity: 0 }} />
+          <stop offset="0%" style={{ stopColor: 'var(--next)', stopOpacity: 0.22 }} />
+          <stop offset="100%" style={{ stopColor: 'var(--next)', stopOpacity: 0 }} />
         </linearGradient>
         <linearGradient id="arcline" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" style={{ stopColor: 'var(--accent)' }} />
-          <stop offset="50%" style={{ stopColor: 'var(--warn)' }} />
-          <stop offset="100%" style={{ stopColor: 'var(--accent)' }} />
+          <stop offset="0%" style={{ stopColor: 'var(--now)' }} />
+          <stop offset="50%" style={{ stopColor: 'var(--next)' }} />
+          <stop offset="100%" style={{ stopColor: 'var(--now)' }} />
         </linearGradient>
         <clipPath id="above"><rect x="0" y="0" width={W} height={y0.toFixed(1)} /></clipPath>
       </defs>
       <path d={`${path}L${X(t1).toFixed(1)} ${y0.toFixed(1)}L${X(t0).toFixed(1)} ${y0.toFixed(1)}Z`} fill="url(#dayfill)" clipPath="url(#above)" />
-      <line x1={padL} y1={y0} x2={W - padR} y2={y0} style={{ stroke: 'var(--ok)' }} strokeWidth="1" strokeOpacity=".55" strokeDasharray="3 4" />
-      <text x={padL} y={y0 - 5} style={{ fill: 'var(--ok)' }} fontSize="7" letterSpacing="1.4" fontFamily="IBM Plex Mono,monospace" opacity=".75">HORIZON</text>
-      <path className="arc-line" d={path} fill="none" stroke="url(#arcline)" strokeWidth="1.6" strokeLinecap="round" opacity=".9" />
+      <line x1={padL} y1={y0} x2={W - padR} y2={y0} style={{ stroke: 'var(--done)' }} strokeWidth="1" strokeOpacity=".55" strokeDasharray="3 4" />
+      <text x={padL} y={y0 - 5} style={{ fill: 'var(--done)', fontFamily: 'var(--font-figures)' }} fontSize="7" letterSpacing="1.4" opacity=".75">HORIZON</text>
+      <path className="m-draw" d={path} fill="none" stroke="url(#arcline)" strokeWidth="1.6" strokeLinecap="round" opacity=".9" />
       {marks.map(({ p, t, x, y, ly, lx }) => {
         const past = wallToDate(day.y, day.m, day.d, t, day.zone) < now;
-        const c = past ? 'var(--ok)' : 'var(--warn)';
+        const c = past ? 'var(--done)' : 'var(--next)';
         return (
           <g key={p.k}>
             <line x1={x} y1={y} x2={x} y2={ly - 9} style={{ stroke: c }} strokeWidth=".7" strokeOpacity=".28" />
-            <circle cx={x} cy={y} r="3" style={{ fill: 'var(--night)', stroke: c }} strokeWidth="1.4" />
-            <text x={lx} y={ly} textAnchor="middle" style={{ fill: c }} fillOpacity=".9" fontSize="7.5" letterSpacing="1" fontFamily="Space Grotesk,sans-serif">{p.en.toUpperCase()}</text>
-            <text x={lx} y={ly + 10} textAnchor="middle" style={{ fill: 'var(--dim)' }} fontSize="7.5" fontFamily="IBM Plex Mono,monospace">{fmtTime(t, fmt).t}</text>
+            <circle cx={x} cy={y} r="3" style={{ fill: 'var(--surface-sunk)', stroke: c }} strokeWidth="1.4" />
+            <text x={lx} y={ly} textAnchor="middle" style={{ fill: c, fontFamily: 'var(--font-ui)' }} fillOpacity=".9" fontSize="7.5" letterSpacing="1">{p.en.toUpperCase()}</text>
+            <text x={lx} y={ly + 10} textAnchor="middle" style={{ fill: 'var(--text-3)', fontFamily: 'var(--font-figures)' }} fontSize="7.5">{fmtTime(t, fmt).t}</text>
           </g>
         );
       })}
       {sun && (
         <g className="sun-now">
-          <line x1={sun.x} y1={top} x2={sun.x} y2={base - 2} style={{ stroke: 'var(--accent)' }} strokeWidth=".8" strokeOpacity=".45" />
-          <circle className="sun-halo" cx={sun.x} cy={sun.y} r="7.5" style={{ fill: 'var(--accent)' }} opacity=".16" />
-          <circle cx={sun.x} cy={sun.y} r="3.6" style={{ fill: 'var(--accent)' }} />
+          <line x1={sun.x} y1={top} x2={sun.x} y2={base - 2} style={{ stroke: 'var(--now)' }} strokeWidth=".8" strokeOpacity=".45" />
+          <circle className="m-breathe" cx={sun.x} cy={sun.y} r="7.5" style={{ fill: 'var(--now)' }} opacity=".16" />
+          <circle cx={sun.x} cy={sun.y} r="3.6" style={{ fill: 'var(--now)' }} />
         </g>
       )}
     </svg>

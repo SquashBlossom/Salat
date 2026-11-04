@@ -1,0 +1,56 @@
+/* Layout for the design kit page only. Built from tokens like everything else. */
+.kit{max-width:960px;margin:0 auto;padding:var(--sp-8) var(--gutter) var(--sp-12);display:grid;gap:var(--sp-12)}
+.kit-hero{display:grid;gap:var(--sp-3)}
+.kit-title{font-size:var(--fs-display);font-weight:var(--fw-bold);letter-spacing:var(--ls-tight);line-height:var(--lh-tight)}
+.kit-lead{color:var(--text-2);max-width:62ch;font-size:var(--fs-body)}
+.kit-themes{display:grid;gap:var(--sp-2);max-width:520px;margin-top:var(--sp-2)}
+.kit-nav{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.kit-nav a{font-size:var(--fs-small);color:var(--now);text-decoration:none;padding:var(--sp-2) var(--sp-3);border:var(--border) solid var(--line-strong);border-radius:var(--r-pill)}
+.kit-section{display:grid;gap:var(--sp-4);scroll-margin-top:var(--sp-4)}
+.kit-say{font-size:var(--fs-small);color:var(--text-2);border-left:3px solid var(--next);padding-left:var(--sp-3)}
+.kit-say span{color:var(--next);font-weight:var(--fw-semibold)}
+.kit code,.kit-hex{font-family:var(--font-figures);font-size:var(--fs-caption);color:var(--text-3)}
+
+.kit-signals{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--stack)}
+.kit-signal{display:grid;gap:var(--sp-1);padding:var(--card-pad);border-radius:var(--r-lg);border:var(--border) solid var(--c);background:var(--surface-sunk)}
+.kit-signal i{height:56px;border-radius:var(--r-md);background:var(--c)}
+.kit-signal b{color:var(--c);font-size:var(--fs-title-3);letter-spacing:var(--ls-caps)}
+.kit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--sp-3)}
+.kit-color{display:flex;gap:var(--sp-3);align-items:center}
+.kit-color i{width:48px;height:48px;border-radius:var(--r-md);border:var(--border) solid var(--line-strong);flex:none}
+.kit-color div{display:grid}
+
+.kit-type{display:grid;border-top:var(--border) solid var(--line)}
+.kit-type-row{display:grid;grid-template-columns:200px 1fr;gap:var(--sp-4);align-items:center;padding:var(--sp-3) 0;border-bottom:var(--border) solid var(--line)}
+.kit-type-meta{display:grid}
+.kit-type-sample{min-width:0;overflow-wrap:anywhere;line-height:var(--lh-snug)}
+@media (max-width:560px){.kit-type-row{grid-template-columns:1fr;gap:var(--sp-1)}}
+
+.kit-space{display:grid;gap:var(--sp-2)}
+.kit-space div{display:grid;grid-template-columns:56px 60px 1fr;align-items:center;gap:var(--sp-3);font-size:var(--fs-small)}
+.kit-space i{height:12px;background:var(--now);border-radius:var(--r-xs);grid-column:1;grid-row:1}
+.kit-space code{grid-column:2}
+.kit-radii{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:var(--sp-3)}
+.kit-radii div{display:grid;gap:var(--sp-1)}
+.kit-radii i{height:64px;border:2px solid var(--now);background:var(--now-wash)}
+
+.kit-icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:var(--sp-2)}
+.kit-icons div{display:grid;justify-items:center;gap:var(--sp-2);padding:var(--sp-3);border:var(--border) solid var(--line);border-radius:var(--r-md);color:var(--text)}
+
+.kit-comp{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--stack)}
+.kit-comp .card{display:grid;gap:var(--sp-3);align-content:start}
+.kit-row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-3)}
+.kit-use{font-size:var(--fs-caption);color:var(--text-3)}
+
+.kit-motions{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:var(--stack)}
+.kit-motion{display:grid;gap:var(--sp-3);align-content:start}
+.kit-motion-stage{height:88px;display:grid;place-items:center;border-radius:var(--r-md);background:var(--surface-sunk);border:var(--border) solid var(--line);overflow:hidden}
+.kit-motion-stage .btn{width:auto}
+.kit-motion-svg{width:120px;height:50px}
+.kit-motion-box{font-size:var(--fs-title-2);font-weight:var(--fw-semibold);color:var(--now)}
+.kit-mini-count{font-size:var(--fs-title-1);margin:0}
+.kit-motion-meta{display:grid;gap:2px}
+.kit-motion .btn.quiet{justify-content:flex-start;padding-left:0;min-height:0}
+
+.kit-rules{margin:0;padding-left:var(--sp-5);display:grid;gap:var(--sp-2);color:var(--text-2);max-width:68ch}
+.kit-rules b{color:var(--text)}

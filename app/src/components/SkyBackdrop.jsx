@@ -10,9 +10,10 @@ import { useEffect, useRef } from 'react';
 import { sunAltitude } from '@salat/shared/solar';
 import { partsIn } from '@salat/shared/schedule';
 import { tzOffset } from '@salat/shared/solar';
+import { MOTION, reducedMotion } from '../ui/motion.js';
 
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#5FE3C8';
+const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
 function hexToRgb(h) {
   const m = h.replace('#', '').match(/^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
@@ -33,7 +34,7 @@ export function SkyBackdrop({ loc }) {
   useEffect(() => {
     const cv = ref.current;
     const g = cv.getContext('2d');
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduce = reducedMotion();
     let w = 0, h = 0, dpr = 1, raf = 0, stars = [], meteors = [], sun = { alt: 30, frac: 0.5 }, lastSun = 0;
 
     const resize = () => {
@@ -44,7 +45,7 @@ export function SkyBackdrop({ loc }) {
       const r = rng(7);
       const n = Math.round((w * h) / 2600);
       stars = Array.from({ length: n }, () => ({
-        x: r() * w, y: r() * h * 0.85, s: 0.4 + r() * r() * 1.6, ph: r() * Math.PI * 2, sp: 0.6 + r() * 1.8,
+        x: r() * w, y: r() * h * 0.85, s: 0.4 + r() * r() * 1.6, ph: r() * Math.PI * 2, sp: MOTION.twinkleMin + r() * (MOTION.twinkleMax - MOTION.twinkleMin),
       }));
     };
 
@@ -58,11 +59,12 @@ export function SkyBackdrop({ loc }) {
     };
 
     const frame = (t) => {
-      if (t - lastSun > 30000 || !lastSun) { readSun(); lastSun = t || 1; }
+      if (t - lastSun > MOTION.skyRefresh || !lastSun) { readSun(); lastSun = t || 1; }
       g.clearRect(0, 0, w, h);
       const night = clamp((-sun.alt + 2) / 14, 0, 1); // 0 in daylight, 1 once the sun is 12° down
-      const [wr, wg, wb] = hexToRgb(css('--warn'));
-      const [ar, ag, ab] = hexToRgb(css('--accent'));
+      const [wr, wg, wb] = hexToRgb(css('--next'));
+      const [ar, ag, ab] = hexToRgb(css('--now'));
+      const starColor = css('--star');
 
       // the sun's glow: x follows the time of day, y follows altitude
       const sx = w * (0.15 + 0.7 * clamp((sun.frac - 0.2) / 0.6, 0, 1));
@@ -72,7 +74,7 @@ export function SkyBackdrop({ loc }) {
       const warmth = 0.13 * (1 - night * 0.7);
       glow.addColorStop(0, `rgba(${wr},${wg},${wb},${warmth})`);
       glow.addColorStop(0.5, `rgba(${wr},${wg},${wb},${warmth * 0.25})`);
-      glow.addColorStop(1, 'rgba(0,0,0,0)');
+      glow.addColorStop(1, 'transparent');
       g.fillStyle = glow;
       g.fillRect(0, 0, w, h);
 
@@ -82,20 +84,20 @@ export function SkyBackdrop({ loc }) {
         for (const st of stars) {
           const tw = reduce ? 0.8 : 0.55 + 0.45 * Math.sin(st.ph + time * st.sp);
           g.globalAlpha = night * tw * clamp(1 - st.y / (h * 0.95), 0.15, 1);
-          g.fillStyle = '#fff';
+          g.fillStyle = starColor;
           g.beginPath();
           g.arc(st.x, st.y, st.s, 0, Math.PI * 2);
           g.fill();
         }
         // now and then, a shooting star
-        if (!reduce && night > 0.6 && Math.random() < 0.0025 && meteors.length < 2) {
+        if (!reduce && night > 0.6 && Math.random() < MOTION.shootingChance && meteors.length < 2) {
           meteors.push({ x: Math.random() * w, y: Math.random() * h * 0.4, vx: 5 + Math.random() * 4, vy: 2 + Math.random() * 2, life: 1 });
         }
         for (const m of meteors) {
           g.globalAlpha = m.life * night;
           const grad = g.createLinearGradient(m.x, m.y, m.x - m.vx * 10, m.y - m.vy * 10);
           grad.addColorStop(0, `rgba(${ar},${ag},${ab},1)`);
-          grad.addColorStop(1, 'rgba(255,255,255,0)');
+          grad.addColorStop(1, 'transparent');
           g.strokeStyle = grad;
           g.lineWidth = 1.4;
           g.beginPath();

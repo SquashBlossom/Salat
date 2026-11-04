@@ -1,4 +1,8 @@
-/* The icon sprite. Owns: icon shapes only. Use <Icon name="fajr"/>. */
+/* ICONS — the whole set. 24×24 grid, 1.6 stroke, round ends, no fills, colour from the text.
+   Use <Icon name="fajr" />. Sizes: sm (15) · md (20, default) · lg (22).
+   To add an icon: draw it on the same grid and add its name to ICON_NAMES. */
+export const ICON_NAMES = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha', 'gear', 'pin', 'left', 'right', 'cal',
+  'compass', 'target', 'today', 'alert', 'globe', 'bell', 'lock', 'share'];
 export function IconSprite() {
   return (
     <svg style={{ display: 'none' }} aria-hidden="true">
@@ -25,6 +29,7 @@ export function IconSprite() {
   );
 }
 
-export function Icon({ name, className = "icon", style }) {
-  return <svg className={className} style={style} aria-hidden="true"><use href={"#i-" + name} /></svg>;
+export function Icon({ name, size = 'md' }) {
+  if (import.meta.env.DEV && !ICON_NAMES.includes(name)) console.error(`Unknown icon "${name}". Add it to ui/icons.jsx.`);
+  return <svg className={'icon' + (size === 'md' ? '' : ' ' + size)} aria-hidden="true"><use href={'#i-' + name} /></svg>;
 }

@@ -1,0 +1,130 @@
+/* COMPONENTS — one block per named component. Each has a React twin in src/ui/.
+   Change a component here and it changes everywhere, on purpose. */
+
+/* ---------- CARD ----------  variants: (default) · padded */
+.card{background:linear-gradient(180deg,var(--surface) 0%,var(--surface-sunk) 100%);
+  border:var(--border) solid var(--line);border-radius:var(--r-lg);overflow:hidden;min-width:0}
+.card.padded{padding:var(--card-pad)}
+
+/* ---------- BUTTON ----------  variants: secondary (default) · primary · quiet   sizes: md · sm */
+.btn{display:flex;align-items:center;justify-content:center;gap:var(--sp-2);width:100%;min-height:var(--touch);
+  padding:var(--sp-3) var(--sp-4);border-radius:var(--r-md);border:var(--border) solid var(--line-strong);
+  background:var(--control);color:var(--text);font-size:var(--fs-ui);font-weight:var(--fw-semibold);
+  transition:background var(--dur-instant)}
+.btn .icon{width:var(--icon-md);height:var(--icon-md)}
+.btn:active{background:var(--control-pressed)}
+.btn.primary{background:var(--selected);border-color:var(--now-line);color:var(--now-text)}
+.btn.quiet{background:transparent;border-color:transparent;color:var(--now)}
+.btn.sm{min-height:var(--touch);padding:var(--sp-2) var(--sp-3);font-size:var(--fs-caption)}
+.btn.sm .icon{width:var(--icon-sm);height:var(--icon-sm)}
+.btn[disabled]{opacity:.45;pointer-events:none}
+
+/* ---------- ICON BUTTON ----------  square, icon only, always labelled */
+.icon-btn{width:var(--touch);height:var(--touch);display:grid;place-items:center;border-radius:var(--r-md);
+  border:var(--border) solid var(--line-strong);background:var(--control);color:var(--text-2);transition:background var(--dur-instant)}
+.icon-btn:active{background:var(--control-pressed);color:var(--now)}
+
+/* ---------- NOTICE ----------  tones: info · caution */
+.notice{display:flex;gap:var(--sp-2);align-items:flex-start;padding:var(--sp-3);border-radius:var(--r-md);
+  border:var(--border) solid var(--line);background:var(--surface-sunk);font-size:var(--fs-caption);color:var(--text-2);line-height:var(--lh-body)}
+.notice .icon{width:var(--icon-sm);height:var(--icon-sm);margin-top:2px;color:var(--now)}
+.notice.caution{border-color:var(--line-strong);background:var(--control)}
+.notice.caution .icon{color:var(--next)}
+
+/* ---------- CHIP ----------  a toggle you can turn on and off; many can be on */
+.chip-row{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:var(--sp-2) var(--sp-3);border-radius:var(--r-pill);
+  border:var(--border) solid var(--line-strong);background:var(--control);color:var(--text-2);font-size:var(--fs-small);transition:background var(--dur-quick),color var(--dur-quick)}
+.chip .icon{width:var(--icon-sm);height:var(--icon-sm)}
+.chip[aria-pressed=true]{background:var(--selected);border-color:var(--now-line);color:var(--now-text)}
+
+/* ---------- SEGMENTED ----------  pick exactly one of a few */
+.segmented{display:flex;gap:6px;flex-wrap:wrap}
+.segmented button{flex:1;min-width:88px;min-height:var(--touch);padding:var(--sp-2);border-radius:var(--r-md);
+  border:var(--border) solid var(--line-strong);background:var(--bg);color:var(--text-2);font-size:var(--fs-small);font-weight:var(--fw-medium);
+  transition:background var(--dur-quick),color var(--dur-quick)}
+.segmented button[aria-pressed=true]{background:var(--selected);border-color:var(--now-line);color:var(--now-text)}
+
+/* ---------- SWITCH ----------  on / off for a whole feature */
+.switch{position:relative;width:52px;height:32px;border-radius:var(--r-pill);border:var(--border) solid var(--line-strong);
+  background:var(--control);flex:none;transition:background var(--dur-quick),border-color var(--dur-quick)}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;
+  background:var(--text-2);transition:transform var(--dur-base) var(--ease-spring),background var(--dur-quick)}
+.switch[aria-checked=true]{background:var(--selected);border-color:var(--now-line)}
+.switch[aria-checked=true]::after{transform:translateX(20px);background:var(--now)}
+
+/* ---------- TAG ----------  tiny state word inside a row: now · next */
+.tag{font-size:var(--fs-label);font-weight:var(--fw-semibold);letter-spacing:var(--ls-caps);text-transform:uppercase;
+  padding:2px 6px;border-radius:var(--r-xs);margin-left:6px;vertical-align:2px}
+.tag.now{background:var(--now-wash);color:var(--now)}
+.tag.next{background:var(--next-wash);color:var(--next)}
+
+/* ---------- STATUS PILL ----------  a quiet status with a dot: neutral · good */
+.status-pill{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-label);font-weight:var(--fw-semibold);letter-spacing:var(--ls-caps);
+  text-transform:uppercase;padding:var(--sp-1) 10px;border-radius:var(--r-pill);border:var(--border) solid var(--line-strong);color:var(--label)}
+.status-pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.status-pill.good{color:var(--done);border-color:var(--done)}
+
+/* ---------- FIELD ----------  a label above a control */
+.field{display:grid;gap:var(--sp-2)}
+.field > label,.field > .t-label{display:block}
+.hint{font-size:var(--fs-caption);color:var(--label);line-height:var(--lh-loose)}
+select,input{width:100%;min-height:var(--touch);padding:var(--sp-3);border-radius:var(--r-md);border:var(--border) solid var(--line-strong);
+  background:var(--bg);color:var(--text);font-family:inherit;font-size:var(--fs-ui);appearance:none}
+select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23888' stroke-width='2'><path d='M4 6l4 4 4-4'/></svg>");
+  background-repeat:no-repeat;background-position:right var(--sp-3) center;padding-right:34px}
+input[type=number]{font-family:var(--font-figures)}
+.mini-label{display:block;font-size:var(--fs-label);color:var(--label);margin-bottom:var(--sp-1);letter-spacing:var(--ls-caps);text-transform:uppercase}
+
+/* ---------- DISCLOSURE ----------  extra options folded away */
+details{border:var(--border) solid var(--line-strong);border-radius:var(--r-md);padding:0 var(--sp-3);background:var(--bg)}
+summary{padding:var(--sp-3) 0;font-size:var(--fs-small);color:var(--text-2);cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+ ";color:var(--now);font-weight:var(--fw-bold)}
+details[open] summary::before{content:"– "}
+details[open] summary{border-bottom:var(--border) solid var(--line);margin-bottom:var(--sp-3)}
+details > .stack{padding-bottom:var(--sp-3)}
+
+/* ---------- PICKER LIST ----------  search results you tap */
+.picker{max-height:210px;overflow-y:auto;border-radius:var(--r-md);border:var(--border) solid var(--line)}
+.picker button{display:block;width:100%;text-align:left;padding:var(--sp-3);font-size:var(--fs-small);color:var(--text);border-bottom:var(--border) solid var(--line)}
+.picker button:last-child{border-bottom:none}
+.picker button:active{background:var(--control-pressed)}
+.picker .none{padding:var(--sp-3);font-size:var(--fs-small);color:var(--label)}
+.current{padding:var(--sp-3);border-radius:var(--r-md);background:var(--selected);border:var(--border) solid var(--now-line);
+  color:var(--now-text);font-size:var(--fs-ui);font-weight:var(--fw-semibold)}
+
+/* ---------- SWATCH ----------  a theme choice with its colour dots */
+.swatches{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-2)}
+.swatch{display:flex;align-items:center;gap:10px;min-height:var(--touch);padding:var(--sp-3);border-radius:var(--r-md);
+  border:var(--border) solid var(--line-strong);background:var(--bg);font-size:var(--fs-small);font-weight:var(--fw-medium);color:var(--text-2)}
+.swatch[aria-pressed=true]{border-color:var(--now);color:var(--text);background:var(--selected)}
+.dots{display:flex}
+.dots i{width:13px;height:13px;border-radius:50%;display:block;margin-left:-4px;border:1.5px solid var(--bg)}
+.dots i:first-child{margin-left:0}
+.well{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-3);margin-top:var(--sp-3);padding:var(--sp-3);border-radius:var(--r-md);
+  border:var(--border) solid var(--line-strong);background:var(--bg)}
+input[type=color]{height:46px;padding:3px;background:var(--control);cursor:pointer;-webkit-appearance:none}
+input[type=color]::-webkit-color-swatch-wrapper{padding:0}
+input[type=color]::-webkit-color-swatch{border:none;border-radius:var(--r-sm)}
+
+/* ---------- SHEET + SCRIM ----------  a panel that slides up over the page */
+.scrim{position:fixed;inset:0;background:var(--scrim);backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;transition:opacity var(--dur-quick);z-index:var(--z-scrim)}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:var(--z-sheet);background:var(--surface);
+  border-top:var(--border) solid var(--line-strong);border-radius:var(--r-xl) var(--r-xl) 0 0;
+  transform:translateY(102%);visibility:hidden; /* hidden when closed: no tabbing into it */
+  transition:transform var(--dur-base) var(--ease-sheet),visibility 0s linear var(--dur-base);
+  max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:var(--sp-2) var(--sp-5) calc(var(--sp-8) + env(safe-area-inset-bottom))}
+.sheet.on{transform:translateY(0);visibility:visible;transition:transform var(--dur-base) var(--ease-sheet),visibility 0s}
+.sheet-body{max-width:var(--page-max);margin:0 auto;display:grid;gap:var(--sp-5)}
+.grab{width:38px;height:var(--r-xs);background:var(--line-strong);border-radius:var(--r-xs);margin:6px auto var(--sp-3)}
+
+/* ---------- TOAST ----------  a short confirmation at the bottom */
+.toast{position:fixed;left:50%;bottom:calc(var(--sp-6) + env(safe-area-inset-bottom));transform:translate(-50%,20px);
+  background:var(--surface);border:var(--border) solid var(--done);color:var(--done);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-md);
+  font-size:var(--fs-small);font-weight:var(--fw-medium);z-index:var(--z-toast);opacity:0;pointer-events:none;
+  transition:opacity var(--dur-quick),transform var(--dur-quick) var(--ease-out);max-width:88vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}

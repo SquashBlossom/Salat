@@ -1,0 +1,33 @@
+/* MOTION — every named movement in Salat. Use the class or the keyframe by name.
+
+   RISE     enters: fades in while moving up 14px          (--dur-scene, --ease-out)
+   FADE     enters: opacity only                           (--dur-slow)
+   DRAW     a line draws itself along its path, once       (--dur-draw, --ease-out)
+   BREATHE  slow grow-and-fade loop, for a living point    (--dur-breathe, --ease-calm)
+   GLOW     a soft pulse of light around text              (--dur-glow, --ease-calm)
+   SLIDE    a sheet slides up from the bottom              (--dur-base, --ease-sheet)   in components.css
+   SPRING   a knob moves with a small overshoot            (--dur-base, --ease-spring)  in components.css
+   PRESS    a control darkens while held                   (--dur-instant)              in components.css
+   RIPPLE   rings spread from the centre (canvas)          motion.js
+   TWINKLE  stars brighten and dim (canvas)                motion.js
+
+   With "reduce motion" on, every loop stops and every entrance is instant. */
+
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+@keyframes fade{from{opacity:0}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.16}50%{transform:scale(1.55);opacity:.06}}
+@keyframes glow{50%{text-shadow:0 0 30px var(--next-wash)}}
+
+.m-rise{animation:rise var(--dur-scene) var(--ease-out) both}
+.m-rise-2{animation:rise var(--dur-scene) var(--stagger) var(--ease-out) both}
+.m-rise-3{animation:rise var(--dur-scene) calc(var(--stagger) * 2) var(--ease-out) both}
+.m-fade{animation:fade var(--dur-slow) ease both}
+.m-draw{stroke-dasharray:900;stroke-dashoffset:900;animation:draw var(--dur-draw) var(--ease-out) calc(var(--stagger) * 2) forwards}
+.m-breathe{transform-box:fill-box;transform-origin:center;animation:breathe var(--dur-breathe) var(--ease-calm) infinite}
+.m-glow{text-shadow:0 0 18px var(--next-wash);animation:glow var(--dur-glow) var(--ease-calm) infinite}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  .m-draw{stroke-dashoffset:0}
+}

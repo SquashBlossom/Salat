@@ -37,13 +37,13 @@ export function deriveTheme(bg,accent,warn,ok){
   const W=ensure(ensure(warn,ink,4.0),panel,4.0);
   const K=ensure(ensure(ok,ink,3.4),panel,3.4);
   const sel=mix(ink,A,0.15), accText=ensure(A,sel,4.5);
-  return {'--ink':ink,'--glow1':mix(ink,A,0.16),'--glow2':mix(ink,W,0.12),
-    '--panel':panel,'--night':night,'--rule':rule,'--rule2':rule2,
-    '--btn':btn,'--btn-hi':btnHi,'--sel':sel,
-    '--accent':A,'--warn':W,'--ok':K,
-    '--acc-fade':rgbaOf(A,0.15),'--warn-fade':rgbaOf(W,0.15),
-    '--acc-line':rgbaOf(A,0.55),'--acc-text':accText,
-    '--text':text,'--muted':muted,'--dim':dim,'--label':dim,'--statusbar':ink};
+  return {'--bg':ink,'--glow-1':mix(ink,A,0.16),'--glow-2':mix(ink,W,0.12),
+    '--surface':panel,'--surface-sunk':night,'--line':rule,'--line-strong':rule2,
+    '--control':btn,'--control-pressed':btnHi,'--selected':sel,
+    '--now':A,'--next':W,'--done':K,
+    '--now-wash':rgbaOf(A,0.15),'--next-wash':rgbaOf(W,0.15),
+    '--now-line':rgbaOf(A,0.55),'--now-text':accText,
+    '--text':text,'--text-2':muted,'--text-3':dim,'--label':dim,'--statusbar':ink};
 }
 
 export const THEMES=[

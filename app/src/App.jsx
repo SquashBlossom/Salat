@@ -7,7 +7,7 @@ import { withDefaults, dayTimes, events, partsIn, shiftDay } from '@salat/shared
 import { loadSettings, saveSettings } from './data/store.js';
 import { deriveTheme } from './core/theme.js';
 import { buildICS } from './core/ics.js';
-import { IconSprite, Icon } from './components/Icons.jsx';
+import { Button, IconSprite, StatusPill, Toast } from './ui/index.jsx';
 import { Header, Hero, HighLatFlag, Ledger, NightCard } from './components/Today.jsx';
 import { QiblaCard } from './components/QiblaCard.jsx';
 import { SettingsSheet } from './components/SettingsSheet.jsx';
@@ -29,7 +29,7 @@ function applyTheme(s) {
     try { localStorage.setItem('salat-customcss', css); } catch { /* flash only */ }
   }
   const bar = getComputedStyle(document.body).getPropertyValue('--statusbar').trim();
-  document.getElementById('themeColor')?.setAttribute('content', bar || '#04101F');
+  if (bar) document.getElementById('themeColor')?.setAttribute('content', bar);
 }
 
 function useToast() {
@@ -125,7 +125,7 @@ export default function App() {
     <>
       <IconSprite />
       <SkyBackdrop loc={s.loc} />
-      <div className="wrap">
+      <main className="page">
         <Header s={s} viewDate={viewDate}
           onPrev={() => setViewDate((d) => new Date(d.getTime() - DAY))}
           onNext={() => setViewDate((d) => new Date(d.getTime() + DAY))}
@@ -140,19 +140,19 @@ export default function App() {
           <QiblaCard loc={s.loc} toast={toast} />
           <NightCard s={s} today={view.today} tomorrow={view.tomorrow} />
         </div>
-        <div className="actions">
-          <button className="btn primary" onClick={downloadICS}><Icon name="cal" />Add 30 days to Calendar</button>
-          <button className="btn" onClick={() => setSheet({ open: true, search: false })}><Icon name="target" /><span>{methodLabel}</span></button>
+        <div className="stack">
+          <Button variant="primary" icon="cal" onClick={downloadICS}>Add 30 days to Calendar</Button>
+          <Button icon="target" onClick={() => setSheet({ open: true, search: false })}>{methodLabel}</Button>
         </div>
-        <p className="note">
-          <span className={'offchip' + (offline === 'ready' ? ' ready' : '')}>{offline === 'ready' ? 'Ready offline' : offline}</span><br />
-          Times are calculated on your device from solar position. No internet needed after the first load.<br />
+        <footer className="footnote">
+          <StatusPill tone={offline === 'ready' ? 'good' : 'neutral'}>{offline === 'ready' ? 'Ready offline' : offline}</StatusPill>
+          <p>Times are calculated on your device from solar position. No internet needed after the first load.<br />
           Hijri date is calendrical (Umm al-Qura). Confirm with your masjid for moon sighting.<br />
-          Swipe left or right to change the day.
-        </p>
-      </div>
+          Swipe left or right to change the day.</p>
+        </footer>
+      </main>
       <SettingsSheet open={sheet.open} focusSearch={sheet.search} s={s} update={update} toast={toast} onClose={() => setSheet({ open: false, search: false })} />
-      <div className={'toast' + (msg ? ' on' : '')} role="status">{msg}</div>
+      <Toast message={msg} />
       {moment && <AlertMoment alert={moment} onClose={() => setMoment(null)} />}
     </>
   );

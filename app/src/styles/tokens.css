@@ -1,0 +1,133 @@
+/* ==========================================================================
+   SALAT DESIGN TOKENS — the only place raw values live.
+   Every other file uses these names. To change the look, change a token here.
+   The words in each comment are the design language: say them to Claude.
+   ========================================================================== */
+
+/* ---------- COLOUR ROLES (per theme) ----------
+   bg             the page
+   surface        a card (top of its gradient)
+   surface-sunk   a card's bottom, wells, inset fields
+   line           hairline dividers;  line-strong: control borders
+   control        a button's fill;  control-pressed: while pressed
+   selected       the fill of a chosen option
+   text           main words;  text-2: supporting;  text-3: quiet;  label: eyebrows
+   now            THE CURRENT PRAYER, primary actions      (+ now-wash, now-line, now-text)
+   next           THE COMING PRAYER, the sun, "soon"       (+ next-wash)
+   done           PRAYERS PASSED, the horizon, success
+   glow-1/2       the page's soft light;  statusbar: phone status bar */
+:root,[data-theme="midnight"]{
+  --bg:#04101F; --glow-1:#10305A; --glow-2:#0A2A3E;
+  --surface:#0D2440; --surface-sunk:#0A1B33; --line:#173352; --line-strong:#24507E;
+  --control:#0F2A4A; --control-pressed:#16375C; --selected:#123B3D;
+  --now:#5FE3C8; --next:#FFC94A; --done:#48D597;
+  --now-wash:rgba(95,227,200,.14); --next-wash:rgba(255,201,74,.14); --now-line:rgba(95,227,200,.55);
+  --now-text:#7FF0D8;
+  --text:#E8F2FF; --text-2:#A8C4E0; --text-3:#87A6C6; --label:#8FB0D2;
+  --statusbar:#04101F;
+}
+[data-theme="amethyst"]{
+  --bg:#140A26; --glow-1:#3B1C6B; --glow-2:#2A1550;
+  --surface:#241243; --surface-sunk:#1B0E34; --line:#3A2160; --line-strong:#523083;
+  --control:#2A1750; --control-pressed:#3A2168; --selected:#123F3D;
+  --now:#5FE3C8; --next:#FF9A4D; --done:#A98BFF;
+  --now-wash:rgba(95,227,200,.15); --next-wash:rgba(255,154,77,.16); --now-line:rgba(95,227,200,.55);
+  --now-text:#7FF0D8;
+  --text:#F4ECFF; --text-2:#CDB7EC; --text-3:#AB92D6; --label:#BCA3E0;
+  --statusbar:#140A26;
+}
+[data-theme="grove"]{
+  --bg:#05170F; --glow-1:#0F4A31; --glow-2:#08321F;
+  --surface:#0C2A1D; --surface-sunk:#082116; --line:#164630; --line-strong:#1F6244;
+  --control:#0E3323; --control-pressed:#144431; --selected:#40280F;
+  --now:#FF9F45; --next:#FFD84A; --done:#7EE8AE;
+  --now-wash:rgba(255,159,69,.16); --next-wash:rgba(255,216,74,.15); --now-line:rgba(255,159,69,.55);
+  --now-text:#FFC488;
+  --text:#EAFBF1; --text-2:#A9D4BC; --text-3:#87B9A0; --label:#98C8AE;
+  --statusbar:#05170F;
+}
+[data-theme="blossom"]{
+  --bg:#FDF0F5; --glow-1:#FBD9E6; --glow-2:#E7DCF8;
+  --surface:#FFFFFF; --surface-sunk:#FFF6FA; --line:#F1CFDD; --line-strong:#DFAFC7;
+  --control:#FFFFFF; --control-pressed:#FBE8F0; --selected:#EFE4FC;
+  --now:#7A45D6; --next:#1E93DB; --done:#2E9C86;
+  --now-wash:rgba(122,69,214,.12); --next-wash:rgba(30,147,219,.12); --now-line:rgba(122,69,214,.5);
+  --now-text:#5B2FB0;
+  --text:#2E1B36; --text-2:#6C5075; --text-3:#8B6E94; --label:#8B6E94;
+  --statusbar:#FDF0F5;
+}
+
+:root{
+  /* ---------- TYPE ----------
+     Families: ui = Space Grotesk (words), figures = IBM Plex Mono (every time and number),
+     arabic = Amiri (every Arabic word). */
+  --font-ui: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-figures: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  --font-arabic: 'Amiri', 'Geeza Pro', serif;
+
+  /* Type scale — call a size by its role */
+  --fs-label: 10px;      /* LABEL: uppercase eyebrows, tags, chip captions */
+  --fs-caption: 12px;    /* CAPTION: notes, sub-lines, hints */
+  --fs-small: 13px;      /* SMALL: secondary rows, segmented options, toasts */
+  --fs-ui: 14px;         /* UI: buttons, inputs, list items */
+  --fs-body: 15px;       /* BODY: prayer names, times in rows, card titles */
+  --fs-title-3: 17px;    /* TITLE 3: sheet titles */
+  --fs-lead: 20px;       /* LEAD: Arabic in rows, countdown units */
+  --fs-title-2: 22px;    /* TITLE 2: the next prayer's name */
+  --fs-title-1: 26px;    /* TITLE 1: the moment's headline */
+  --fs-figure: 30px;     /* FIGURE: a big number, e.g. the Qibla bearing */
+  --fs-display: clamp(38px, 12vw, 52px); /* DISPLAY: the countdown */
+  --fs-hero-arabic: 64px;/* HERO ARABIC: the prayer's name in the moment */
+
+  --fw-regular: 400; --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700;
+  --lh-tight: 1.1; --lh-snug: 1.35; --lh-body: 1.5; --lh-loose: 1.6;
+  --ls-tight: -.03em;    /* big numbers */
+  --ls-snug: -.01em;     /* titles */
+  --ls-caps: .12em;      /* uppercase tags, chips, pills */
+  --ls-eyebrow: .16em;   /* uppercase eyebrows */
+
+  /* ---------- SPACE (4-point grid) ---------- */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-12: 48px;
+  --gutter: var(--sp-4);       /* page side margin */
+  --stack: var(--sp-3);        /* gap between cards */
+  --card-pad: var(--sp-4);     /* inside a card */
+  --page-max: 520px;           /* widest the column gets */
+
+  /* ---------- SHAPE ---------- */
+  --r-xs: 4px;     /* bars, tags, the sheet's grab handle */
+  --r-sm: 8px;     /* focus rings, colour wells */
+  --r-md: 12px;    /* CONTROLS: buttons, inputs, notices, toasts */
+  --r-lg: 16px;    /* CARDS */
+  --r-xl: 22px;    /* SHEETS (top corners) */
+  --r-pill: 999px; /* chips, switches, status pills */
+  --border: 1px;
+
+  /* ---------- SIZE ---------- */
+  --touch: 44px;                       /* smallest tappable height */
+  --icon-sm: 15px; --icon-md: 20px; --icon-lg: 22px;
+  --icon-stroke: 1.6;
+
+  /* ---------- MOTION ----------
+     Durations */
+  --dur-instant: 120ms;  /* PRESS feedback */
+  --dur-quick: 220ms;    /* FADE: scrims, toasts, colour changes */
+  --dur-base: 300ms;     /* SLIDE: sheets; SPRING: switches */
+  --dur-slow: 500ms;     /* the moment fading in; progress bar */
+  --dur-scene: 900ms;    /* RISE: text entering in the moment */
+  --dur-draw: 1600ms;    /* DRAW: the sun arc drawing itself */
+  --dur-breathe: 3200ms; /* BREATHE: the sun's halo */
+  --dur-glow: 2400ms;    /* GLOW: countdown under 10 minutes */
+  /* Easings */
+  --ease-out: cubic-bezier(.2, .8, .2, 1);     /* things arriving */
+  --ease-sheet: cubic-bezier(.32, .72, 0, 1);  /* sheets, like iOS */
+  --ease-spring: cubic-bezier(.3, 1.4, .5, 1); /* a small overshoot: switches */
+  --ease-calm: ease-in-out;                    /* loops: breathe, glow */
+  --stagger: 80ms;                             /* delay between items that rise together */
+
+  /* ---------- FIXED COLOURS (same in every theme) ---------- */
+  --scrim: rgba(2, 8, 18, .72); /* the dimmed page behind a sheet */
+  --star: #FFFFFF;              /* stars in the night sky */
+
+  /* ---------- LAYERS ---------- */
+  --z-sky: 0; --z-page: 1; --z-scrim: 40; --z-sheet: 50; --z-toast: 60; --z-moment: 80;
+}

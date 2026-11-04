@@ -1,0 +1,89 @@
+/* SCREENS — layout that belongs to one part of one screen.
+   Built from tokens; reusable pieces live in components.css instead. */
+
+/* ---------- HEADER ---------- */
+.app-header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-3);margin:var(--sp-1) 0 var(--sp-1)}
+.place{display:flex;align-items:center;gap:6px;color:var(--now);font-size:var(--fs-small);font-weight:var(--fw-semibold);text-align:left;min-height:28px}
+.place .icon{width:var(--icon-sm);height:var(--icon-sm)}
+.dateline{font-size:var(--fs-caption);color:var(--text-2);margin-top:2px;line-height:var(--lh-snug)}
+.dateline b{color:var(--text);font-weight:var(--fw-medium)}
+.dateline.hijri{margin-top:0;color:var(--label)}
+.header-actions{display:flex;gap:var(--sp-1);align-items:center}
+
+/* ---------- HERO: the next prayer ---------- */
+.hero{padding:var(--card-pad) var(--card-pad) var(--sp-2)}
+.hero-top{display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-3)}
+.next-name{display:flex;align-items:center;gap:var(--sp-2)}
+.next-name .icon{width:var(--icon-lg);height:var(--icon-lg);color:var(--next)}
+.next-at{font-size:var(--fs-body);color:var(--next);font-weight:var(--fw-medium)}
+.countdown{font-family:var(--font-figures);font-variant-numeric:tabular-nums;font-size:var(--fs-display);font-weight:var(--fw-medium);
+  letter-spacing:var(--ls-tight);line-height:1;margin:var(--sp-3) 0 2px;color:var(--now)}
+.countdown small{font-size:var(--fs-lead);color:var(--text-3);margin-left:2px;letter-spacing:0}
+.countdown.soon{color:var(--next)}
+.countdown-label{font-size:var(--fs-caption);color:var(--text-2);margin-bottom:var(--sp-3)}
+.countdown-label b{color:var(--text);font-weight:var(--fw-medium)}
+.arc{width:100%;height:auto;display:block}
+.progress{padding:0 var(--card-pad) var(--sp-4)}
+.progress-bar{height:3px;background:var(--line);border-radius:var(--r-xs);overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--done),var(--now));border-radius:var(--r-xs);transition:width var(--dur-slow) linear}
+.progress-meta{display:flex;justify-content:space-between;font-size:var(--fs-label);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--label);margin-top:var(--sp-2)}
+
+/* ---------- PRAYER LIST ---------- */
+.prayers{padding:var(--sp-1) 0}
+.prayer{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--card-pad);border-bottom:var(--border) solid var(--line);position:relative}
+.prayer:last-child{border-bottom:none}
+.prayer .icon{color:var(--text-3)}
+.prayer-name{flex:1;min-width:0}
+.prayer-name .en{font-size:var(--fs-body);font-weight:var(--fw-medium)}
+.prayer-name .sub{font-size:var(--fs-caption);color:var(--text-3)}
+.prayer-ar{font-size:var(--fs-lead);color:var(--text-3);line-height:1;padding-bottom:2px}
+.prayer-time{font-family:var(--font-figures);font-variant-numeric:tabular-nums;font-size:var(--fs-body);font-weight:var(--fw-medium);
+  min-width:78px;text-align:right;letter-spacing:var(--ls-snug)}
+.prayer-time .ap{font-size:var(--fs-caption);color:var(--text-3);margin-left:2px}
+.prayer.done .prayer-time{color:var(--text-2)}
+.prayer.done .icon{color:var(--done)}
+.prayer.next{background:var(--next-wash)}
+.prayer.next .icon,.prayer.next .prayer-time{color:var(--next)}
+.prayer.now{background:var(--now-wash)}
+.prayer.now .icon,.prayer.now .prayer-time,.prayer.now .en{color:var(--now)}
+.prayer.now::before,.prayer.next::before{content:"";position:absolute;left:0;top:var(--sp-2);bottom:var(--sp-2);width:3px;border-radius:0 var(--r-xs) var(--r-xs) 0}
+.prayer.now::before{background:var(--now)}
+.prayer.next::before{background:var(--next)}
+
+/* ---------- QIBLA + NIGHT ---------- */
+.qibla-figure{color:var(--now);margin-top:6px}
+.dial{width:100%;height:auto;margin:6px 0 var(--sp-2)}
+.night-list{margin-top:var(--sp-2)}
+.night-list div{display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-2);
+  padding:var(--sp-2) 0;font-size:var(--fs-caption);color:var(--text-2);border-bottom:var(--border) solid var(--line)}
+.night-list div:last-child{border-bottom:none}
+.night-list b{font-family:var(--font-figures);font-weight:var(--fw-medium);color:var(--text);font-size:var(--fs-caption);white-space:nowrap}
+
+/* ---------- ALERTS CARD ---------- */
+.alerts-head{display:flex;align-items:center;gap:var(--sp-3)}
+.alerts-head > .icon{width:var(--icon-lg);height:var(--icon-lg);color:var(--now)}
+.alerts-head .title{flex:1;min-width:0}
+.alerts-head .title b{display:block;font-size:var(--fs-body);font-weight:var(--fw-semibold)}
+.alerts-head .title .t-caption{display:block;margin-top:2px}
+.alerts-body{margin-top:var(--sp-4);display:grid;gap:var(--sp-4)}
+.next-alert{font-size:var(--fs-caption);color:var(--text-3)}
+.next-alert b{color:var(--text);font-family:var(--font-figures);font-weight:var(--fw-medium)}
+
+/* ---------- FOOTNOTE ---------- */
+.footnote{font-size:var(--fs-caption);color:var(--text-2);text-align:center;line-height:var(--lh-loose);display:grid;justify-items:center;gap:var(--sp-2);margin-top:var(--sp-1)}
+
+/* ---------- SKY (canvas behind everything) ---------- */
+.sky{position:fixed;inset:0;z-index:var(--z-sky);pointer-events:none;width:100%;height:100%}
+
+/* ---------- THE MOMENT: full screen when a prayer arrives ---------- */
+.moment{position:fixed;inset:0;z-index:var(--z-moment);display:grid;place-items:center;text-align:center;
+  background:radial-gradient(circle at 50% 42%,var(--glow-1),var(--bg) 70%)}
+.moment canvas{position:absolute;inset:0;width:100%;height:100%}
+.moment-inner{position:relative;padding:var(--sp-6);display:grid;gap:var(--sp-2);justify-items:center}
+.moment-ar{font-size:var(--fs-hero-arabic);color:var(--next);line-height:1.2}
+.moment-inner p{color:var(--text-2);margin-bottom:var(--sp-5)}
+.moment-inner .btn{min-width:200px;width:auto}
+
+/* ---------- SETTINGS ---------- */
+.adjust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-2)}
+.adjust-grid input{text-align:center;font-size:var(--fs-small)}

@@ -5,7 +5,7 @@ import { CITIES } from '@salat/shared/cities';
 import { METHODS, PRAYERS } from '@salat/shared/methods';
 import { DEFAULT_SETTINGS } from '@salat/shared/schedule';
 import { THEMES, contrast } from '../core/theme.js';
-import { Icon } from './Icons.jsx';
+import { Button, Field, Label, Segmented, Sheet, Swatch } from '../ui/index.jsx';
 
 export function SettingsSheet({ open, focusSearch, s, update, onClose, toast }) {
   const [q, setQ] = useState('');
@@ -46,115 +46,93 @@ export function SettingsSheet({ open, focusSearch, s, update, onClose, toast }) 
   const clampAdj = (v, lo, hi) => Math.max(lo, Math.min(hi, +v || 0));
 
   return (
-    <>
-      <div className={'scrim' + (open ? ' on' : '')} onClick={onClose} />
-      <div className={'sheet' + (open ? ' on' : '')} role="dialog" aria-modal="true" aria-label="Settings" aria-hidden={!open}>
-        <div className="grab" />
-        <h2>Settings</h2>
-
-        <div className="field">
-          <label>Colour scheme</label>
-          <div className="themes">
-            {THEMES.map((t) => (
-              <button key={t.id} type="button" className="swatch" aria-pressed={s.theme === t.id} onClick={() => update({ theme: t.id })}>
-                <span className="chips">{(t.id === 'custom' ? [s.custom.bg, s.custom.accent, s.custom.warn, s.custom.ok] : t.chips).map((c, i) => <i key={i} style={{ background: c }} />)}</span>
-                {t.name}
-              </button>
+    <Sheet open={open} title="Settings" onClose={onClose}>
+      <Field label="Colour scheme">
+        <div className="swatches">
+          {THEMES.map((t) => (
+            <Swatch key={t.id} on={s.theme === t.id} onClick={() => update({ theme: t.id })}
+              colors={t.id === 'custom' ? [s.custom.bg, s.custom.accent, s.custom.warn, s.custom.ok] : t.chips}>{t.name}</Swatch>
+          ))}
+        </div>
+        {s.theme === 'custom' && (
+          <div className="well">
+            {[['bg', 'Background'], ['accent', 'Primary · now'], ['warn', 'Second · upcoming'], ['ok', 'Third · completed']].map(([k, label]) => (
+              <div key={k}><label className="mini-label" htmlFor={'c-' + k}>{label}</label>
+                <input type="color" id={'c-' + k} value={s.custom[k]} onChange={(e) => update({ theme: 'custom', custom: { ...s.custom, [k]: e.target.value } })} /></div>
             ))}
           </div>
-          <div className={'custompanel' + (s.theme === 'custom' ? ' on' : '')}>
-            <div className="colorgrid">
-              {[['bg', 'Background'], ['accent', 'Primary · now'], ['warn', 'Second · upcoming'], ['ok', 'Third · completed']].map(([k, label]) => (
-                <div key={k}><label htmlFor={'c-' + k}>{label}</label>
-                  <input type="color" id={'c-' + k} value={s.custom[k]} onChange={(e) => update({ theme: 'custom', custom: { ...s.custom, [k]: e.target.value } })} /></div>
-              ))}
-            </div>
-            {moved.length > 0 && <p className="adjnote on">{moved.join(' and ')}{moved.length > 1 ? ' highlights were' : ' highlight was'} too close to the background, so they have been lightened to stay readable.</p>}
-            <button className="btn" style={{ marginTop: 12, padding: 11, fontSize: 13 }} onClick={() => { update({ custom: { ...DEFAULT_SETTINGS.custom } }); toast('Custom colours reset'); }}>Reset custom colours</button>
+        )}
+        {moved.length > 0 && <p className="hint">{moved.join(' and ')}{moved.length > 1 ? ' highlights were' : ' highlight was'} too close to the background, so they have been lightened to stay readable.</p>}
+        {s.theme === 'custom' && <Button size="sm" onClick={() => { update({ custom: { ...DEFAULT_SETTINGS.custom } }); toast('Custom colours reset'); }}>Reset custom colours</Button>}
+      </Field>
+
+      <Field label="Location" htmlFor="citySearch">
+        <div className="current">{s.loc.name}</div>
+        <input ref={search} type="search" id="citySearch" placeholder="Search 278 cities worldwide" autoComplete="off" autoCorrect="off" spellCheck="false"
+          value={q} onChange={(e) => setQ(e.target.value)} />
+        {results && (
+          <div className="picker">
+            {results.length ? results.map((c) => (
+              <button key={c[0]} type="button" onClick={() => { update({ loc: { name: c[0], lat: c[1], lng: c[2], zone: c[3] } }); setQ(''); toast(c[0]); }}>{c[0]}</button>
+            )) : <div className="none">No match. Try a larger nearby city, use your current location, or enter coordinates below.</div>}
           </div>
-        </div>
-
-        <div className="field">
-          <label htmlFor="citySearch">Location</label>
-          <div className="locnow">{s.loc.name}</div>
-          <input ref={search} type="search" id="citySearch" placeholder="Search 278 cities worldwide" autoComplete="off" autoCorrect="off" spellCheck="false"
-            value={q} onChange={(e) => setQ(e.target.value)} />
-          {results && (
-            <div className="results on">
-              {results.length ? results.map((c) => (
-                <button key={c[0]} type="button" onClick={() => { update({ loc: { name: c[0], lat: c[1], lng: c[2], zone: c[3] } }); setQ(''); toast(c[0]); }}>{c[0]}</button>
-              )) : <div className="none">No match. Try a larger nearby city, use your current location, or enter coordinates below.</div>}
-            </div>
-          )}
-        </div>
-        <button className="btn" style={{ marginBottom: 14 }} onClick={gps}><Icon name="pin" />Use my current location</button>
-
+        )}
+        <Button icon="pin" onClick={gps}>Use my current location</Button>
         <details>
           <summary>Enter coordinates manually</summary>
-          <div className="coords">
-            <div><label className="eyebrow" htmlFor="mLat">Latitude</label><input type="number" id="mLat" step="0.0001" min="-90" max="90" placeholder="40.6782" value={manual.lat} onChange={(e) => setManual({ ...manual, lat: e.target.value })} /></div>
-            <div><label className="eyebrow" htmlFor="mLng">Longitude</label><input type="number" id="mLng" step="0.0001" min="-180" max="180" placeholder="-73.9442" value={manual.lng} onChange={(e) => setManual({ ...manual, lng: e.target.value })} /></div>
+          <div className="stack">
+            <div className="duo">
+              <div><Label htmlFor="mLat">Latitude</Label><input type="number" id="mLat" step="0.0001" min="-90" max="90" placeholder="40.6782" value={manual.lat} onChange={(e) => setManual({ ...manual, lat: e.target.value })} /></div>
+              <div><Label htmlFor="mLng">Longitude</Label><input type="number" id="mLng" step="0.0001" min="-180" max="180" placeholder="-73.9442" value={manual.lng} onChange={(e) => setManual({ ...manual, lng: e.target.value })} /></div>
+            </div>
+            <div><Label htmlFor="mZone">Time zone</Label>
+              <select id="mZone" value={manual.zone} onChange={(e) => setManual({ ...manual, zone: e.target.value })}>
+                {zones.map((z) => <option key={z} value={z}>{z.replace(/_/g, ' ')}</option>)}
+              </select></div>
+            <Button onClick={applyManual}>Use these coordinates</Button>
           </div>
-          <label className="eyebrow" htmlFor="mZone">Time zone</label>
-          <select id="mZone" style={{ marginBottom: 10 }} value={manual.zone} onChange={(e) => setManual({ ...manual, zone: e.target.value })}>
-            {zones.map((z) => <option key={z} value={z}>{z.replace(/_/g, ' ')}</option>)}
-          </select>
-          <button className="btn" onClick={applyManual}>Use these coordinates</button>
         </details>
+      </Field>
 
-        <div className="field">
-          <label htmlFor="fMethod">Calculation method</label>
-          <select id="fMethod" value={s.method} onChange={(e) => update({ method: e.target.value })}>
-            {Object.entries(METHODS).map(([k, v]) => <option key={k} value={k}>{v.name}</option>)}
-          </select>
+      <Field label="Calculation method" htmlFor="fMethod">
+        <select id="fMethod" value={s.method} onChange={(e) => update({ method: e.target.value })}>
+          {Object.entries(METHODS).map(([k, v]) => <option key={k} value={k}>{v.name}</option>)}
+        </select>
+      </Field>
+
+      <Field label="Asr calculation">
+        <Segmented label="Asr calculation" options={[[1, 'Standard'], [2, 'Hanafi']]} value={s.asr} onChange={(v) => update({ asr: v })} />
+      </Field>
+
+      <Field label="High latitude rule" htmlFor="fHiLat"
+        hint="Only used where the sun never dips far enough for Fajr or Isha to occur, roughly above 48° latitude in summer. Below that it changes nothing.">
+        <select id="fHiLat" value={s.hiLat} onChange={(e) => update({ hiLat: e.target.value })}>
+          <option value="angle">Angle based (recommended)</option>
+          <option value="seventh">One seventh of the night</option>
+          <option value="middle">Middle of the night</option>
+          <option value="none">None</option>
+        </select>
+      </Field>
+
+      <Field label="Time format">
+        <Segmented label="Time format" options={[[12, '12-hour'], [24, '24-hour']]} value={s.fmt} onChange={(v) => update({ fmt: v })} />
+      </Field>
+
+      <Field label="Manual adjustment (minutes)" hint="Use this to match your local masjid's printed timetable exactly.">
+        <div className="adjust-grid">
+          {PRAYERS.map((p) => (
+            <div key={p.k}><label className="mini-label" htmlFor={'adj-' + p.k}>{p.en}</label>
+              <input type="number" id={'adj-' + p.k} step="1" min="-60" max="60" value={s.adj[p.k] || 0}
+                onChange={(e) => update({ adj: { ...s.adj, [p.k]: clampAdj(e.target.value, -60, 60) } })} /></div>
+          ))}
         </div>
+      </Field>
 
-        <div className="field">
-          <label>Asr calculation</label>
-          <div className="seg">
-            <button aria-pressed={s.asr === 1} onClick={() => update({ asr: 1 })}>Standard</button>
-            <button aria-pressed={s.asr === 2} onClick={() => update({ asr: 2 })}>Hanafi</button>
-          </div>
-        </div>
+      <Field label="Calendar alert, minutes before" htmlFor="fAlarm">
+        <input type="number" id="fAlarm" min="0" max="60" step="5" value={s.alarm} onChange={(e) => update({ alarm: clampAdj(e.target.value, 0, 60) })} />
+      </Field>
 
-        <div className="field">
-          <label htmlFor="fHiLat">High latitude rule</label>
-          <select id="fHiLat" value={s.hiLat} onChange={(e) => update({ hiLat: e.target.value })}>
-            <option value="angle">Angle based (recommended)</option>
-            <option value="seventh">One seventh of the night</option>
-            <option value="middle">Middle of the night</option>
-            <option value="none">None</option>
-          </select>
-        </div>
-        <p className="hint">Only used where the sun never dips far enough for Fajr or Isha to occur, roughly above 48° latitude in summer. Below that it changes nothing.</p>
-
-        <div className="field">
-          <label>Time format</label>
-          <div className="seg">
-            <button aria-pressed={s.fmt === 12} onClick={() => update({ fmt: 12 })}>12-hour</button>
-            <button aria-pressed={s.fmt === 24} onClick={() => update({ fmt: 24 })}>24-hour</button>
-          </div>
-        </div>
-
-        <div className="field">
-          <label>Manual adjustment (minutes)</label>
-          <div className="adjgrid">
-            {PRAYERS.map((p) => (
-              <div key={p.k}><label htmlFor={'adj-' + p.k}>{p.en}</label>
-                <input type="number" id={'adj-' + p.k} step="1" min="-60" max="60" value={s.adj[p.k] || 0}
-                  onChange={(e) => update({ adj: { ...s.adj, [p.k]: clampAdj(e.target.value, -60, 60) } })} /></div>
-            ))}
-          </div>
-        </div>
-        <p className="hint">Use this to match your local masjid's printed timetable exactly.</p>
-
-        <div className="field">
-          <label htmlFor="fAlarm">Calendar alert, minutes before</label>
-          <input type="number" id="fAlarm" min="0" max="60" step="5" value={s.alarm} onChange={(e) => update({ alarm: clampAdj(e.target.value, 0, 60) })} />
-        </div>
-
-        <button className="btn primary" onClick={onClose}>Done</button>
-      </div>
-    </>
+      <Button variant="primary" onClick={onClose}>Done</Button>
+    </Sheet>
   );
 }
