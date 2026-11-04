@@ -1,0 +1,15 @@
+{
+  "name": "@salat/server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --no-warnings --watch src/index.js",
+    "start": "node --no-warnings src/index.js",
+    "test": "node --no-warnings --test"
+  },
+  "dependencies": {
+    "@salat/shared": "*",
+    "web-push": "^3.6.7"
+  }
+}

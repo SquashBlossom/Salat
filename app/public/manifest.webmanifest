@@ -1,0 +1,11 @@
+{
+  "name": "Salat",
+  "short_name": "Salat",
+  "description": "Prayer times anywhere, calculated on your device.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#04101F",
+  "theme_color": "#04101F",
+  "icons": [{ "src": "icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }]
+}

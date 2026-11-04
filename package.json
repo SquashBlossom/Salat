@@ -1,0 +1,14 @@
+{
+  "name": "salat",
+  "private": true,
+  "type": "module",
+  "workspaces": ["shared", "app", "server"],
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "dev": "npm run dev -w app",
+    "server": "npm run dev -w server",
+    "build": "npm run build -w app",
+    "preview": "npm run preview -w app",
+    "test": "npm test -w shared && npm test -w app && npm test -w server"
+  }
+}

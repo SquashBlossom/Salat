@@ -1,0 +1,13 @@
+{
+  "name": "@salat/shared",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./solar": "./solar.js",
+    "./cities": "./cities.js",
+    "./methods": "./methods.js",
+    "./schedule": "./schedule.js"
+  },
+  "scripts": { "test": "node --test" }
+}

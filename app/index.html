@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Salat</title>
+<meta name="description" content="Prayer times anywhere, calculated on your device. Alerts, Qibla and the night's sunnah times.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Salat">
+<meta name="theme-color" content="#04101F" id="themeColor">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-180.png">
+<link rel="icon" href="./icon-180.png">
+<script>
+/* Set the saved theme before first paint, so there is no flash of the wrong colours. */
+try{
+  var t=localStorage.getItem('salat-theme');
+  if(t){document.documentElement.setAttribute('data-theme',t);
+    if(t==='custom'){var c=localStorage.getItem('salat-customcss');if(c)document.documentElement.style.cssText=c;}}
+}catch(e){}
+</script>
+</head>
+<body>
+<div id="root"></div>
+<script type="module" src="./src/main.jsx"></script>
+</body>
+</html>

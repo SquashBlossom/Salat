@@ -1,5 +1,20 @@
+# Dependencies and builds (made by npm install / npm run build)
+node_modules/
+dist/
+
+# Server data: the database and development push keys. Never commit these.
+server/data/
+*.db
+*.db-wal
+*.db-shm
+vapid.json
+.env
+.env.*
+
 # Local development kit (reference copy, not part of this repo)
 lacuna-agentic-sdk/
 
 # Claude's temporary work area
 scratch/
+
+.DS_Store
