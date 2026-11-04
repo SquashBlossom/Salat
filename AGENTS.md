@@ -1,5 +1,7 @@
 # AGENTS.md — rules for AI helpers (Claude, Gemini, others)
 
+Also read `CLAUDE.md` (who, how we work, current state) and, for visual work, `.claude/skills/salat-design/SKILL.md`.
+
 Salat is a prayer-times app: a Vite + React web app (`app/`), a Node app server (`server/`), and shared prayer math (`shared/`) used by both. The owner is learning; keep explanations short and plain.
 
 ## Rules
@@ -15,7 +17,8 @@ Salat is a prayer-times app: a Vite + React web app (`app/`), a Node app server 
    visual change. Respect reduced motion.
 6. **Privacy:** location leaves the phone only for push alerts, rounded to 2 decimals. No names, emails, or analytics.
 7. **Secrets:** never commit or print keys. Server keys come from environment variables (Fly secrets).
-8. **Models:** an on-device model proposes; code checks before anything happens. No model gives religious rulings.
+8. **Models:** an on-device model proposes; code checks before anything happens. Lacuna Scheme is only for controlling the
+   model: it writes one form, `checkForm` checks its syntax tree, then `act` runs it. UI stays in React. No model gives religious rulings.
 9. **Dependencies:** ask before adding one. Pin versions.
 
 ## Commands

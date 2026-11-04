@@ -45,5 +45,7 @@ On iPhone and iPad this works once Salat is on the Home Screen (iOS 16.4 or late
 - [docs/GIT-GUIDE.md](docs/GIT-GUIDE.md) — save, commit, push, in plain words
 - [docs/HOW-IT-WORKS.md](docs/HOW-IT-WORKS.md) — the calculation, high latitudes, colours, Calendar and Shortcuts routes
 - [DESIGN.md](DESIGN.md) — the design language: how to ask for a change, and every named piece
+- [docs/RESOURCES.md](docs/RESOURCES.md) — all our research: Apple's rules, motion rules, design skills, the market, web push facts, Gemma, Lacuna
 - [docs/DESIGN-REFERENCES.md](docs/DESIGN-REFERENCES.md) — design galleries to study later
+- [CLAUDE.md](CLAUDE.md) — memory for Claude sessions
 - [AGENTS.md](AGENTS.md) — rules for AI helpers working on this code

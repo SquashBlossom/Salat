@@ -11,8 +11,9 @@ type_scale: [label 10, caption 12, small 13, ui 14, body 15, title-3 17, lead 20
 space: [sp-1 4, sp-2 8, sp-3 12, sp-4 16, sp-5 20, sp-6 24, sp-8 32, sp-12 48]
 radius: [r-xs 4, r-sm 8, r-md 12, r-lg 16, r-xl 22, r-pill]
 touch_min: 44
-motion: [rise, fade, draw, breathe, glow, slide, spring, press, ripple, twinkle]
-components: [Button, IconButton, Card, Notice, Chip, Segmented, Switch, Tag, StatusPill, Label, Field, Sheet, Toast, Swatch, Icon]
+motion: [rise, fade, draw, breathe, glow, slide, push, pop, spring, press, ripple, twinkle]
+components: [Button, IconButton, Card, Notice, Chip, Segmented, Switch, Tag, StatusPill, Label, Field, PopUpMenu, MenuButton, ListSection, Row, Stepper, Sheet, Toast, Swatch, Icon]
+native_mapping: see kit section 9 (each component maps to a SwiftUI control)
 ---
 
 # Salat design language
@@ -24,6 +25,16 @@ components: [Button, IconButton, Card, Notice, Chip, Segmented, Switch, Tag, Sta
 
 Calm, night-sky, precise. Salat is opened five times a day, often half awake. One glance must answer
 "what's next, and how long?". Nothing shouts.
+
+## App, not website
+
+Salat follows Apple's Human Interface Guidelines so the web app and the Swift app feel the same
+(digest in `docs/RESOURCES.md` §2):
+- **Buttons** have no web borders, a press state (they shrink a little), and one line of text.
+- **Choices** open a **pop-up menu** that grows from its button, never a web dropdown.
+- **Settings** are grouped lists like iPhone Settings; a chevron opens a page inside the sheet.
+- **Segmented controls** hold 2 to 5 options on one row; more becomes a pop-up menu.
+- **Switches** live only in list rows.
 
 ## How to ask for a change
 
@@ -72,23 +83,27 @@ Corners: **xs** 4 (bars, tags), **sm** 8, **md** 12 (controls), **lg** 16 (cards
 ### Icons
 One drawing style: 24 grid, 1.6 stroke, round ends, no fills, colour from the words beside them.
 Sizes **sm** 15, **md** 20, **lg** 22. The set: fajr, sunrise, dhuhr, asr, maghrib, isha, gear, pin, left, right,
-cal, compass, target, today, alert, globe, bell, lock, share.
+cal, compass, target, today, alert, globe, bell, lock, share, check, updown, more, clock, palette, sliders.
 
 ### Components (and their variants)
 | Component | Variants / options | Use it for |
 |---|---|---|
-| **Button** | primary · secondary (default) · quiet; size md · sm; disabled | Primary: the one main action. Secondary: the rest. Quiet: low-stakes links. |
+| **Button** | primary (filled) · tinted · secondary (gray, default) · quiet (plain) · destructive; size lg · md · sm; hug; disabled | Primary: the one main action. Tinted: a strong second action. Secondary: the rest. Quiet: Done, Back, links. Destructive: removing things. |
 | **Icon button** | icon + label (always) | Header actions |
 | **Card** | plain · padded | Every grouped block |
 | **Notice** | info · caution | One or two plain sentences about state |
 | **Chip** | on · off (in a ChipRow) | Many-of choices |
-| **Segmented** | options, one selected | One-of choices |
+| **Segmented** | 2–5 options, one selected, sliding thumb | One-of a few, on one row |
+| **Pop-up menu** | inline (end of a row) · boxed (full width) | One-of many; replaces dropdowns |
+| **Menu button** | a list of 3+ actions; destructive items red | Actions behind one button |
+| **List section · Row** | header, footer; row with icon, value, chevron, tick, or a control | Settings and any list of options |
+| **Stepper** | − value + | Small whole numbers, like minutes |
 | **Switch** | on · off | A whole feature |
 | **Tag** | now · next | A state word inside a row |
 | **Status pill** | neutral · good | A quiet status with a dot |
 | **Label** | — | Uppercase eyebrow over a group |
 | **Field** | label, control, hint | Every form control |
-| **Sheet** | title | Settings and other panels |
+| **Sheet** | title; pages that open inside it, with Back and Done | Settings and other panels |
 | **Toast** | message | A short confirmation |
 | **Swatch** | on · off, colour dots | Theme choice |
 
@@ -101,8 +116,10 @@ cal, compass, target, today, alert, globe, bell, lock, share.
 | **Breathe** | slow grow-and-fade loop | the sun's halo |
 | **Glow** | soft pulse of light | countdown under 10 minutes |
 | **Slide** | slides up from the bottom | sheets |
+| **Push** | a page slides in from the right | a page opening inside a sheet |
+| **Pop** | grows from its button, from 95% | menus |
 | **Spring** | small overshoot | the switch knob |
-| **Press** | darkens while held | every button |
+| **Press** | shrinks to 97% while held | every button, chip and row |
 | **Ripple** | rings spread from the centre | the prayer moment (canvas) |
 | **Twinkle**, **Shooting star** | stars brighten and dim; a rare streak | the night sky (canvas) |
 
@@ -119,11 +136,12 @@ Loops pause when the page is hidden. With Reduce Motion on, everything is still.
 | Screen layout | `app/src/styles/screens.css` |
 | Icons | `app/src/ui/icons.jsx` |
 | The kit page | `app/src/kit/` → `/kit.html` |
+| Menus, lists, sheets | `app/src/ui/Menu.jsx`, `List.jsx`, `Sheet.jsx` |
+| Swift tokens | `native/SalatTokens.swift` (run `npm run tokens:swift -w app` after changing tokens) |
 
 ## Open design questions (yours to decide)
 
 - **Typeface.** Space Grotesk is clear but very common in AI-made apps. A more personal face could set Salat apart.
-- **Custom theme labels** say "Primary / Second / Third". Should they say "Now / Next / Done" to match the language?
 - **Light themes.** Blossom is the only light theme. Is one enough for daytime use?
 - **Adhan sound.** The chime is made in code. A licensed adhan recording would need choosing.
 
