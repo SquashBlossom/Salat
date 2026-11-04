@@ -1,0 +1,5 @@
+# Local development kit (reference copy, not part of this repo)
+lacuna-agentic-sdk/
+
+# Claude's temporary work area
+scratch/
