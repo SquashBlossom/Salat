@@ -54,3 +54,9 @@
 
 .kit-rules{margin:0;padding-left:var(--sp-5);display:grid;gap:var(--sp-2);color:var(--text-2);max-width:68ch}
 .kit-rules b{color:var(--text)}
+
+.kit-table{display:grid;border-radius:var(--r-md);background:var(--surface-sunk);overflow:hidden}
+.kit-table div{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border-bottom:var(--border) solid var(--separator)}
+.kit-table div:last-child{border-bottom:none}
+.kit-table code{color:var(--now-text);overflow-wrap:anywhere}
+@media (max-width:560px){.kit-table div{grid-template-columns:1fr;gap:2px}}

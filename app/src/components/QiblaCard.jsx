@@ -55,7 +55,7 @@ export function QiblaCard({ loc, toast }) {
       <div className="t-figure qibla-figure">{qb.toFixed(1)}°</div>
       <div className="t-caption">{heading == null ? compassName(qb) + ' · true north' : 'hold flat · point to the marker'}</div>
       <Dial bearing={qb} heading={heading} />
-      <Button size="sm" icon="compass" onClick={startCompass}>Live compass</Button>
+      <Button size="sm" icon="compass" onClick={startCompass}>Live Compass</Button>
     </Card>
   );
 }

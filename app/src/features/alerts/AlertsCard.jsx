@@ -5,12 +5,12 @@
 import { useEffect, useState } from 'react';
 import { PRAYERS } from '@salat/shared/methods';
 import { upcomingAlerts } from '@salat/shared/schedule';
-import { Button, Card, Chip, ChipRow, Field, Icon, Notice, Segmented, Switch } from '../../ui/index.jsx';
+import { Button, Card, Chip, ChipRow, Field, Icon, Notice, PopUpMenu, Switch } from '../../ui/index.jsx';
 import { fmtFull } from '../../core/format.js';
 import { askPermission, capability, syncPush, stopPush, testPush, isIOS } from './push.js';
 import { playChime, unlockAudio } from './chime.js';
 
-const LEADS = [[0, 'At adhan'], [5, '5 min'], [10, '10 min'], [15, '15 min'], [30, '30 min']];
+const LEADS = [0, 5, 10, 15, 30].map((m) => ({ value: m, label: m ? `${m} minutes before` : 'At the adhan' }));
 
 const STATUS = {
   'needs-home-screen': { warn: true, icon: 'share', text: 'On iPhone and iPad, alerts work after you add Salat to your Home Screen. In Safari, tap Share, then Add to Home Screen, then open Salat from there.' },
@@ -84,13 +84,13 @@ export function AlertsCard({ settings, update, toast }) {
             </ChipRow>
           </Field>
           <Field label="When">
-            <Segmented label="When" options={LEADS} value={a.lead} onChange={(v) => setAlerts({ lead: v })} />
+            <PopUpMenu look="boxed" label="When" items={LEADS} value={a.lead} onChange={(v) => setAlerts({ lead: v })} />
           </Field>
           {next && <div className="next-alert">Next alert: <b>{next.en} · {fmtFull(next.h - a.lead / 60, settings.fmt)}</b></div>}
           <Notice tone={shown.warn ? 'caution' : 'info'} icon={shown.icon}>
             {shown.text}{isIOS() && cap === 'push' ? ' Keep Salat on your Home Screen; removing it turns alerts off.' : ''}
           </Notice>
-          <Button icon="bell" onClick={test}>Test the alert</Button>
+          <Button variant="tinted" icon="bell" onClick={test}>Test the Alert</Button>
         </div>
       )}
       {!a.enabled && cap === 'needs-home-screen' && (

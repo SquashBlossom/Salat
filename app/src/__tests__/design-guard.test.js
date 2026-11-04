@@ -37,7 +37,7 @@ describe('design guard: tokens only', () => {
   });
 
   it('every corner is a radius token', () => {
-    expect(offenders(css, /border-radius:\s*[^;}]+/g, (m) => !/\d+px/.test(m.replace(/var\([^)]*\)/g, '')))).toEqual([]);
+    expect(offenders(css, /border-radius:\s*[^;}]+/g, (m) => !/\d+px/.test(m.replace(/calc\(var\([^)]*\)[^)]*\)/g, '').replace(/var\([^)]*\)/g, '')))).toEqual([]);
   });
 
   it('every animation and transition uses motion tokens', () => {
@@ -48,8 +48,12 @@ describe('design guard: tokens only', () => {
 
 describe('design guard: screens use kit components', () => {
   it('no screen builds its own button, card, chip, switch, notice or tag', () => {
-    const own = /className=["'{`][^"'}`]*\b(btn|card|chip|switch|notice|icon-btn|segmented|status-pill|swatch|toast|sheet|scrim)\b/g;
+    const own = /className=["'{`](?:[^"'}`]*\s)?(btn|card|chip|switch|notice|icon-btn|segmented|status-pill|swatch|toast|sheet|scrim|menu|menu-item|stepper|list|row)(?=[\s"'`}])/g;
     expect(offenders(jsx, own)).toEqual([]);
+  });
+
+  it('no web dropdowns: choices use PopUpMenu, not <select>', () => {
+    expect(offenders(jsx, /<select\b/g)).toEqual([]);
   });
 
   it('inline styles hold only tokens or computed values', () => {

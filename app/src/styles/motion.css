@@ -31,3 +31,8 @@
   *,*::before,*::after{transition:none!important;animation:none!important}
   .m-draw{stroke-dashoffset:0}
 }
+
+/* POP: a menu grows from the button that opened it (never from nothing: starts at 95%) */
+@keyframes pop{from{opacity:0;transform:scale(.95)}}
+/* PUSH: a page slides in from the right inside a sheet */
+@keyframes push{from{transform:translateX(100%)}}

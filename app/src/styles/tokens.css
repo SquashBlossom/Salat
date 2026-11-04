@@ -15,7 +15,9 @@
    now            THE CURRENT PRAYER, primary actions      (+ now-wash, now-line, now-text)
    next           THE COMING PRAYER, the sun, "soon"       (+ next-wash)
    done           PRAYERS PASSED, the horizon, success
-   glow-1/2       the page's soft light;  statusbar: phone status bar */
+   glow-1/2       the page's soft light;  statusbar: phone status bar
+   material       frosted surface for menus (derived: surface at 86%)
+   on-now         text on a filled Now button */
 :root,[data-theme="midnight"]{
   --bg:#04101F; --glow-1:#10305A; --glow-2:#0A2A3E;
   --surface:#0D2440; --surface-sunk:#0A1B33; --line:#173352; --line-strong:#24507E;
@@ -104,12 +106,17 @@
 
   /* ---------- SIZE ---------- */
   --touch: 44px;                       /* smallest tappable height */
+  --control-lg: 50px;                  /* large button: the main action at the bottom of a screen */
+  --control-md: 44px;                  /* regular button and list row */
+  --control-sm: 34px;                  /* small button (its tap area is still 44) */
+  --press-scale: .97;                  /* how far a control shrinks when pressed */
   --icon-sm: 15px; --icon-md: 20px; --icon-lg: 22px;
   --icon-stroke: 1.6;
 
   /* ---------- MOTION ----------
      Durations */
   --dur-instant: 120ms;  /* PRESS feedback */
+  --dur-menu: 180ms;     /* POP: a menu opening from its button */
   --dur-quick: 220ms;    /* FADE: scrims, toasts, colour changes */
   --dur-base: 300ms;     /* SLIDE: sheets; SPRING: switches */
   --dur-slow: 500ms;     /* the moment fading in; progress bar */
@@ -118,7 +125,8 @@
   --dur-breathe: 3200ms; /* BREATHE: the sun's halo */
   --dur-glow: 2400ms;    /* GLOW: countdown under 10 minutes */
   /* Easings */
-  --ease-out: cubic-bezier(.2, .8, .2, 1);     /* things arriving */
+  --ease-out: cubic-bezier(.23, 1, .32, 1);    /* things arriving, menus opening (strong ease-out) */
+  --ease-in-out: cubic-bezier(.77, 0, .175, 1); /* things moving across the screen */
   --ease-sheet: cubic-bezier(.32, .72, 0, 1);  /* sheets, like iOS */
   --ease-spring: cubic-bezier(.3, 1.4, .5, 1); /* a small overshoot: switches */
   --ease-calm: ease-in-out;                    /* loops: breathe, glow */
@@ -126,8 +134,24 @@
 
   /* ---------- FIXED COLOURS (same in every theme) ---------- */
   --scrim: rgba(2, 8, 18, .72); /* the dimmed page behind a sheet */
+  --scrim-light: rgba(2, 8, 18, .28); /* behind an open menu */
+  --knob: #FFFFFF;              /* a switch's thumb, like iOS */
+  --danger: #FF6B6B;            /* DESTRUCTIVE actions only (delete, turn off for good) */
+  --shadow-float: 0 12px 40px rgba(0, 0, 0, .45), 0 2px 8px rgba(0, 0, 0, .25); /* menus, popovers */
+  --shadow-thumb: 0 2px 4px rgba(0, 0, 0, .28); /* a segmented thumb or switch knob */
+  --blur-material: blur(24px) saturate(160%); /* MATERIAL: frosted glass for menus and bars */
   --star: #FFFFFF;              /* stars in the night sky */
 
   /* ---------- LAYERS ---------- */
-  --z-sky: 0; --z-page: 1; --z-scrim: 40; --z-sheet: 50; --z-toast: 60; --z-moment: 80;
+  --z-sky: 0; --z-page: 1; --z-scrim: 40; --z-sheet: 50; --z-menu: 55; --z-toast: 60; --z-moment: 80;
+}
+
+/* Derived roles (same recipe in every theme) */
+:root{
+  --material: color-mix(in srgb, var(--surface) 86%, transparent);
+  --on-now: var(--bg);
+  --fill: color-mix(in srgb, var(--text) 9%, transparent);         /* GRAY button fill */
+  --fill-pressed: color-mix(in srgb, var(--text) 15%, transparent);
+  --tint: color-mix(in srgb, var(--now) 16%, transparent);         /* TINTED button fill */
+  --separator: color-mix(in srgb, var(--text) 12%, transparent);   /* hairline inside lists and menus */
 }

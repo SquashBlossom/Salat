@@ -141,7 +141,7 @@ export default function App() {
           <NightCard s={s} today={view.today} tomorrow={view.tomorrow} />
         </div>
         <div className="stack">
-          <Button variant="primary" icon="cal" onClick={downloadICS}>Add 30 days to Calendar</Button>
+          <Button variant="primary" size="lg" icon="cal" onClick={downloadICS}>Add 30 Days to Calendar</Button>
           <Button icon="target" onClick={() => setSheet({ open: true, search: false })}>{methodLabel}</Button>
         </div>
         <footer className="footnote">

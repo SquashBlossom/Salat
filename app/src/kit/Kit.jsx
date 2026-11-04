@@ -2,8 +2,31 @@
    Everything here is the real thing: real tokens, real components, real motion.
    If it looks right here, it looks right in the app. Opens at /kit.html. */
 import { useEffect, useRef, useState } from 'react';
-import { Button, Card, Chip, ChipRow, Field, Icon, IconButton, IconSprite, ICON_NAMES, Label, Notice,
-  Segmented, Sheet, StatusPill, Swatch, Switch, Tag, Toast } from '../ui/index.jsx';
+import { Button, Card, Chip, ChipRow, Field, Icon, IconButton, IconSprite, ICON_NAMES, Label, ListSection, MenuButton, Notice,
+  PopUpMenu, Row, Segmented, Sheet, StatusPill, Stepper, Swatch, Switch, Tag, Toast } from '../ui/index.jsx';
+import { METHODS } from '@salat/shared/methods';
+
+/* What each kit component becomes in the Swift app. Same names, same behaviour. */
+const NATIVE = [
+  ['Button · primary', 'Button(…).buttonStyle(.borderedProminent)'],
+  ['Button · tinted', '.buttonStyle(.bordered) + .tint(.now)'],
+  ['Button · secondary', '.buttonStyle(.bordered) + .tint(.gray)'],
+  ['Button · quiet', '.buttonStyle(.borderless)'],
+  ['Button · destructive', 'Button(role: .destructive)'],
+  ['Button size lg · md · sm', '.controlSize(.large · .regular · .small)'],
+  ['Pop-up menu', 'Picker(…).pickerStyle(.menu)'],
+  ['Menu button', 'Menu { … } label: { … }'],
+  ['Segmented', 'Picker(…).pickerStyle(.segmented)'],
+  ['Switch', 'Toggle(…)'],
+  ['Stepper', 'Stepper(…)'],
+  ['List section · Row', 'List { Section(header:footer:) { … } }.listStyle(.insetGrouped)'],
+  ['Row with chevron', 'NavigationLink(…)'],
+  ['Sheet', '.sheet(isPresented:) { NavigationStack { … } }'],
+  ['Notice', 'Label(…) in a .regularMaterial box'],
+  ['Toast', 'a small overlay with .transition(.move(edge: .bottom))'],
+  ['Icon', 'Image("fajr") from the same SVGs, or SF Symbols'],
+  ['Tokens', 'SalatTokens.swift (made by npm run tokens:swift)'],
+];
 import { THEMES } from '../core/theme.js';
 import { AlertMoment } from '../features/alerts/AlertMoment.jsx';
 
@@ -42,7 +65,8 @@ const MOTIONS = [
   ['Glow', 'm-glow', 'Soft pulse of light. Countdown under 10 minutes.', '--dur-glow · calm'],
   ['Spring', 'spring', 'Small overshoot. The switch knob.', '--dur-base · spring'],
   ['Slide', 'slide', 'A sheet slides up from the bottom.', '--dur-base · sheet'],
-  ['Press', 'press', 'A control darkens while held.', '--dur-instant'],
+  ['Press', 'press', 'A control shrinks to 97% while held.', '--dur-instant · ease-out'],
+  ['Pop', 'pop', 'A menu grows from its button, from 95%, never from nothing.', '--dur-menu · ease-out'],
 ];
 
 function Section({ id, eyebrow, title, children, lead }) {
@@ -67,6 +91,7 @@ function MotionTile({ name, kind, text, spec }) {
   else if (kind === 'spring') demo = <Switch on={on} label="Spring demo" onChange={setOn} />;
   else if (kind === 'slide') demo = <Button size="sm" onClick={() => setOn(true)}>Open a sheet</Button>;
   else if (kind === 'press') demo = <Button size="sm">Press and hold</Button>;
+  else if (kind === 'pop') demo = <PopUpMenu label="Pop demo" value={10} onChange={() => {}} items={[{ value: 0, label: 'At the adhan' }, { value: 10, label: '10 minutes before' }, { value: 30, label: '30 minutes before' }]} />;
   else if (kind === 'm-glow') demo = <div className="countdown soon m-glow kit-mini-count">04m 12s</div>;
   else demo = <div key={k} className={'kit-motion-box ' + kind}>Salat</div>;
   return (
@@ -86,6 +111,8 @@ export default function Kit() {
   const [chips, setChips] = useState({ fajr: true, dhuhr: false });
   const [seg, setSeg] = useState(10);
   const [sw, setSw] = useState(true);
+  const [method, setMethod] = useState('isna');
+  const [step, setStep] = useState(0);
   const [toast, setToast] = useState('');
   const [moment, setMoment] = useState(false);
   const [tokens, setTokens] = useState({});
@@ -115,7 +142,7 @@ export default function Kit() {
             <Segmented label="Theme" options={THEMES.filter((t) => t.id !== 'custom').map((t) => [t.id, t.name])} value={theme} onChange={setTheme} />
           </div>
           <nav className="kit-nav" aria-label="Kit sections">
-            {[['colour', 'Colour'], ['type', 'Type'], ['space', 'Space & shape'], ['icons', 'Icons'], ['components', 'Components'], ['motion', 'Motion'], ['patterns', 'Patterns'], ['talk', 'Talking design']]
+            {[['colour', 'Colour'], ['type', 'Type'], ['space', 'Space & shape'], ['icons', 'Icons'], ['components', 'Components'], ['lists', 'Lists & menus'], ['motion', 'Motion'], ['patterns', 'Patterns'], ['native', 'Swift'], ['talk', 'Talking design']]
               .map(([id, t]) => <a key={id} href={'#' + id}>{t}</a>)}
           </nav>
         </header>
@@ -161,7 +188,7 @@ export default function Kit() {
           <Say>Give the Night card more room: card pad step 5</Say>
         </Section>
 
-        <Section id="icons" eyebrow="4 · Icons" title="One drawing style, nineteen icons"
+        <Section id="icons" eyebrow="4 · Icons" title={`One drawing style, ${ICON_NAMES.length} icons`}
           lead="24 grid, 1.6 stroke, round ends, no fills, colour from the words beside them. Sizes: sm 15, md 20, lg 22.">
           <div className="kit-icons">
             {ICON_NAMES.map((n) => <div key={n}><Icon name={n} size="lg" /><code>{n}</code></div>)}
@@ -174,13 +201,14 @@ export default function Kit() {
           <div className="kit-comp">
             <Card padded as="div"><Label>Button</Label>
               <div className="stack">
-                <Button variant="primary" icon="cal">Primary</Button>
+                <Button variant="primary" size="lg" icon="cal">Primary · large</Button>
+                <Button variant="primary">Primary</Button>
+                <Button variant="tinted" icon="bell">Tinted</Button>
                 <Button icon="target">Secondary (default)</Button>
-                <Button variant="quiet">Quiet</Button>
-                <Button size="sm" icon="compass">Small</Button>
-                <Button disabled>Disabled</Button>
+                <Button variant="destructive">Destructive</Button>
+                <div className="kit-row"><Button variant="quiet" hug>Quiet</Button><Button size="sm" icon="compass">Small</Button><Button size="sm" disabled>Disabled</Button></div>
               </div>
-              <p className="kit-use">Primary: the one main action on a screen. Secondary: everything else. Quiet: low-stakes links like "Play again".</p>
+              <p className="kit-use">Primary (filled): the one main action. Tinted: a strong second action. Secondary (gray): everything else. Quiet: links like "Done". Destructive: only for removing things. Every button shrinks a little when pressed. Long words end in "…" and never wrap.</p>
             </Card>
             <Card padded as="div"><Label>Icon button · Switch · Tag · Status pill</Label>
               <div className="kit-row"><IconButton icon="left" label="Previous" /><IconButton icon="today" label="Today" /><IconButton icon="gear" label="Settings" /></div>
@@ -193,9 +221,9 @@ export default function Kit() {
                 <ChipRow>
                   {['fajr', 'dhuhr'].map((k) => <Chip key={k} icon={k} on={chips[k]} onClick={() => setChips({ ...chips, [k]: !chips[k] })}>{k[0].toUpperCase() + k.slice(1)}</Chip>)}
                 </ChipRow>
-                <Segmented label="Demo" options={[[0, 'At adhan'], [10, '10 min'], [30, '30 min']]} value={seg} onChange={setSeg} />
+                <Segmented label="Demo" options={[[0, 'On time'], [10, '10 min'], [30, '30 min']]} value={seg} onChange={setSeg} />
               </div>
-              <p className="kit-use">Chips: many can be on. Segmented: exactly one.</p>
+              <p className="kit-use">Chips: many can be on. Segmented: exactly one of two to five, always on one row; the thumb slides. More than five? Use a pop-up menu.</p>
             </Card>
             <Card padded as="div"><Label>Notice</Label>
               <div className="stack">
@@ -205,8 +233,9 @@ export default function Kit() {
             </Card>
             <Card padded as="div"><Label>Field · Swatch</Label>
               <div className="stack">
-                <Field label="Calculation method" htmlFor="k-sel" hint="A hint sits under the control.">
-                  <select id="k-sel" defaultValue="isna"><option value="isna">ISNA (North America)</option></select>
+                <Field label="Calculation method" hint="A hint sits under the control.">
+                  <PopUpMenu look="boxed" label="Calculation method" value={method} onChange={setMethod}
+                    items={Object.entries(METHODS).map(([k, v]) => ({ value: k, label: v.name }))} />
                 </Field>
                 <div className="swatches"><Swatch on colors={THEMES[0].chips}>{THEMES[0].name}</Swatch><Swatch colors={THEMES[1].chips}>{THEMES[1].name}</Swatch></div>
               </div>
@@ -221,14 +250,41 @@ export default function Kit() {
           <Say>Make "Test the alert" a quiet button</Say>
         </Section>
 
-        <Section id="motion" eyebrow="6 · Motion" title="Slow, calm, and named"
+        <Section id="lists" eyebrow="6 · Lists & menus" title="Settings are lists, choices are menus"
+          lead="Like iPhone Settings. Rows sit in grouped sections. A choice from many opens a pop-up menu that grows from its button, with a tick on the current one. A row with a chevron opens a page inside the sheet. Switches live only in rows.">
+          <div className="kit-comp">
+            <div className="stack">
+              <ListSection header="Prayer times" footer="A footer explains the section in one sentence.">
+                <Row icon="target" title="Method" accessory={<PopUpMenu label="Method" value={method} onChange={setMethod} items={Object.entries(METHODS).map(([k, v]) => ({ value: k, label: v.name }))} />} />
+                <Row icon="sliders" title="Adjustments" value="None" chevron onClick={() => showToast('Opens a page')} />
+                <Row icon="bell" title="Alerts" accessory={<Switch on={sw} label="Alerts" onChange={setSw} />} />
+                <Row icon="fajr" title="Fajr" accessory={<Stepper label="Fajr" value={step} onChange={setStep} />} />
+              </ListSection>
+            </div>
+            <Card padded as="div"><Label>Menu button (actions)</Label>
+              <div className="kit-row">
+                <MenuButton label="More actions" items={[
+                  { label: 'Share Times', icon: 'share', onSelect: () => showToast('Share') },
+                  { label: 'Add to Calendar', icon: 'cal', onSelect: () => showToast('Calendar') },
+                  { separator: true },
+                  { label: 'Reset Adjustments', destructive: true, onSelect: () => showToast('Reset') },
+                ]} />
+                <span className="t-caption">Three or more related actions behind one button. Destructive items are red and last.</span>
+              </div>
+              <p className="kit-use">Menus: verbs for actions ("Share Times"), Title Case, no "the". Pick-one menus show a tick on the current choice.</p>
+            </Card>
+          </div>
+          <Say>Put Asr in a pop-up menu instead of a segmented control</Say>
+        </Section>
+
+        <Section id="motion" eyebrow="7 · Motion" title="Slow, calm, and named"
           lead="Movement is drawn by code and stays slow. Loops pause when the page is hidden. With Reduce Motion on, everything is still.">
           <div className="kit-motions">{MOTIONS.map(([n, k, t, sp]) => <MotionTile key={n} name={n} kind={k} text={t} spec={sp} />)}</div>
           <p className="kit-lead">Canvas motions: <b>Ripple</b> (rings in the moment), <b>Twinkle</b> and <b>Shooting star</b> (the night sky). Their numbers live in <code>ui/motion.js</code>.</p>
           <Say>Make the moment's headline Rise a little later</Say>
         </Section>
 
-        <Section id="patterns" eyebrow="7 · Patterns" title="How pieces combine"
+        <Section id="patterns" eyebrow="8 · Patterns" title="How pieces combine"
           lead="A prayer row has three states. The order of a screen: what's next first, then today, then tools.">
           <Card>
             <div className="prayers">
@@ -239,7 +295,14 @@ export default function Kit() {
           </Card>
         </Section>
 
-        <Section id="talk" eyebrow="8 · Talking design" title="How we work together"
+        <Section id="native" eyebrow="9 · Swift" title="Same kit, two apps"
+          lead="The web app and the Swift app share these names. Each kit piece maps to a standard SwiftUI control, so the iPhone app gets real system menus, sheets and lists for free.">
+          <div className="kit-table">
+            {NATIVE.map(([k, v]) => <div key={k}><b>{k}</b><code>{v}</code></div>)}
+          </div>
+        </Section>
+
+        <Section id="talk" eyebrow="10 · Talking design" title="How we work together"
           lead="You are the designer; Claude is the engineer. These rules keep your design yours.">
           <ol className="kit-rules">
             <li><b>Name it from this kit.</b> "Primary button", "Notice, caution", "Title 2", "step 4", "Rise".</li>

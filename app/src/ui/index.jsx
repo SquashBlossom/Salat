@@ -5,21 +5,25 @@
 import { Icon } from './icons.jsx';
 
 export { Icon, IconSprite, ICON_NAMES } from './icons.jsx';
+export { PopUpMenu, MenuButton } from './Menu.jsx';
+export { ListSection, Row, Stepper } from './List.jsx';
+export { Sheet } from './Sheet.jsx';
 
 const cx = (...a) => a.filter(Boolean).join(' ');
 
-/** BUTTON. variant: 'secondary' (default) | 'primary' | 'quiet'. size: 'md' | 'sm'. */
-export function Button({ variant = 'secondary', size = 'md', icon, children, ...rest }) {
+/** BUTTON. variant: 'secondary' (gray, default) | 'primary' (filled) | 'tinted' | 'quiet' (plain) | 'destructive'.
+    size: 'lg' | 'md' | 'sm'. hug: as wide as its words instead of full width. One line; long words end in "…". */
+export function Button({ variant = 'secondary', size = 'md', hug = false, icon, children, ...rest }) {
   return (
-    <button type="button" className={cx('btn', variant !== 'secondary' && variant, size === 'sm' && 'sm')} {...rest}>
-      {icon && <Icon name={icon} />}{children}
+    <button type="button" className={cx('btn pressable', variant !== 'secondary' && variant, size !== 'md' && size, hug && 'hug')} {...rest}>
+      {icon && <Icon name={icon} />}{children != null && <span>{children}</span>}
     </button>
   );
 }
 
 /** ICON BUTTON. Always needs a label, read aloud by screen readers. */
 export function IconButton({ icon, label, ...rest }) {
-  return <button type="button" className="icon-btn" aria-label={label} {...rest}><Icon name={icon} /></button>;
+  return <button type="button" className="icon-btn pressable" aria-label={label} {...rest}><Icon name={icon} /></button>;
 }
 
 /** CARD. padded: true for content cards; false when the inside has its own rows. */
@@ -38,14 +42,19 @@ export function Notice({ tone = 'info', icon, children }) {
 
 /** CHIP. A toggle; many in a ChipRow can be on at once. */
 export function Chip({ on, icon, children, ...rest }) {
-  return <button type="button" className="chip" aria-pressed={!!on} {...rest}>{icon && <Icon name={icon} size="sm" />}{children}</button>;
+  return <button type="button" className="chip pressable" aria-pressed={!!on} {...rest}>{icon && <Icon name={icon} size="sm" />}{children}</button>;
 }
 export const ChipRow = ({ children }) => <div className="chip-row">{children}</div>;
 
-/** SEGMENTED. Pick exactly one. options: [[value, label], ...] */
+/** SEGMENTED. Pick exactly one of 2 to 5, on one row. options: [[value, label], ...]
+    More than 5 options? Use a PopUpMenu instead (Apple's rule for iPhone). */
 export function Segmented({ options, value, onChange, label }) {
+  if (import.meta.env.DEV && options.length > 5) console.error(`Segmented "${label}" has ${options.length} options; use a PopUpMenu.`);
+  const i = Math.max(0, options.findIndex(([v]) => v === value));
   return (
     <div className="segmented" role="group" aria-label={label}>
+      <span className="thumb" aria-hidden="true"
+        style={{ width: `calc((100% - 4px) / ${options.length})`, transform: `translateX(${i * 100}%)` }} />
       {options.map(([v, text]) => (
         <button key={v} type="button" aria-pressed={value === v} onClick={() => onChange(v)}>{text}</button>
       ))}
@@ -79,29 +88,13 @@ export function Field({ label, htmlFor, hint, children }) {
   );
 }
 
-/** SHEET. Slides up over the page; the scrim behind closes it. */
-export function Sheet({ open, title, onClose, children }) {
-  return (
-    <>
-      <div className={cx('scrim', open && 'on')} onClick={onClose} />
-      <div className={cx('sheet', open && 'on')} role="dialog" aria-modal="true" aria-label={title} aria-hidden={!open}>
-        <div className="grab" />
-        <div className="sheet-body">
-          <h2 className="t-title-3">{title}</h2>
-          {children}
-        </div>
-      </div>
-    </>
-  );
-}
-
 /** TOAST. A short confirmation. Shows while `message` is not empty. */
 export const Toast = ({ message }) => <div className={cx('toast', message && 'on')} role="status">{message}</div>;
 
 /** SWATCH. A theme choice showing its colours as dots. */
 export function Swatch({ on, colors, children, ...rest }) {
   return (
-    <button type="button" className="swatch" aria-pressed={!!on} {...rest}>
+    <button type="button" className="swatch pressable" aria-pressed={!!on} {...rest}>
       <span className="dots">{colors.map((c, i) => <i key={i} style={{ background: c }} />)}</span>{children}
     </button>
   );
