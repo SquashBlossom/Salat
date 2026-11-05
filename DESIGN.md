@@ -5,7 +5,8 @@ source_of_truth: app/src/styles/tokens.css
 living_kit: app/kit.html   # live at https://squashblossom.github.io/Salat/kit.html
 themes: [midnight, amethyst, grove, blossom, custom]
 colour_roles: [bg, surface, surface-sunk, line, line-strong, control, control-pressed, selected, text, text-2, text-3, label]
-signal_colours: { now: current prayer + primary actions, next: coming prayer + sun + soon, done: passed + horizon + success }
+signal_colours: { now: current prayer + primary actions + the 'now' line, next: coming prayer + sun's path + soon, done: passed + horizon + success }
+sun: { sun: warm white #FFF4DC, sun-glow: the path colour (gold in Blossom), sun-rim: thin edge }
 fonts: { ui: Space Grotesk, figures: IBM Plex Mono, arabic: Amiri }
 type_scale: [label 10, caption 12, small 13, ui 14, body 15, title-3 17, lead 20, title-2 22, title-1 26, figure 30, display 38-52, hero-arabic 64]
 space: [sp-1 4, sp-2 8, sp-3 12, sp-4 16, sp-5 20, sp-6 24, sp-8 32, sp-12 48]
@@ -63,6 +64,8 @@ Name the piece and what to change, using the words below. For example:
 - **Now** (`--now`): the current prayer, the main action on a screen.
 - **Next** (`--next`): the coming prayer, the sun, the countdown when under 10 minutes.
 - **Done** (`--done`): prayers already passed, the horizon line, a success.
+- **Sun** (`--sun`, `--sun-glow`, `--sun-rim`): the sun itself, in the arc and the 3D sky. Warm white (cream) with a glow in
+  its path's colour and a thin edge; in Blossom the glow and edge are gold so it stays visible. Chosen by the owner, Nov 5.
 - Calm roles: **bg** (page), **surface** / **surface-sunk** (a card's gradient), **line** / **line-strong**,
   **control** (button fill), **selected** (a chosen option), **text** / **text-2** / **text-3** / **label**.
 

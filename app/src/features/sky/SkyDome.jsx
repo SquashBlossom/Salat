@@ -93,6 +93,7 @@ export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady })
     controls.update();
 
     const cNow = color('--now'), cNext = color('--next'), cDone = color('--done');
+    const cSun = color('--sun'), cSunGlow = color('--sun-glow'); // the sun has its own colour (DESIGN.md: Sun)
     const cLine = color('--line-strong'), cText3 = color('--text-3'), cGround = color('--surface-sunk'), cGlow = color('--glow-1');
 
     // Ground and dome
@@ -165,7 +166,9 @@ export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady })
 
     // The sun, with a soft glow
     const sun = new THREE.Group();
-    sun.add(new THREE.Mesh(new THREE.SphereGeometry(0.42, 24, 16), new THREE.MeshBasicMaterial({ color: cNow })));
+    sun.add(new THREE.Mesh(new THREE.SphereGeometry(0.42, 24, 16), new THREE.MeshBasicMaterial({ color: cSun })));
+    // The sun's edge (like --sun-rim in the flat arc): a slightly larger sphere, seen only around the outline.
+    sun.add(new THREE.Mesh(new THREE.SphereGeometry(0.5, 24, 16), new THREE.MeshBasicMaterial({ color: cSunGlow, side: THREE.BackSide })));
     const glowTex = (() => {
       const c = document.createElement('canvas'); c.width = c.height = 128;
       const g = c.getContext('2d'), grad = g.createRadialGradient(64, 64, 0, 64, 64, 64);
@@ -174,7 +177,7 @@ export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady })
       g.fillStyle = grad; g.fillRect(0, 0, 128, 128);
       return new THREE.CanvasTexture(c);
     })();
-    const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: cNow, transparent: true, depthWrite: false }));
+    const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: cSunGlow, transparent: true, depthWrite: false }));
     glow.scale.set(3.2, 3.2, 1); sun.add(glow);
     scene.add(sun);
     const shadowLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]),

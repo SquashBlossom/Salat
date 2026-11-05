@@ -16,6 +16,7 @@
    next           THE COMING PRAYER, the sun, "soon"       (+ next-wash)
    done           PRAYERS PASSED, the horizon, success
    glow-1/2       the page's soft light;  statusbar: phone status bar
+   sun            the sun itself (warm white); sun-glow its halo; sun-rim its edge
    material       frosted surface for menus (derived: surface at 86%)
    on-now         text on a filled Now button */
 :root,[data-theme="midnight"]{
@@ -141,6 +142,7 @@
   --shadow-thumb: 0 2px 4px rgba(0, 0, 0, .28); /* a segmented thumb or switch knob */
   --blur-material: blur(24px) saturate(160%); /* MATERIAL: frosted glass for menus and bars */
   --star: #FFFFFF;              /* stars in the night sky */
+  --sun: #FFF4DC;               /* SUN: the sun itself, warm white (cream), in the arc and the 3D sky */
 
   /* ---------- LAYERS ---------- */
   --z-sky: 0; --z-page: 1; --z-scrim: 40; --z-sheet: 50; --z-menu: 55; --z-toast: 60; --z-moment: 80;
@@ -154,4 +156,12 @@
   --fill-pressed: color-mix(in srgb, var(--text) 15%, transparent);
   --tint: color-mix(in srgb, var(--now) 16%, transparent);         /* TINTED button fill */
   --separator: color-mix(in srgb, var(--text) 12%, transparent);   /* hairline inside lists and menus */
+  --sun-glow: var(--next);                                          /* the sun's halo: the colour of its path */
+  --sun-rim: color-mix(in srgb, var(--next) 55%, transparent);      /* a thin edge so the sun holds its shape */
+}
+
+/* Blossom is light and its path colour is blue: the sun gets a gold edge and glow so it stays visible and warm. */
+[data-theme="blossom"]{
+  --sun-glow: #F2B544;
+  --sun-rim: #D9962B;
 }

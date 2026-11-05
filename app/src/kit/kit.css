@@ -60,3 +60,9 @@
 .kit-table div:last-child{border-bottom:none}
 .kit-table code{color:var(--now-text);overflow-wrap:anywhere}
 @media (max-width:560px){.kit-table div{grid-template-columns:1fr;gap:2px}}
+
+.kit-sun-row{display:grid;grid-template-columns:1fr auto auto;gap:var(--sp-4);align-items:center;padding:var(--card-pad);border-radius:var(--r-lg);background:var(--surface-sunk)}
+.kit-sun-text{display:grid;gap:var(--sp-1);min-width:0}
+.kit-sun{margin:0;display:grid;gap:var(--sp-1);justify-items:center}
+.kit-sun svg{width:160px;height:90px;border-radius:var(--r-md);background:var(--bg)}
+@media (max-width:560px){.kit-sun-row{grid-template-columns:1fr 1fr}.kit-sun-text{grid-column:1 / -1}}

@@ -80,6 +80,21 @@ function Section({ id, eyebrow, title, children, lead }) {
   );
 }
 
+/** A small piece of the sun arc with the sun on it, to compare sun colours. */
+function SunSample({ fill, glow, rim, caption }) {
+  return (
+    <figure className="kit-sun">
+      <svg viewBox="0 0 160 90" role="img" aria-label={caption}>
+        <path d="M8 80 Q80 -20 152 80" fill="none" style={{ stroke: 'var(--next)' }} strokeWidth="1.6" strokeLinecap="round" opacity=".9" />
+        <line x1="104" y1="10" x2="104" y2="86" style={{ stroke: 'var(--now)' }} strokeWidth=".8" strokeOpacity=".45" />
+        <circle cx="104" cy="34" r="11" style={{ fill: glow }} opacity=".22" />
+        <circle cx="104" cy="34" r="5.4" style={{ fill, stroke: rim }} strokeWidth="1.2" />
+      </svg>
+      <figcaption className="t-caption">{caption}</figcaption>
+    </figure>
+  );
+}
+
 function Say({ children }) { return <p className="kit-say"><span>Say:</span> “{children}”</p>; }
 
 function MotionTile({ name, kind, text, spec }) {
@@ -160,6 +175,14 @@ export default function Kit() {
             {COLORS.map(([n, use]) => (
               <div key={n} className="kit-color"><i style={{ background: `var(--${n})` }} /><div><b>{n}</b><span className="t-caption">{use}</span><code className="kit-hex">{tokens[n]}</code></div></div>
             ))}
+          </div>
+          <div className="kit-sun-row">
+            <div className="kit-sun-text">
+              <b>Sun</b><code>--sun · --sun-glow · --sun-rim</code>
+              <span className="t-caption">The sun itself: warm white (cream) with a glow in its path's colour and a thin edge. Used for the sun in the arc and the 3D sky. The thin vertical line still means Now. In Blossom the glow and edge turn gold so the sun stays visible on light pink.</span>
+            </div>
+            <SunSample fill="var(--now)" glow="var(--now)" rim="transparent" caption="Before: Now colour" />
+            <SunSample fill="var(--sun)" glow="var(--sun-glow)" rim="var(--sun-rim)" caption="After: Sun" />
           </div>
           <Say>Make the Asr row use the Next colour</Say>
         </Section>

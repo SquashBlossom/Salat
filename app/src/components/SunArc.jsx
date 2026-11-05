@@ -80,8 +80,8 @@ export function SunArc({ day, loc, now, fmt }) {
       {sun && (
         <g className="sun-now">
           <line x1={sun.x} y1={top} x2={sun.x} y2={base - 2} style={{ stroke: 'var(--now)' }} strokeWidth=".8" strokeOpacity=".45" />
-          <circle className="m-breathe" cx={sun.x} cy={sun.y} r="7.5" style={{ fill: 'var(--now)' }} opacity=".16" />
-          <circle cx={sun.x} cy={sun.y} r="3.6" style={{ fill: 'var(--now)' }} />
+          <circle className="m-breathe" cx={sun.x} cy={sun.y} r="7.5" style={{ fill: 'var(--sun-glow)' }} opacity=".22" />
+          <circle cx={sun.x} cy={sun.y} r="3.6" style={{ fill: 'var(--sun)', stroke: 'var(--sun-rim)' }} strokeWidth=".8" />
         </g>
       )}
     </svg>
