@@ -34,6 +34,9 @@
 .btn.sm .icon{width:var(--icon-sm);height:var(--icon-sm)}
 .btn.sm::after{content:"";position:absolute;inset:-5px 0} /* keeps the tap area 44 tall */
 .btn.hug{width:auto}
+/* Buttons that hug their words (small, hug, and nav-bar buttons) never shrink or cut their label.
+   Safari otherwise squeezes them next to long text ("Now" became "N.."; "Done" could vanish). */
+.btn.sm,.btn.hug,.nav-bar .btn{flex:none;min-width:max-content}
 .btn[disabled]{opacity:.4;pointer-events:none}
 
 /* ---------- ICON BUTTON ----------  toolbar style: a glyph in a soft circle */

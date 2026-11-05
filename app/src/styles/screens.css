@@ -106,4 +106,5 @@
 .sky-time{font-size:var(--fs-title-1);font-weight:var(--fw-medium);letter-spacing:var(--ls-tight);color:var(--now)}
 .sky-readout .t-caption b{color:var(--next)}
 .sky-actions{display:flex;align-items:center;gap:var(--sp-3)}
+.sky-actions .t-caption{flex:1;min-width:0}
 .hero-more{display:flex;justify-content:flex-end;margin:calc(-1 * var(--sp-2)) 0 var(--sp-1)}
