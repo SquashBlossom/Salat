@@ -1,0 +1,1542 @@
+[
+ {
+  "place": "brooklyn",
+  "settings": {
+   "theme": "midnight",
+   "custom": {
+    "bg": "#1A1033",
+    "accent": "#5FE3C8",
+    "warn": "#FFC94A",
+    "ok": "#48D597"
+   },
+   "loc": {
+    "name": "Brooklyn",
+    "lat": 40.6782,
+    "lng": -73.9442,
+    "zone": "America/New_York"
+   },
+   "method": "isna",
+   "asr": 1,
+   "hiLat": "angle",
+   "fmt": 12,
+   "alarm": 10,
+   "adj": {
+    "fajr": 0,
+    "sunrise": 0,
+    "dhuhr": 0,
+    "asr": 0,
+    "maghrib": 0,
+    "isha": 0
+   },
+   "alerts": {
+    "enabled": true,
+    "lead": 0,
+    "prayers": {
+     "fajr": true,
+     "sunrise": false,
+     "dhuhr": true,
+     "asr": true,
+     "maghrib": true,
+     "isha": true
+    }
+   }
+  },
+  "from": "2026-11-04T17:00:00Z",
+  "date": [
+   2026,
+   11,
+   4
+  ],
+  "tz": -5,
+  "hours": {
+   "__adjusted": false,
+   "__polar": false,
+   "fajr": 5.208608389317494,
+   "sunrise": 6.49375033387409,
+   "dhuhr": 11.6723490922187,
+   "asr": 14.426114295083245,
+   "maghrib": 16.809354574354085,
+   "isha": 18.093648103127062
+  },
+  "wall": 1793810420457,
+  "alerts": [
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 14.426114295083245,
+    "prayerAt": 1793820334011,
+    "at": 1793820334011,
+    "title": "It's time for Asr",
+    "body": "2:26 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 16.80935457435409,
+    "prayerAt": 1793828913676,
+    "at": 1793828913676,
+    "title": "It's time for Maghrib",
+    "body": "4:49 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 18.093648103127066,
+    "prayerAt": 1793833537133,
+    "at": 1793833537133,
+    "title": "It's time for Isha",
+    "body": "6:06 PM · ⁨العشاء⁩"
+   },
+   {
+    "k": "fajr",
+    "en": "Fajr",
+    "ar": "الفجر",
+    "h": 5.225923380700973,
+    "prayerAt": 1793873613324,
+    "at": 1793873613324,
+    "title": "It's time for Fajr",
+    "body": "5:14 AM · ⁨الفجر⁩"
+   },
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 11.67277174594679,
+    "prayerAt": 1793896821978,
+    "at": 1793896821978,
+    "title": "It's time for Dhuhr",
+    "body": "11:40 AM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 14.41130771015812,
+    "prayerAt": 1793906680708,
+    "at": 1793906680708,
+    "title": "It's time for Asr",
+    "body": "2:25 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 16.79073816694134,
+    "prayerAt": 1793915246657,
+    "at": 1793915246657,
+    "title": "It's time for Maghrib",
+    "body": "4:47 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 18.077328635764907,
+    "prayerAt": 1793919878383,
+    "at": 1793919878383,
+    "title": "It's time for Isha",
+    "body": "6:05 PM · ⁨العشاء⁩"
+   }
+  ],
+  "altitudeAtNoonLocal": 33.59667349633132,
+  "qibla": 58.52452002924815,
+  "tzAt": -5
+ },
+ {
+  "place": "brooklyn",
+  "settings": {
+   "theme": "midnight",
+   "custom": {
+    "bg": "#1A1033",
+    "accent": "#5FE3C8",
+    "warn": "#FFC94A",
+    "ok": "#48D597"
+   },
+   "loc": {
+    "name": "Brooklyn",
+    "lat": 40.6782,
+    "lng": -73.9442,
+    "zone": "America/New_York"
+   },
+   "method": "isna",
+   "asr": 1,
+   "hiLat": "angle",
+   "fmt": 12,
+   "alarm": 10,
+   "adj": {
+    "fajr": 0,
+    "sunrise": 0,
+    "dhuhr": 0,
+    "asr": 0,
+    "maghrib": 0,
+    "isha": 0
+   },
+   "alerts": {
+    "enabled": true,
+    "lead": 0,
+    "prayers": {
+     "fajr": true,
+     "sunrise": false,
+     "dhuhr": true,
+     "asr": true,
+     "maghrib": true,
+     "isha": true
+    }
+   }
+  },
+  "from": "2026-11-01T04:00:00Z",
+  "date": [
+   2026,
+   11,
+   1
+  ],
+  "tz": -5,
+  "hours": {
+   "__adjusted": false,
+   "__polar": false,
+   "fajr": 5.156654139689209,
+   "sunrise": 6.4352852708176895,
+   "dhuhr": 11.67244912379781,
+   "asr": 14.472481197169458,
+   "maghrib": 16.867692760016805,
+   "isha": 18.14536172913247
+  },
+  "wall": 1793551220817,
+  "alerts": [
+   {
+    "k": "fajr",
+    "en": "Fajr",
+    "ar": "الفجر",
+    "h": 5.156654139689209,
+    "prayerAt": 1793527763955,
+    "at": 1793527763955,
+    "title": "It's time for Fajr",
+    "body": "5:09 AM · ⁨الفجر⁩"
+   },
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 11.672449123797811,
+    "prayerAt": 1793551220817,
+    "at": 1793551220817,
+    "title": "It's time for Dhuhr",
+    "body": "11:40 AM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 14.472481197169458,
+    "prayerAt": 1793561300932,
+    "at": 1793561300932,
+    "title": "It's time for Asr",
+    "body": "2:28 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 16.86769276001681,
+    "prayerAt": 1793569923694,
+    "at": 1793569923694,
+    "title": "It's time for Maghrib",
+    "body": "4:52 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 18.145361729132475,
+    "prayerAt": 1793574523302,
+    "at": 1793574523302,
+    "title": "It's time for Isha",
+    "body": "6:09 PM · ⁨العشاء⁩"
+   },
+   {
+    "k": "fajr",
+    "en": "Fajr",
+    "ar": "الفجر",
+    "h": 5.173970976937952,
+    "prayerAt": 1793614226296,
+    "at": 1793614226296,
+    "title": "It's time for Fajr",
+    "body": "5:10 AM · ⁨الفجر⁩"
+   },
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 11.672189822724292,
+    "prayerAt": 1793637619883,
+    "at": 1793637619883,
+    "title": "It's time for Dhuhr",
+    "body": "11:40 AM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 14.45671217788805,
+    "prayerAt": 1793647644164,
+    "at": 1793647644164,
+    "title": "It's time for Asr",
+    "body": "2:27 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 16.84784187393403,
+    "prayerAt": 1793656252231,
+    "at": 1793656252231,
+    "title": "It's time for Maghrib",
+    "body": "4:51 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 18.127671568411706,
+    "prayerAt": 1793660859618,
+    "at": 1793660859618,
+    "title": "It's time for Isha",
+    "body": "6:08 PM · ⁨العشاء⁩"
+   }
+  ],
+  "altitudeAtNoonLocal": 34.53025303794847,
+  "qibla": 58.52452002924815,
+  "tzAt": -4
+ },
+ {
+  "place": "brooklyn",
+  "settings": {
+   "theme": "midnight",
+   "custom": {
+    "bg": "#1A1033",
+    "accent": "#5FE3C8",
+    "warn": "#FFC94A",
+    "ok": "#48D597"
+   },
+   "loc": {
+    "name": "Brooklyn",
+    "lat": 40.6782,
+    "lng": -73.9442,
+    "zone": "America/New_York"
+   },
+   "method": "isna",
+   "asr": 2,
+   "hiLat": "angle",
+   "fmt": 12,
+   "alarm": 10,
+   "adj": {
+    "fajr": 0,
+    "sunrise": 0,
+    "dhuhr": 0,
+    "asr": 0,
+    "maghrib": 0,
+    "isha": 0
+   },
+   "alerts": {
+    "enabled": true,
+    "lead": 10,
+    "prayers": {
+     "fajr": true,
+     "sunrise": false,
+     "dhuhr": true,
+     "asr": true,
+     "maghrib": true,
+     "isha": true
+    }
+   }
+  },
+  "from": "2026-03-08T05:00:00Z",
+  "date": [
+   2026,
+   3,
+   8
+  ],
+  "tz": -4,
+  "hours": {
+   "__adjusted": false,
+   "__polar": false,
+   "fajr": 6.06402573457158,
+   "sunrise": 7.310435008843707,
+   "dhuhr": 13.124749394600654,
+   "asr": 17.16657998612009,
+   "maghrib": 18.91661307059582,
+   "isha": 20.16543898225468
+  },
+  "wall": 1772989649098,
+  "alerts": [
+   {
+    "k": "fajr",
+    "en": "Fajr",
+    "ar": "الفجر",
+    "h": 6.06402573457158,
+    "prayerAt": 1772964230493,
+    "at": 1772963630493,
+    "title": "Fajr in 10 min",
+    "body": "6:04 AM · ⁨الفجر⁩"
+   },
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 13.124749394600656,
+    "prayerAt": 1772989649098,
+    "at": 1772989049098,
+    "title": "Dhuhr in 10 min",
+    "body": "1:07 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 17.16657998612009,
+    "prayerAt": 1773004199688,
+    "at": 1773003599688,
+    "title": "Asr in 10 min",
+    "body": "5:10 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 18.916613070595815,
+    "prayerAt": 1773010499807,
+    "at": 1773009899807,
+    "title": "Maghrib in 10 min",
+    "body": "6:55 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 20.165438982254685,
+    "prayerAt": 1773014995580,
+    "at": 1773014395580,
+    "title": "Isha in 10 min",
+    "body": "8:10 PM · ⁨العشاء⁩"
+   },
+   {
+    "k": "fajr",
+    "en": "Fajr",
+    "ar": "الفجر",
+    "h": 6.037234215651438,
+    "prayerAt": 1773050534043,
+    "at": 1773049934043,
+    "title": "Fajr in 10 min",
+    "body": "6:02 AM · ⁨الفجر⁩"
+   },
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 13.12058051796705,
+    "prayerAt": 1773076034090,
+    "at": 1773075434090,
+    "title": "Dhuhr in 10 min",
+    "body": "1:07 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 17.18165168864438,
+    "prayerAt": 1773090653946,
+    "at": 1773090053946,
+    "title": "Asr in 10 min",
+    "body": "5:11 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 18.934974606379186,
+    "prayerAt": 1773096965909,
+    "at": 1773096365909,
+    "title": "Maghrib in 10 min",
+    "body": "6:56 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 20.184014383630355,
+    "prayerAt": 1773101462452,
+    "at": 1773100862452,
+    "title": "Isha in 10 min",
+    "body": "8:11 PM · ⁨العشاء⁩"
+   }
+  ],
+  "altitudeAtNoonLocal": 42.12406040867486,
+  "qibla": 58.52452002924815,
+  "tzAt": -5
+ },
+ {
+  "place": "london",
+  "settings": {
+   "theme": "midnight",
+   "custom": {
+    "bg": "#1A1033",
+    "accent": "#5FE3C8",
+    "warn": "#FFC94A",
+    "ok": "#48D597"
+   },
+   "loc": {
+    "name": "London",
+    "lat": 51.5074,
+    "lng": -0.1278,
+    "zone": "Europe/London"
+   },
+   "method": "mwl",
+   "asr": 1,
+   "hiLat": "angle",
+   "fmt": 12,
+   "alarm": 10,
+   "adj": {
+    "fajr": 0,
+    "sunrise": 0,
+    "dhuhr": 0,
+    "asr": 0,
+    "maghrib": 0,
+    "isha": 0
+   },
+   "alerts": {
+    "enabled": true,
+    "lead": 0,
+    "prayers": {
+     "fajr": true,
+     "sunrise": false,
+     "dhuhr": true,
+     "asr": true,
+     "maghrib": true,
+     "isha": true
+    }
+   }
+  },
+  "from": "2026-06-21T10:00:00Z",
+  "date": [
+   2026,
+   6,
+   21
+  ],
+  "tz": 1,
+  "hours": {
+   "__adjusted": true,
+   "__polar": false,
+   "fajr": 2.5107431911613993,
+   "sunrise": 4.718468198547982,
+   "dhuhr": 13.055637579898862,
+   "asr": 17.419768769098656,
+   "maghrib": 21.359384840592707,
+   "isha": 23.444458458680035
+  },
+  "wall": 1782043400295,
+  "alerts": [
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 13.055637579898864,
+    "prayerAt": 1782043400295,
+    "at": 1782043400295,
+    "title": "It's time for Dhuhr",
+    "body": "1:03 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 17.419768769098653,
+    "prayerAt": 1782059111168,
+    "at": 1782059111168,
+    "title": "It's time for Asr",
+    "body": "5:25 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 21.35938484059271,
+    "prayerAt": 1782073293785,
+    "at": 1782073293785,
+    "title": "It's time for Maghrib",
+    "body": "9:22 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 23.44445845868003,
+    "prayerAt": 1782080800050,
+    "at": 1782080800050,
+    "title": "It's time for Isha",
+    "body": "11:27 PM · ⁨العشاء⁩"
+   },
+   {
+    "k": "fajr",
+    "en": "Fajr",
+    "ar": "الفجر",
+    "h": 2.514292829966493,
+    "prayerAt": 1782091851454,
+    "at": 1782091851454,
+    "title": "It's time for Fajr",
+    "body": "2:31 AM · ⁨الفجر⁩"
+   },
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 13.059258587521114,
+    "prayerAt": 1782129813331,
+    "at": 1782129813331,
+    "title": "It's time for Dhuhr",
+    "body": "1:04 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 17.42317028447836,
+    "prayerAt": 1782145523413,
+    "at": 1782145523413,
+    "title": "It's time for Asr",
+    "body": "5:25 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 21.362162073300496,
+    "prayerAt": 1782159703783,
+    "at": 1782159703783,
+    "title": "It's time for Maghrib",
+    "body": "9:22 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 23.447548331951012,
+    "prayerAt": 1782167211174,
+    "at": 1782167211174,
+    "title": "It's time for Isha",
+    "body": "11:27 PM · ⁨العشاء⁩"
+   }
+  ],
+  "altitudeAtNoonLocal": 59.47058889346684,
+  "qibla": 118.98721949633443,
+  "tzAt": 1
+ },
+ {
+  "place": "london",
+  "settings": {
+   "theme": "midnight",
+   "custom": {
+    "bg": "#1A1033",
+    "accent": "#5FE3C8",
+    "warn": "#FFC94A",
+    "ok": "#48D597"
+   },
+   "loc": {
+    "name": "London",
+    "lat": 51.5074,
+    "lng": -0.1278,
+    "zone": "Europe/London"
+   },
+   "method": "mwl",
+   "asr": 1,
+   "hiLat": "seventh",
+   "fmt": 12,
+   "alarm": 10,
+   "adj": {
+    "fajr": 0,
+    "sunrise": 0,
+    "dhuhr": 0,
+    "asr": 0,
+    "maghrib": 0,
+    "isha": 0
+   },
+   "alerts": {
+    "enabled": true,
+    "lead": 0,
+    "prayers": {
+     "fajr": true,
+     "sunrise": false,
+     "dhuhr": true,
+     "asr": true,
+     "maghrib": true,
+     "isha": true
+    }
+   }
+  },
+  "from": "2026-06-21T10:00:00Z",
+  "date": [
+   2026,
+   6,
+   21
+  ],
+  "tz": 1,
+  "hours": {
+   "__adjusted": true,
+   "__polar": false,
+   "fajr": 3.6671705759829427,
+   "sunrise": 4.718468198547982,
+   "dhuhr": 13.055637579898862,
+   "asr": 17.419768769098656,
+   "maghrib": 21.359384840592707,
+   "isha": 22.410682463157748
+  },
+  "wall": 1782043400295,
+  "alerts": [
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 13.055637579898864,
+    "prayerAt": 1782043400295,
+    "at": 1782043400295,
+    "title": "It's time for Dhuhr",
+    "body": "1:03 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 17.419768769098653,
+    "prayerAt": 1782059111168,
+    "at": 1782059111168,
+    "title": "It's time for Asr",
+    "body": "5:25 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 21.35938484059271,
+    "prayerAt": 1782073293785,
+    "at": 1782073293785,
+    "title": "It's time for Maghrib",
+    "body": "9:22 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 22.410682463157748,
+    "prayerAt": 1782077078457,
+    "at": 1782077078457,
+    "title": "It's time for Isha",
+    "body": "10:25 PM · ⁨العشاء⁩"
+   },
+   {
+    "k": "fajr",
+    "en": "Fajr",
+    "ar": "الفجر",
+    "h": 3.6708936120751865,
+    "prayerAt": 1782096015217,
+    "at": 1782096015217,
+    "title": "It's time for Fajr",
+    "body": "3:40 AM · ⁨الفجر⁩"
+   },
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 13.059258587521114,
+    "prayerAt": 1782129813331,
+    "at": 1782129813331,
+    "title": "It's time for Dhuhr",
+    "body": "1:04 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 17.42317028447836,
+    "prayerAt": 1782145523413,
+    "at": 1782145523413,
+    "title": "It's time for Asr",
+    "body": "5:25 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 21.362162073300496,
+    "prayerAt": 1782159703783,
+    "at": 1782159703783,
+    "title": "It's time for Maghrib",
+    "body": "9:22 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 22.413617329762943,
+    "prayerAt": 1782163489022,
+    "at": 1782163489022,
+    "title": "It's time for Isha",
+    "body": "10:25 PM · ⁨العشاء⁩"
+   }
+  ],
+  "altitudeAtNoonLocal": 59.47058889346684,
+  "qibla": 118.98721949633443,
+  "tzAt": 1
+ },
+ {
+  "place": "stockholm",
+  "settings": {
+   "theme": "midnight",
+   "custom": {
+    "bg": "#1A1033",
+    "accent": "#5FE3C8",
+    "warn": "#FFC94A",
+    "ok": "#48D597"
+   },
+   "loc": {
+    "name": "Stockholm",
+    "lat": 59.3293,
+    "lng": 18.0686,
+    "zone": "Europe/Stockholm"
+   },
+   "method": "mwl",
+   "asr": 1,
+   "hiLat": "middle",
+   "fmt": 12,
+   "alarm": 10,
+   "adj": {
+    "fajr": 0,
+    "sunrise": 0,
+    "dhuhr": 0,
+    "asr": 0,
+    "maghrib": 0,
+    "isha": 0
+   },
+   "alerts": {
+    "enabled": true,
+    "lead": 0,
+    "prayers": {
+     "fajr": true,
+     "sunrise": true,
+     "dhuhr": true,
+     "asr": true,
+     "maghrib": true,
+     "isha": true
+    }
+   }
+  },
+  "from": "2026-06-21T10:00:00Z",
+  "date": [
+   2026,
+   6,
+   21
+  ],
+  "tz": 2,
+  "hours": {
+   "__adjusted": true,
+   "__polar": false,
+   "fajr": 0.8256382865024046,
+   "sunrise": 3.5151415161022994,
+   "dhuhr": 12.842360898757653,
+   "asr": 17.49604137027372,
+   "maghrib": 22.13613505690251,
+   "isha": 24.825638286502407
+  },
+  "wall": 1782039032499,
+  "alerts": [
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 12.842360898757654,
+    "prayerAt": 1782039032499,
+    "at": 1782039032499,
+    "title": "It's time for Dhuhr",
+    "body": "12:51 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 17.496041370273716,
+    "prayerAt": 1782055785749,
+    "at": 1782055785749,
+    "title": "It's time for Asr",
+    "body": "5:30 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 22.13613505690251,
+    "prayerAt": 1782072490086,
+    "at": 1782072490086,
+    "title": "It's time for Maghrib",
+    "body": "10:08 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 0.8256382865024072,
+    "prayerAt": 1782082172298,
+    "at": 1782082172298,
+    "title": "It's time for Isha",
+    "body": "12:50 AM · ⁨العشاء⁩"
+   },
+   {
+    "k": "fajr",
+    "en": "Fajr",
+    "ar": "الفجر",
+    "h": 0.8287049883271784,
+    "prayerAt": 1782082183338,
+    "at": 1782082183338,
+    "title": "It's time for Fajr",
+    "body": "12:50 AM · ⁨الفجر⁩"
+   },
+   {
+    "k": "sunrise",
+    "en": "Sunrise",
+    "ar": "الشروق",
+    "h": 3.5190704770078796,
+    "prayerAt": 1782091868654,
+    "at": 1782091868654,
+    "title": "It's time for Sunrise",
+    "body": "3:31 AM · ⁨الشروق⁩"
+   },
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 12.845982572034757,
+    "prayerAt": 1782125445537,
+    "at": 1782125445537,
+    "title": "It's time for Dhuhr",
+    "body": "12:51 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 17.499338623697724,
+    "prayerAt": 1782142197619,
+    "at": 1782142197619,
+    "title": "It's time for Asr",
+    "body": "5:30 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 22.138339499646477,
+    "prayerAt": 1782158898022,
+    "at": 1782158898022,
+    "title": "It's time for Maghrib",
+    "body": "10:08 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 0.8287049883271784,
+    "prayerAt": 1782168583338,
+    "at": 1782168583338,
+    "title": "It's time for Isha",
+    "body": "12:50 AM · ⁨العشاء⁩"
+   }
+  ],
+  "altitudeAtNoonLocal": 53.05530643830249,
+  "qibla": 148.2366209650295,
+  "tzAt": 2
+ },
+ {
+  "place": "reykjavik",
+  "settings": {
+   "theme": "midnight",
+   "custom": {
+    "bg": "#1A1033",
+    "accent": "#5FE3C8",
+    "warn": "#FFC94A",
+    "ok": "#48D597"
+   },
+   "loc": {
+    "name": "Reykjavik",
+    "lat": 64.1466,
+    "lng": -21.9426,
+    "zone": "Atlantic/Reykjavik"
+   },
+   "method": "isna",
+   "asr": 1,
+   "hiLat": "none",
+   "fmt": 12,
+   "alarm": 10,
+   "adj": {
+    "fajr": 0,
+    "sunrise": 0,
+    "dhuhr": 0,
+    "asr": 0,
+    "maghrib": 0,
+    "isha": 0
+   },
+   "alerts": {
+    "enabled": true,
+    "lead": 0,
+    "prayers": {
+     "fajr": true,
+     "sunrise": false,
+     "dhuhr": true,
+     "asr": true,
+     "maghrib": true,
+     "isha": true
+    }
+   }
+  },
+  "from": "2026-06-21T12:00:00Z",
+  "date": [
+   2026,
+   6,
+   21
+  ],
+  "tz": 0,
+  "hours": {
+   "__adjusted": false,
+   "__polar": false,
+   "fajr": null,
+   "sunrise": 2.9203594538873325,
+   "dhuhr": 13.5101773529928,
+   "asr": 18.37529719994995,
+   "maghrib": 24.06608420093268,
+   "isha": null
+  },
+  "wall": 1782048636638,
+  "alerts": [
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 13.510177352992798,
+    "prayerAt": 1782048636638,
+    "at": 1782048636638,
+    "title": "It's time for Dhuhr",
+    "body": "1:31 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 18.375297199949955,
+    "prayerAt": 1782066151070,
+    "at": 1782066151070,
+    "title": "It's time for Asr",
+    "body": "6:23 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 0.06608420093267853,
+    "prayerAt": 1782086637903,
+    "at": 1782086637903,
+    "title": "It's time for Maghrib",
+    "body": "12:04 AM · ⁨المغرب⁩"
+   },
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 13.513797540407388,
+    "prayerAt": 1782135049671,
+    "at": 1782135049671,
+    "title": "It's time for Dhuhr",
+    "body": "1:31 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 18.378440946361025,
+    "prayerAt": 1782152562387,
+    "at": 1782152562387,
+    "title": "It's time for Asr",
+    "body": "6:23 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 0.06613326634000316,
+    "prayerAt": 1782173038080,
+    "at": 1782173038080,
+    "title": "It's time for Maghrib",
+    "body": "12:04 AM · ⁨المغرب⁩"
+   }
+  ],
+  "altitudeAtNoonLocal": 46.70397126064374,
+  "qibla": 106.1176391053466,
+  "tzAt": 0
+ },
+ {
+  "place": "sydney",
+  "settings": {
+   "theme": "midnight",
+   "custom": {
+    "bg": "#1A1033",
+    "accent": "#5FE3C8",
+    "warn": "#FFC94A",
+    "ok": "#48D597"
+   },
+   "loc": {
+    "name": "Sydney",
+    "lat": -33.8688,
+    "lng": 151.2093,
+    "zone": "Australia/Sydney"
+   },
+   "method": "mwl",
+   "asr": 1,
+   "hiLat": "angle",
+   "fmt": 12,
+   "alarm": 10,
+   "adj": {
+    "fajr": 2,
+    "sunrise": 0,
+    "dhuhr": 0,
+    "asr": 0,
+    "maghrib": 0,
+    "isha": -3
+   },
+   "alerts": {
+    "enabled": true,
+    "lead": 0,
+    "prayers": {
+     "fajr": true,
+     "sunrise": false,
+     "dhuhr": true,
+     "asr": true,
+     "maghrib": true,
+     "isha": true
+    }
+   }
+  },
+  "from": "2026-10-04T00:00:00Z",
+  "date": [
+   2026,
+   10,
+   4
+  ],
+  "tz": 11,
+  "hours": {
+   "__adjusted": false,
+   "__polar": false,
+   "fajr": 5.103735126186998,
+   "sunrise": 6.47936973523505,
+   "dhuhr": 12.749974157178169,
+   "asr": 16.2796523764991,
+   "maghrib": 18.996339483008278,
+   "isha": 20.27450069194344
+  },
+  "wall": 1791078299907,
+  "alerts": [
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 12.749974157178173,
+    "prayerAt": 1791078299907,
+    "at": 1791078299907,
+    "title": "It's time for Dhuhr",
+    "body": "12:45 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 16.2796523764991,
+    "prayerAt": 1791091006749,
+    "at": 1791091006749,
+    "title": "It's time for Asr",
+    "body": "4:17 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 18.996339483008278,
+    "prayerAt": 1791100786822,
+    "at": 1791100786822,
+    "title": "It's time for Maghrib",
+    "body": "7:00 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 20.274500691943445,
+    "prayerAt": 1791105388202,
+    "at": 1791105388202,
+    "title": "It's time for Isha",
+    "body": "8:16 PM · ⁨العشاء⁩"
+   },
+   {
+    "k": "fajr",
+    "en": "Fajr",
+    "ar": "الفجر",
+    "h": 5.0786631926593735,
+    "prayerAt": 1791137083187,
+    "at": 1791137083187,
+    "title": "It's time for Fajr",
+    "body": "5:05 AM · ⁨الفجر⁩"
+   },
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 12.744879507228433,
+    "prayerAt": 1791164681566,
+    "at": 1791164681566,
+    "title": "It's time for Dhuhr",
+    "body": "12:45 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 16.28208140288124,
+    "prayerAt": 1791177415493,
+    "at": 1791177415493,
+    "title": "It's time for Asr",
+    "body": "4:17 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 19.0086942202203,
+    "prayerAt": 1791187231299,
+    "at": 1791187231299,
+    "title": "It's time for Maghrib",
+    "body": "7:01 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 20.28922873797515,
+    "prayerAt": 1791191841223,
+    "at": 1791191841223,
+    "title": "It's time for Isha",
+    "body": "8:17 PM · ⁨العشاء⁩"
+   }
+  ],
+  "altitudeAtNoonLocal": 58.69389896030408,
+  "qibla": 277.4995891209515,
+  "tzAt": 11
+ },
+ {
+  "place": "mecca",
+  "settings": {
+   "theme": "midnight",
+   "custom": {
+    "bg": "#1A1033",
+    "accent": "#5FE3C8",
+    "warn": "#FFC94A",
+    "ok": "#48D597"
+   },
+   "loc": {
+    "name": "Mecca",
+    "lat": 21.4225,
+    "lng": 39.8262,
+    "zone": "Asia/Riyadh"
+   },
+   "method": "makkah",
+   "asr": 1,
+   "hiLat": "angle",
+   "fmt": 24,
+   "alarm": 10,
+   "adj": {
+    "fajr": 0,
+    "sunrise": 0,
+    "dhuhr": 0,
+    "asr": 0,
+    "maghrib": 0,
+    "isha": 0
+   },
+   "alerts": {
+    "enabled": true,
+    "lead": 30,
+    "prayers": {
+     "fajr": true,
+     "sunrise": false,
+     "dhuhr": true,
+     "asr": true,
+     "maghrib": true,
+     "isha": true
+    }
+   }
+  },
+  "from": "2026-11-04T09:00:00Z",
+  "date": [
+   2026,
+   11,
+   4
+  ],
+  "tz": 3,
+  "hours": {
+   "__adjusted": false,
+   "__polar": false,
+   "fajr": 5.121954756751116,
+   "sunrise": 6.420794311832152,
+   "dhuhr": 12.087569963401052,
+   "asr": 15.310475670980962,
+   "maghrib": 17.71697846589487,
+   "isha": 19.21697846589487
+  },
+  "wall": 1793783115252,
+  "alerts": [
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 15.310475670980964,
+    "prayerAt": 1793794717712,
+    "at": 1793792917712,
+    "title": "Asr in 30 min",
+    "body": "15:19 · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 17.71697846589487,
+    "prayerAt": 1793803381122,
+    "at": 1793801581122,
+    "title": "Maghrib in 30 min",
+    "body": "17:43 · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 19.21697846589487,
+    "prayerAt": 1793808781122,
+    "at": 1793806981122,
+    "title": "Isha in 30 min",
+    "body": "19:13 · ⁨العشاء⁩"
+   },
+   {
+    "k": "fajr",
+    "en": "Fajr",
+    "ar": "الفجر",
+    "h": 5.129079218003351,
+    "prayerAt": 1793844464685,
+    "at": 1793842664685,
+    "title": "Fajr in 30 min",
+    "body": "05:08 · ⁨الفجر⁩"
+   },
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 12.087919949097824,
+    "prayerAt": 1793869516512,
+    "at": 1793867716512,
+    "title": "Dhuhr in 30 min",
+    "body": "12:05 · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 15.305316858391876,
+    "prayerAt": 1793881099141,
+    "at": 1793879299141,
+    "title": "Asr in 30 min",
+    "body": "15:18 · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 17.708857259467564,
+    "prayerAt": 1793889751886,
+    "at": 1793887951886,
+    "title": "Maghrib in 30 min",
+    "body": "17:43 · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 19.208857259467564,
+    "prayerAt": 1793895151886,
+    "at": 1793893351886,
+    "title": "Isha in 30 min",
+    "body": "19:13 · ⁨العشاء⁩"
+   }
+  ],
+  "altitudeAtNoonLocal": 53.144150706655125,
+  "qibla": 0,
+  "tzAt": 3
+ },
+ {
+  "place": "tehran",
+  "settings": {
+   "theme": "midnight",
+   "custom": {
+    "bg": "#1A1033",
+    "accent": "#5FE3C8",
+    "warn": "#FFC94A",
+    "ok": "#48D597"
+   },
+   "loc": {
+    "name": "Tehran",
+    "lat": 35.6892,
+    "lng": 51.389,
+    "zone": "Asia/Tehran"
+   },
+   "method": "jafari",
+   "asr": 1,
+   "hiLat": "angle",
+   "fmt": 12,
+   "alarm": 10,
+   "adj": {
+    "fajr": 0,
+    "sunrise": 0,
+    "dhuhr": 0,
+    "asr": 0,
+    "maghrib": 0,
+    "isha": 0
+   },
+   "alerts": {
+    "enabled": true,
+    "lead": 0,
+    "prayers": {
+     "fajr": true,
+     "sunrise": false,
+     "dhuhr": true,
+     "asr": true,
+     "maghrib": true,
+     "isha": true
+    }
+   }
+  },
+  "from": "2026-03-21T06:00:00Z",
+  "date": [
+   2026,
+   3,
+   21
+  ],
+  "tz": 3.5,
+  "hours": {
+   "__adjusted": false,
+   "__polar": false,
+   "fajr": 4.864166836000068,
+   "sunrise": 6.117667463851264,
+   "dhuhr": 12.210878160480322,
+   "asr": 15.651734605246176,
+   "maghrib": 18.280341520761045,
+   "isha": 19.368870477299513
+  },
+  "wall": 1774082559161,
+  "alerts": [
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 12.21087816048032,
+    "prayerAt": 1774082559161,
+    "at": 1774082559161,
+    "title": "It's time for Dhuhr",
+    "body": "12:13 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 15.651734605246176,
+    "prayerAt": 1774094946245,
+    "at": 1774094946245,
+    "title": "It's time for Asr",
+    "body": "3:39 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 18.28034152076104,
+    "prayerAt": 1774104409229,
+    "at": 1774104409229,
+    "title": "It's time for Maghrib",
+    "body": "6:17 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 19.36887047729951,
+    "prayerAt": 1774108327934,
+    "at": 1774108327934,
+    "title": "It's time for Isha",
+    "body": "7:22 PM · ⁨العشاء⁩"
+   },
+   {
+    "k": "fajr",
+    "en": "Fajr",
+    "ar": "الفجر",
+    "h": 4.839030835149231,
+    "prayerAt": 1774142420511,
+    "at": 1774142420511,
+    "title": "It's time for Fajr",
+    "body": "4:50 AM · ⁨الفجر⁩"
+   },
+   {
+    "k": "dhuhr",
+    "en": "Dhuhr",
+    "ar": "الظهر",
+    "h": 12.205913909449727,
+    "prayerAt": 1774168941290,
+    "at": 1774168941290,
+    "title": "It's time for Dhuhr",
+    "body": "12:12 PM · ⁨الظهر⁩"
+   },
+   {
+    "k": "asr",
+    "en": "Asr",
+    "ar": "العصر",
+    "h": 15.656977924215127,
+    "prayerAt": 1774181365121,
+    "at": 1774181365121,
+    "title": "It's time for Asr",
+    "body": "3:39 PM · ⁨العصر⁩"
+   },
+   {
+    "k": "maghrib",
+    "en": "Maghrib",
+    "ar": "المغرب",
+    "h": 18.29429435143873,
+    "prayerAt": 1774190859460,
+    "at": 1774190859460,
+    "title": "It's time for Maghrib",
+    "body": "6:18 PM · ⁨المغرب⁩"
+   },
+   {
+    "k": "isha",
+    "en": "Isha",
+    "ar": "العشاء",
+    "h": 19.38384929347984,
+    "prayerAt": 1774194781857,
+    "at": 1774194781857,
+    "title": "It's time for Isha",
+    "body": "7:23 PM · ⁨العشاء⁩"
+   }
+  ],
+  "altitudeAtNoonLocal": 54.500585187042645,
+  "qibla": 218.40101928901848,
+  "tzAt": 3.5
+ }
+]

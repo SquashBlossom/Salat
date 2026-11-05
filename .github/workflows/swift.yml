@@ -1,0 +1,25 @@
+# Checks the Swift prayer math (native/SalatCore) on every push:
+# 1. the saved JavaScript answers are up to date with shared/ (fixtures not stale), and
+# 2. the Swift code gives the same answers.
+name: Swift prayer math
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fixtures match today's JavaScript
+        run: |
+          node native/SalatCore/scripts/make-fixtures.mjs
+          git diff --exit-code -- native/SalatCore/Tests/SalatCoreTests/Fixtures || (echo "::error::shared/ changed: run 'node native/SalatCore/scripts/make-fixtures.mjs' and commit" && exit 1)
+      - name: Swift tests
+        run: swift test --package-path native/SalatCore

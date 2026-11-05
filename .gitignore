@@ -18,3 +18,8 @@ lacuna-agentic-sdk/
 scratch/
 
 .DS_Store
+
+# Swift build output
+.build/
+*.xcodeproj/xcuserdata/
+DerivedData/

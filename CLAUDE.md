@@ -15,8 +15,9 @@ A prayer-times app: Vite + React web app (`app/`), Node + SQLite server (`server
 - Layout and flow are best sketched in a design canvas first; behaviour in code (docs/RESOURCES.md §1).
 
 ## State (update this list when it changes)
-- Done: app rebuild, in-app alerts, push server (tested locally), design kit + app kit (menus, lists, sheets with pages), Swift token export.
-- Waiting: Fly key from Alfred (then deploy the server and set the `SALAT_API_URL` repo variable); a Swift wrapper for lock-screen widgets and Live Activities.
+- Done: app rebuild, in-app alerts, push server (tested locally), design kit + app kit (menus, lists, sheets with pages), Swift token export, compass fix for landscape (confirmed on her iPad), Swift prayer math `native/SalatCore` (matches the JS; CI checks it).
+- Waiting: Fly key from Alfred (then deploy the server and set the `SALAT_API_URL` repo variable). Swift app: who has the Mac, whether Alfred's Lacuna kit wraps it, Apple Developer account?
+- Swift next: Xcode project via XcodeGen, local alerts (60 of iOS's 64), widgets, Live Activity. Swift 6 for Linux can run `swift test` in a cloud session (download from swift.org, verify the signature).
 - Next feature ideas: roadmap page, ten ideas; Gemma 4 E2B ("2B") is the chosen model.
 
 ## AI rules (Lacuna)
