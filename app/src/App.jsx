@@ -1,7 +1,7 @@
 /* The app shell: loads settings, keeps the clock, and lays out the screen.
    Owns: app state (settings, the day on view, the sheet, toasts, the alert moment).
    Refuses: math (shared/), storage details (data/), and drawing (components/). */
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { METHODS } from '@salat/shared/methods';
 import { withDefaults, dayTimes, events, partsIn, shiftDay } from '@salat/shared/schedule';
 import { loadSettings, saveSettings } from './data/store.js';
@@ -17,6 +17,8 @@ import { AlertMoment } from './features/alerts/AlertMoment.jsx';
 import { useInAppAlerts } from './features/alerts/useInAppAlerts.js';
 
 const DAY = 864e5;
+// The 3D sky downloads only when someone opens it.
+const SkySheet = lazy(() => import('./features/sky/SkySheet.jsx'));
 
 function applyTheme(s) {
   const root = document.documentElement;
@@ -68,6 +70,7 @@ export default function App() {
   const [now, setNow] = useState(() => new Date());
   const [sheet, setSheet] = useState({ open: false, search: false });
   const [moment, setMoment] = useState(null);
+  const [sky, setSky] = useState({ open: false, mounted: false });
   const [msg, toast] = useToast();
   const offline = useOfflineStatus();
 
@@ -98,7 +101,7 @@ export default function App() {
   useEffect(() => {
     const start = (e) => { touch.current = [e.touches[0].clientX, e.touches[0].clientY]; };
     const end = (e) => {
-      if (!touch.current || sheet.open || moment) return;
+      if (!touch.current || sheet.open || sky.open || moment) return;
       const dx = e.changedTouches[0].clientX - touch.current[0], dy = e.changedTouches[0].clientY - touch.current[1];
       if (Math.abs(dx) > 80 && Math.abs(dy) < 35 && Math.abs(dx) > Math.abs(dy) * 2.5) setViewDate((d) => new Date(d.getTime() + (dx < 0 ? DAY : -DAY)));
       touch.current = null;
@@ -106,7 +109,7 @@ export default function App() {
     document.addEventListener('touchstart', start, { passive: true });
     document.addEventListener('touchend', end, { passive: true });
     return () => { document.removeEventListener('touchstart', start); document.removeEventListener('touchend', end); };
-  }, [sheet.open, moment]);
+  }, [sheet.open, sky.open, moment]);
 
   const downloadICS = () => {
     const blob = new Blob([buildICS(s, 30)], { type: 'text/calendar;charset=utf-8' });
@@ -132,7 +135,7 @@ export default function App() {
           onToday={() => { setViewDate(new Date()); toast('Back to today'); }}
           onSettings={() => setSheet({ open: true, search: false })}
           onLocation={() => setSheet({ open: true, search: true })} />
-        <Hero s={s} today={view.today} cur={cur} next={next} now={now} />
+        <Hero s={s} today={view.today} cur={cur} next={next} now={now} onOpenSky={() => setSky({ open: true, mounted: true })} />
         <HighLatFlag s={s} today={view.today} />
         <Ledger s={s} today={view.today} cur={cur} next={next} now={now} />
         <AlertsCard settings={s} update={update} toast={toast} />
@@ -152,6 +155,11 @@ export default function App() {
         </footer>
       </main>
       <SettingsSheet open={sheet.open} focusSearch={sheet.search} s={s} update={update} toast={toast} onClose={() => setSheet({ open: false, search: false })} />
+      {sky.mounted && (
+        <Suspense fallback={null}>
+          <SkySheet open={sky.open} onClose={() => setSky((x) => ({ ...x, open: false }))} s={s} today={view.today} />
+        </Suspense>
+      )}
       <Toast message={msg} />
       {moment && <AlertMoment alert={moment} onClose={() => setMoment(null)} />}
     </>

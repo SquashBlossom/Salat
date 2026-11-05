@@ -98,6 +98,7 @@ cal, compass, target, today, alert, globe, bell, lock, share, check, updown, mor
 | **Menu button** | a list of 3+ actions; destructive items red | Actions behind one button |
 | **List section · Row** | header, footer; row with icon, value, chevron, tick, or a control | Settings and any list of options |
 | **Stepper** | − value + | Small whole numbers, like minutes |
+| **Slider** | value along a track; optional coloured tick marks | Scrubbing through time (the 3D sky) |
 | **Switch** | on · off | A whole feature |
 | **Tag** | now · next | A state word inside a row |
 | **Status pill** | neutral · good | A quiet status with a dot |

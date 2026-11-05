@@ -87,3 +87,23 @@
 /* ---------- SETTINGS ---------- */
 .adjust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-2)}
 .adjust-grid input{text-align:center;font-size:var(--fs-small)}
+
+/* ---------- SKY TODAY (3D) ---------- */
+.sky-dome{position:relative;height:min(52vh,460px);border-radius:var(--r-lg);overflow:hidden;
+  background:radial-gradient(120% 90% at 50% 10%,var(--glow-1),var(--surface-sunk) 70%);touch-action:none}
+.sky-dome canvas{display:block}
+.sky-labels{position:absolute;inset:0;pointer-events:none}
+.sky-label{font-size:var(--fs-label);font-weight:var(--fw-semibold);letter-spacing:var(--ls-caps);text-transform:uppercase;white-space:nowrap;color:var(--text-2)}
+.sky-label span{display:block;padding:2px 6px;border-radius:var(--r-xs);background:var(--material)}
+.sky-label.over span{transform:translateY(calc(-1 * var(--sp-5) + var(--nudge, 0px)))}   /* above its dot; --nudge set by untangle() */
+.sky-label.under span{transform:translateY(calc(var(--sp-5) + var(--nudge, 0px)))}       /* below its dot */
+.sky-label.compass{color:var(--label);font-size:var(--fs-small)}
+.sky-label.compass span{background:none}
+.sky-label.next{color:var(--next)}
+.sky-label.done{color:var(--done)}
+.sky-label.qibla{color:var(--now)}
+.sky-readout{display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-3);flex-wrap:wrap}
+.sky-time{font-size:var(--fs-title-1);font-weight:var(--fw-medium);letter-spacing:var(--ls-tight);color:var(--now)}
+.sky-readout .t-caption b{color:var(--next)}
+.sky-actions{display:flex;align-items:center;gap:var(--sp-3)}
+.hero-more{display:flex;justify-content:flex-end;margin:calc(-1 * var(--sp-2)) 0 var(--sp-1)}

@@ -76,6 +76,15 @@ function sunAltitude(y,m,d,hour,lat,lng,tz){
   const noon=fixHour(12-eqt)+tz-lng/15;
   return asin(sin(decl)*sin(lat)+cos(decl)*cos(lat)*cos(15*(hour-noon)));
 }
+/* Sun's compass direction (azimuth): degrees clockwise from true north. 90 = east, 180 = south.
+   Same inputs as sunAltitude. Added for the 3D sky; sunAltitude is unchanged. */
+function sunAzimuth(y,m,d,hour,lat,lng,tz){
+  const jD=julian(y,m,d)-lng/(15*24)+(hour-tz+lng/15)/24;
+  const {decl,eqt}=sunPos(jD);
+  const noon=fixHour(12-eqt)+tz-lng/15;
+  const H=15*(hour-noon);
+  return fixAngle(atan2d(sin(H),cos(H)*sin(lat)-tan(decl)*cos(lat))+180);
+}
 function tzOffset(date,zone){
   try{
     const dtf=new Intl.DateTimeFormat('en-US',{timeZone:zone,hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'});
@@ -89,4 +98,4 @@ function qiblaBearing(lat,lng){
 }
 
 
-export { D, fixAngle, fixHour, julian, sunPos, computeTimes, sunAltitude, tzOffset, qiblaBearing };
+export { D, fixAngle, fixHour, julian, sunPos, computeTimes, sunAltitude, sunAzimuth, tzOffset, qiblaBearing };

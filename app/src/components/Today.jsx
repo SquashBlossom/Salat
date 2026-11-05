@@ -2,7 +2,7 @@
    Owns: how today looks. Refuses: computing times (it receives `day` and `events`). */
 import { PRAYERS } from '@salat/shared/methods';
 import { wallToDate, partsIn } from '@salat/shared/schedule';
-import { Card, Icon, IconButton, Notice, Tag } from '../ui/index.jsx';
+import { Button, Card, Icon, IconButton, Notice, Tag } from '../ui/index.jsx';
 import { SunArc } from './SunArc.jsx';
 import { fmtTime, fmtFull, gregorian, hijri, countdownParts } from '../core/format.js';
 
@@ -24,7 +24,7 @@ export function Header({ s, viewDate, onPrev, onNext, onToday, onSettings, onLoc
   );
 }
 
-export function Hero({ s, today, cur, next, now }) {
+export function Hero({ s, today, cur, next, now, onOpenSky }) {
   if (!next) return null;
   const ms = next.date - now;
   const span = next.date - cur.date;
@@ -42,6 +42,7 @@ export function Hero({ s, today, cur, next, now }) {
         </div>
         <div className="countdown-label">until <b>{next.en}</b></div>
         <SunArc day={today} loc={s.loc} now={now} fmt={s.fmt} />
+        {onOpenSky && <div className="hero-more"><Button variant="quiet" size="sm" hug icon="globe" onClick={onOpenSky}>View Sky in 3D</Button></div>}
       </div>
       <div className="progress">
         <div className="progress-bar"><div className="progress-fill" style={{ width: pct.toFixed(2) + '%' }} /></div>

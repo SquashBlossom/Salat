@@ -67,6 +67,20 @@ export function Switch({ on, label, onChange }) {
   return <button type="button" className="switch" role="switch" aria-checked={!!on} aria-label={label} onClick={() => onChange(!on)} />;
 }
 
+/** SLIDER. Pick a value along a track, like iOS. ticks: [{at, tone: 'now'|'next'|'done', label}] marks on the track. */
+export function Slider({ value, min = 0, max = 100, step = 1, onChange, label, valueText, ticks = [] }) {
+  const pct = (v) => ((v - min) / (max - min)) * 100;
+  return (
+    <div className="slider">
+      <div className="slider-ticks" aria-hidden="true">
+        {ticks.map((t) => <i key={t.at + t.label} className={t.tone} style={{ left: pct(t.at) + '%' }} title={t.label} />)}
+      </div>
+      <input type="range" min={min} max={max} step={step} value={value} aria-label={label} aria-valuetext={valueText}
+        style={{ '--fill': pct(value) + '%' }} onChange={(e) => onChange(+e.target.value)} />
+    </div>
+  );
+}
+
 /** TAG. A tiny state word inside a row. tone: 'now' | 'next'. */
 export const Tag = ({ tone, children }) => <span className={cx('tag', tone)}>{children}</span>;
 
