@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { D, qiblaBearing } from '@salat/shared/solar';
 import { compassName } from '../core/format.js';
+import { deviceHeading, screenAngle, screenHeading } from '../core/compass.js';
 import { Button, Card } from '../ui/index.jsx';
 
 function Dial({ bearing, heading }) {
@@ -36,8 +37,8 @@ export function QiblaCard({ loc, toast }) {
   async function startCompass() {
     const start = () => {
       window.addEventListener('deviceorientation', (e) => {
-        const h = e.webkitCompassHeading != null ? e.webkitCompassHeading : e.alpha != null ? 360 - e.alpha : null;
-        if (h != null) setHeading(h);
+        const h = deviceHeading(e);
+        if (h != null) setHeading(screenHeading(h, screenAngle())); // corrects for a sideways screen
       }, true);
       toast('Compass on. Hold the phone flat.');
     };
