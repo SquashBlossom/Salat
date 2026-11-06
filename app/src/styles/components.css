@@ -217,3 +217,10 @@ input[type=color]::-webkit-color-swatch{border:none;border-radius:var(--r-sm)}
 .slider input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--knob);box-shadow:var(--shadow-thumb);border:none}
 .slider input[type=range]:focus-visible{outline:none}
 .slider input[type=range]:focus-visible::-webkit-slider-thumb{outline:2px solid var(--now);outline-offset:2px}
+
+/* MOON PHASE */
+.moon-phase{width:var(--icon-md);height:var(--icon-md);flex:none;display:block}
+.moon-phase.lg{width:var(--icon-lg);height:var(--icon-lg)}
+.moon-phase.xl{width:var(--sp-12);height:var(--sp-12)}
+.moon-phase .dark{fill:var(--moon-dark);stroke:color-mix(in srgb, var(--moon) 30%, transparent);stroke-width:.05}
+.moon-phase .lit{fill:var(--moon)}

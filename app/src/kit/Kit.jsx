@@ -7,6 +7,7 @@ import { Button, Card, Chip, ChipRow, Field, Icon, IconButton, IconSprite, ICON_
 import { METHODS } from '@salat/shared/methods';
 
 const SkyCompare = lazy(() => import('./SkyCompare.jsx'));
+const MoonKit = lazy(() => import('./MoonKit.jsx'));
 
 /* What each kit component becomes in the Swift app. Same names, same behaviour. */
 const NATIVE = [
@@ -159,10 +160,16 @@ export default function Kit() {
             <Segmented label="Theme" options={THEMES.filter((t) => t.id !== 'custom').map((t) => [t.id, t.name])} value={theme} onChange={setTheme} />
           </div>
           <nav className="kit-nav" aria-label="Kit sections">
-            {[['sky', '3D sky'], ['colour', 'Colour'], ['type', 'Type'], ['space', 'Space & shape'], ['icons', 'Icons'], ['components', 'Components'], ['lists', 'Lists & menus'], ['motion', 'Motion'], ['patterns', 'Patterns'], ['native', 'Swift'], ['talk', 'Talking design']]
+            {[['moon', 'Moon'], ['sky', '3D sky'], ['colour', 'Colour'], ['type', 'Type'], ['space', 'Space & shape'], ['icons', 'Icons'], ['components', 'Components'], ['lists', 'Lists & menus'], ['motion', 'Motion'], ['patterns', 'Patterns'], ['native', 'Swift'], ['talk', 'Talking design']]
               .map(([id, t]) => <a key={id} href={'#' + id}>{t}</a>)}
           </nav>
         </header>
+
+        <Section id="moon" eyebrow="3D sky · proposed Nov 6" title="The moon, with its phase"
+          lead="The moon at its real place in the living 3D sky, lit the way you would see it from the ground: its bright side always faces the sun. By day it is pale; at night its dark part shows faintly (earthshine). Move the day to watch the month go by. Its colour is new: Moon, a cool silver beside the warm Sun. The flat moon below can sit in lists and readouts.">
+          <Suspense fallback={<p className="t-caption">Loading the moon…</p>}><MoonKit theme={theme} /></Suspense>
+          <Say>Make the moon a little bigger</Say>
+        </Section>
 
         <Section id="sky" eyebrow="3D sky · chosen Nov 6" title="The living 3D sky"
           lead="The sky behind the 3D dome takes the real sky's colours for where the sun is (night, first light at Fajr, day, golden Maghrib), and the real bright stars appear in three steps as the sun sinks to 6°, 12° and 18° below the horizon (the angles the prayer times use). Chosen by the designer on Nov 6 and used in the app. The old classic look stays on the left for comparison.">

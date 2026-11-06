@@ -73,3 +73,8 @@
 .kit-sky-pair figure{margin:0;display:grid;gap:var(--sp-2);min-width:0}
 .kit-sky-pair .sky-dome{height:min(48vh,420px)}
 @media (max-width:760px){.kit-sky-pair{grid-template-columns:1fr}}
+.kit-moon-read{display:flex;align-items:center;gap:var(--sp-4)}
+.kit-moon-dome .sky-dome{height:min(52vh,460px)}
+.kit-moon-month{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:var(--sp-3)}
+.kit-moon-month figure{margin:0;display:grid;justify-items:center;gap:var(--sp-2);text-align:center}
+.kit-moon-month figcaption{display:grid}

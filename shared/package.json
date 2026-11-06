@@ -9,6 +9,7 @@
     "./methods": "./methods.js",
     "./schedule": "./schedule.js",
     "./stars": "./stars.js",
+    "./moon": "./moon.js",
     "./data/stars": "./data/stars.js"
   },
   "scripts": {

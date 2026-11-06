@@ -143,6 +143,8 @@
   --blur-material: blur(24px) saturate(160%); /* MATERIAL: frosted glass for menus and bars */
   --star: #FFFFFF;              /* stars in the night sky */
   --sun: #FFF4DC;               /* SUN: the sun itself, warm white (cream), in the arc and the 3D sky */
+  --moon: #E4E9F2;              /* MOON: the moon's lit part, cool silver (the sun is warm, the moon is cool) */
+  --moon-dark: #3A4256;         /* MOON: its dark part, faintly seen (earthshine) */
 
   /* ---------- REAL SKY (3D sky; same in every theme, because it is the real sky) ----------
      Each stage: zenith (overhead), horizon, and glow (the light around the sun). */

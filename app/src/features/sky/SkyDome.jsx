@@ -13,6 +13,7 @@ import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer
 import { sunAltitude, sunAzimuth } from '@salat/shared/solar';
 import { wallToDate } from '@salat/shared/schedule';
 import { createLivingSky } from './livingSky.js';
+import { createMoon } from './moon3d.js';
 import { PRAYERS } from '@salat/shared/methods';
 import { fmtTime } from '../../core/format.js';
 import { reducedMotion } from '../../ui/motion.js';
@@ -60,8 +61,8 @@ function pathRuns(day, loc) {
   return runs;
 }
 
-/** living: true adds the real-sky backdrop and stars (livingSky.js). */
-export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady, living = false }) {
+/** living: true adds the real-sky backdrop and stars (livingSky.js). moon: true adds the moon with its phase (moon3d.js). */
+export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady, living = false, moon = false }) {
   const host = useRef(null);
   const api = useRef(null);
 
@@ -149,6 +150,11 @@ export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady, l
     }
     prayerLabels.push(ql.element); // the Qibla label takes part in untangling too
 
+    // The moon, at its real place and phase
+    const moonDisc = moon ? createMoon(scene, { radius: R }) : null;
+    const moonLabel = moon ? label('Moon', 'moon under') : null;
+    if (moonLabel) { scene.add(moonLabel); prayerLabels.push(moonLabel.element); }
+
     /** After each frame: if two prayer labels overlap on screen, slide the lower one down until they don't. */
     const untangle = () => {
       for (const el of prayerLabels) el.style.setProperty('--nudge', '0px');
@@ -189,7 +195,7 @@ export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady, l
     scene.add(shadowLine);
 
     let raf = 0, dirty = true;
-    const render = () => { renderer.render(scene, camera); labels.render(scene, camera); untangle(); };
+    const render = () => { moonDisc?.beforeRender(camera, el.clientWidth, el.clientHeight); renderer.render(scene, camera); labels.render(scene, camera); untangle(); };
     const loop = () => {
       raf = requestAnimationFrame(loop);
       if (controls.update() || dirty) { render(); dirty = false; }
@@ -217,8 +223,11 @@ export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady, l
         const foot = p.clone(); foot.y = 0;                          // a line down to the horizon
         shadowLine.geometry.setFromPoints([p, foot]);
         dirty = true;
-        livingSky?.update(wallToDate(day.y, day.m, day.d, hh, day.zone), alt, az, loc.lat, loc.lng, domePoint);
-        return { alt, az };
+        const when = wallToDate(day.y, day.m, day.d, hh, day.zone);
+        livingSky?.update(when, alt, az, loc.lat, loc.lng, domePoint);
+        const m = moonDisc?.update(when, loc.lat, loc.lng, alt, az, domePoint);
+        if (m) { moonLabel.position.copy(moonDisc.position); moonLabel.visible = m.alt > -1; }
+        return { alt, az, moon: m };
       },
     };
     onReady?.(true);
@@ -229,16 +238,17 @@ export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady, l
       ro.disconnect();
       controls.dispose();
       livingSky?.dispose();
+      moonDisc?.dispose();
       scene.traverse((o) => { o.geometry?.dispose(); if (o.material) { o.material.map?.dispose(); o.material.dispose(); } });
       renderer.dispose();
       el.innerHTML = '';
       api.current = null;
     };
-  }, [loc, day, qibla, theme, fmt, nowHour, living]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [loc, day, qibla, theme, fmt, nowHour, living, moon]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Moving the slider only moves the sun.
   const info = useRef(null);
-  useEffect(() => { info.current = api.current?.setHour(hour); }, [hour, loc, day, theme, fmt, nowHour, living]);
+  useEffect(() => { info.current = api.current?.setHour(hour); }, [hour, loc, day, theme, fmt, nowHour, living, moon]);
 
   return <div ref={host} className="sky-dome" role="img" aria-label="3D view of today's sky with the sun's path and each prayer marked" />;
 }

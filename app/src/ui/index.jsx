@@ -106,6 +106,24 @@ export function Field({ label, htmlFor, hint, children }) {
 export const Toast = ({ message }) => <div className={cx('toast', message && 'on')} role="status">{message}</div>;
 
 /** SWATCH. A theme choice showing its colours as dots. */
+/**
+ * MOON PHASE — the moon's lit shape, flat (for lists and readouts).
+ * lit 0..1 and waxing come from moonPhase() in shared/moon. In the north a waxing moon is lit on the
+ * right; south of the equator, on the left (south). Colours: --moon, --moon-dark. Sizes md · lg · xl.
+ */
+export function MoonPhase({ lit, waxing, south = false, size = 'md', label }) {
+  const c = 1 - 2 * lit;
+  const shape = lit > 0.995 ? <circle r="1" className="lit" />
+    : lit < 0.005 ? null
+    : <path className="lit" d={`M0,-1A1,1 0 0 1 0,1A${Math.abs(c).toFixed(3)},1 0 0 ${c > 0 ? 0 : 1} 0,-1Z`}
+        transform={waxing !== south ? undefined : 'scale(-1,1)'} />;
+  return (
+    <svg className={`moon-phase ${size}`} viewBox="-1.1 -1.1 2.2 2.2" role="img" aria-label={label || `${Math.round(lit * 100)}% lit`}>
+      <circle r="1" className="dark" />{shape}
+    </svg>
+  );
+}
+
 export function Swatch({ on, colors, children, ...rest }) {
   return (
     <button type="button" className="swatch pressable" aria-pressed={!!on} {...rest}>

@@ -7,13 +7,14 @@ themes: [midnight, amethyst, grove, blossom, custom]
 colour_roles: [bg, surface, surface-sunk, line, line-strong, control, control-pressed, selected, text, text-2, text-3, label]
 signal_colours: { now: current prayer + primary actions + the 'now' line, next: coming prayer + sun's path + soon, done: passed + horizon + success }
 sun: { sun: warm white #FFF4DC, sun-glow: the path colour (gold in Blossom), sun-rim: thin edge }
+moon: { moon: cool silver #E4E9F2, moon-dark: earthshine #3A4256 }   # proposed Nov 6, in the kit
 fonts: { ui: Space Grotesk, figures: IBM Plex Mono, arabic: Amiri }
 type_scale: [label 10, caption 12, small 13, ui 14, body 15, title-3 17, lead 20, title-2 22, title-1 26, figure 30, display 38-52, hero-arabic 64]
 space: [sp-1 4, sp-2 8, sp-3 12, sp-4 16, sp-5 20, sp-6 24, sp-8 32, sp-12 48]
 radius: [r-xs 4, r-sm 8, r-md 12, r-lg 16, r-xl 22, r-pill]
 touch_min: 44
 motion: [rise, fade, draw, breathe, glow, slide, push, pop, spring, press, ripple, twinkle]
-components: [Button, IconButton, Card, Notice, Chip, Segmented, Switch, Tag, StatusPill, Label, Field, PopUpMenu, MenuButton, ListSection, Row, Stepper, Sheet, Toast, Swatch, Icon]
+components: [Button, IconButton, Card, Notice, Chip, Segmented, Switch, Tag, StatusPill, Label, Field, PopUpMenu, MenuButton, ListSection, Row, Stepper, Sheet, Toast, Swatch, Icon, MoonPhase]
 native_mapping: see kit section 9 (each component maps to a SwiftUI control)
 ---
 
@@ -66,6 +67,8 @@ Name the piece and what to change, using the words below. For example:
 - **Done** (`--done`): prayers already passed, the horizon line, a success.
 - **Sun** (`--sun`, `--sun-glow`, `--sun-rim`): the sun itself, in the arc and the 3D sky. Warm white (cream) with a glow in
   its path's colour and a thin edge; in Blossom the glow and edge are gold so it stays visible. Chosen by the owner, Nov 5.
+- **Moon** (`--moon`, `--moon-dark`): the moon's lit part (cool silver, beside the warm Sun) and its dark part, faintly seen
+  (earthshine). The same in every theme. *Proposed Nov 6, shown in the kit; not in the app yet.*
 - **Real sky** (`--sky-*`): the colours of the 3D sky, by stage: night, astronomical, nautical and civil twilight,
   golden hour, day. The same in every theme, because it is the real sky. Chosen by the owner, Nov 6.
 - Calm roles: **bg** (page), **surface** / **surface-sunk** (a card's gradient), **line** / **line-strong**,
@@ -112,6 +115,7 @@ cal, compass, target, today, alert, globe, bell, lock, share, check, updown, mor
 | **Sheet** | title; pages that open inside it, with Back and Done | Settings and other panels |
 | **Toast** | message | A short confirmation |
 | **Swatch** | on · off, colour dots | Theme choice |
+| **Moon phase** | lit 0–1, waxing or waning, north or south; size md · lg · xl | The moon's shape, flat, in lists and readouts. *Proposed Nov 6.* |
 
 ### Motion: slow, calm, named
 | Name | What it does | Where |
@@ -128,6 +132,7 @@ cal, compass, target, today, alert, globe, bell, lock, share, check, updown, mor
 | **Press** | shrinks to 97% while held | every button, chip and row |
 | **Ripple** | rings spread from the centre | the prayer moment (canvas) |
 | **Twinkle**, **Shooting star** | stars brighten and dim; a rare streak | the night sky (canvas) |
+| **Moon** | the 3D moon at its real place; its bright side always faces the sun; pale by day, earthshine at night | Kit, *proposed Nov 6* |
 | **Living sky** | the 3D dome takes the real sky's colours for where the sun is; real stars appear at -6°, -12°, -18° | Sky Today (3D) |
 
 Loops pause when the page is hidden. With Reduce Motion on, everything is still.
@@ -144,6 +149,7 @@ Loops pause when the page is hidden. With Reduce Motion on, everything is still.
 | Icons | `app/src/ui/icons.jsx` |
 | The kit page | `app/src/kit/` → `/kit.html` |
 | Menus, lists, sheets | `app/src/ui/Menu.jsx`, `List.jsx`, `Sheet.jsx` |
+| The 3D sky, stars and moon | `app/src/features/sky/`, math in `shared/stars.js` and `shared/moon.js` |
 | Swift tokens | `native/SalatTokens.swift` (run `npm run tokens:swift -w app` after changing tokens) |
 
 ## Open design questions (yours to decide)
