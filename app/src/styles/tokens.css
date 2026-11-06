@@ -144,6 +144,16 @@
   --star: #FFFFFF;              /* stars in the night sky */
   --sun: #FFF4DC;               /* SUN: the sun itself, warm white (cream), in the arc and the 3D sky */
 
+  /* ---------- REAL SKY (3D sky; same in every theme, because it is the real sky) ----------
+     Each stage: zenith (overhead), horizon, and glow (the light around the sun). */
+  --sky-night-zenith: #03060F;    --sky-night-horizon: #0A1128;
+  --sky-astro-zenith: #060B1E;    --sky-astro-horizon: #141C42;    --sky-astro-glow: #26306A;   /* sun -18° to -12° */
+  --sky-nautical-zenith: #0B1433; --sky-nautical-horizon: #2B2F66; --sky-nautical-glow: #6A4C8C; /* sun -12° to -6° */
+  --sky-civil-zenith: #1A2858;    --sky-civil-horizon: #B8607A;    --sky-civil-glow: #F2A15A;   /* sun -6° to 0°: first light, last light */
+  --sky-golden-zenith: #3A68AE;   --sky-golden-horizon: #F3B676;   --sky-golden-glow: #FFD08A;  /* sun 0° to 6° */
+  --sky-day-zenith: #2C6BC9;      --sky-day-horizon: #A9D0F2;      --sky-day-glow: #FFF4DC;     /* sun high */
+  --sky-ground: #05080F;          /* below the horizon, beyond the ground disc */
+
   /* ---------- LAYERS ---------- */
   --z-sky: 0; --z-page: 1; --z-scrim: 40; --z-sheet: 50; --z-menu: 55; --z-toast: 60; --z-moment: 80;
 }

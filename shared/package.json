@@ -7,7 +7,11 @@
     "./solar": "./solar.js",
     "./cities": "./cities.js",
     "./methods": "./methods.js",
-    "./schedule": "./schedule.js"
+    "./schedule": "./schedule.js",
+    "./stars": "./stars.js",
+    "./data/stars": "./data/stars.js"
   },
-  "scripts": { "test": "node --test" }
+  "scripts": {
+    "test": "node --test"
+  }
 }

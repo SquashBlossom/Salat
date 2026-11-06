@@ -1,10 +1,12 @@
 /* THE DESIGN KIT PAGE — a living catalogue of Salat's design language.
    Everything here is the real thing: real tokens, real components, real motion.
    If it looks right here, it looks right in the app. Opens at /kit.html. */
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Button, Card, Chip, ChipRow, Field, Icon, IconButton, IconSprite, ICON_NAMES, Label, ListSection, MenuButton, Notice,
   PopUpMenu, Row, Segmented, Sheet, StatusPill, Stepper, Swatch, Switch, Tag, Toast } from '../ui/index.jsx';
 import { METHODS } from '@salat/shared/methods';
+
+const SkyCompare = lazy(() => import('./SkyCompare.jsx'));
 
 /* What each kit component becomes in the Swift app. Same names, same behaviour. */
 const NATIVE = [
@@ -157,10 +159,16 @@ export default function Kit() {
             <Segmented label="Theme" options={THEMES.filter((t) => t.id !== 'custom').map((t) => [t.id, t.name])} value={theme} onChange={setTheme} />
           </div>
           <nav className="kit-nav" aria-label="Kit sections">
-            {[['colour', 'Colour'], ['type', 'Type'], ['space', 'Space & shape'], ['icons', 'Icons'], ['components', 'Components'], ['lists', 'Lists & menus'], ['motion', 'Motion'], ['patterns', 'Patterns'], ['native', 'Swift'], ['talk', 'Talking design']]
+            {[['sky', '3D sky (proposed)'], ['colour', 'Colour'], ['type', 'Type'], ['space', 'Space & shape'], ['icons', 'Icons'], ['components', 'Components'], ['lists', 'Lists & menus'], ['motion', 'Motion'], ['patterns', 'Patterns'], ['native', 'Swift'], ['talk', 'Talking design']]
               .map(([id, t]) => <a key={id} href={'#' + id}>{t}</a>)}
           </nav>
         </header>
+
+        <Section id="sky" eyebrow="Proposed · waiting for the designer" title="A living 3D sky"
+          lead="The sky behind the 3D dome takes the real sky's colours for where the sun is (night, first light at Fajr, day, golden Maghrib), and the real bright stars appear in three steps as the sun sinks to 6°, 12° and 18° below the horizon (the angles the prayer times use). Pick a time or drag the slider; the classic look is on the left for comparison.">
+          <Suspense fallback={<p className="t-caption">Loading the 3D sky…</p>}><SkyCompare theme={theme} /></Suspense>
+          <Say>Use the living sky in the app</Say>
+        </Section>
 
         <Section id="colour" eyebrow="1 · Colour" title="Colour has one meaning each"
           lead="Three signal colours carry meaning. Everything else is calm, built from the page colour. Every theme defines every role, and the Custom theme derives them from four picks, checked for contrast.">

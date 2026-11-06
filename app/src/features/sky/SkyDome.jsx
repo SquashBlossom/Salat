@@ -11,6 +11,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 import { sunAltitude, sunAzimuth } from '@salat/shared/solar';
+import { wallToDate } from '@salat/shared/schedule';
+import { createLivingSky } from './livingSky.js';
 import { PRAYERS } from '@salat/shared/methods';
 import { fmtTime } from '../../core/format.js';
 import { reducedMotion } from '../../ui/motion.js';
@@ -58,7 +60,8 @@ function pathRuns(day, loc) {
   return runs;
 }
 
-export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady }) {
+/** living: true adds the real-sky backdrop and stars (livingSky.js). */
+export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady, living = false }) {
   const host = useRef(null);
   const api = useRef(null);
 
@@ -82,6 +85,7 @@ export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady })
     el.appendChild(labels.domElement);
 
     const scene = new THREE.Scene();
+    const livingSky = living ? createLivingSky(scene, { radius: R, pixelRatio: renderer.getPixelRatio(), host: el }) : null;
     const camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 200);
     camera.position.copy(domePoint(34, 192, 31)); // from the south, looking down into the sky a little
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -213,6 +217,7 @@ export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady })
         const foot = p.clone(); foot.y = 0;                          // a line down to the horizon
         shadowLine.geometry.setFromPoints([p, foot]);
         dirty = true;
+        livingSky?.update(wallToDate(day.y, day.m, day.d, hh, day.zone), alt, az, loc.lat, loc.lng, domePoint);
         return { alt, az };
       },
     };
@@ -223,16 +228,17 @@ export function SkyDome({ loc, day, hour, nowHour, fmt, qibla, theme, onReady })
       document.removeEventListener('visibilitychange', onVis);
       ro.disconnect();
       controls.dispose();
+      livingSky?.dispose();
       scene.traverse((o) => { o.geometry?.dispose(); if (o.material) { o.material.map?.dispose(); o.material.dispose(); } });
       renderer.dispose();
       el.innerHTML = '';
       api.current = null;
     };
-  }, [loc, day, qibla, theme, fmt, nowHour]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [loc, day, qibla, theme, fmt, nowHour, living]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Moving the slider only moves the sun.
   const info = useRef(null);
-  useEffect(() => { info.current = api.current?.setHour(hour); }, [hour, loc, day, theme, fmt, nowHour]);
+  useEffect(() => { info.current = api.current?.setHour(hour); }, [hour, loc, day, theme, fmt, nowHour, living]);
 
   return <div ref={host} className="sky-dome" role="img" aria-label="3D view of today's sky with the sun's path and each prayer marked" />;
 }
