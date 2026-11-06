@@ -4,7 +4,9 @@ Run from the repo root:  python3 docs/scripts/make-design-doc.py OUT.html
 Needs the `markdown` package (pip install --target <dir> markdown; then PYTHONPATH=<dir>).
 Sources: DESIGN.md, docs/RESOURCES.md (sections 1-4), docs/DESIGN-REFERENCES.md, docs/design-decisions.md.
 Upload OUT.html to Google Drive as text/html titled "Design Documents" (see CLAUDE.md for the update rule)."""
-import re, sys
+import re
+import sys
+from datetime import date
 import markdown
 
 def read(p): return open(p, encoding='utf-8').read()
@@ -69,5 +71,20 @@ html = ('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Design Document
         'table{border-collapse:collapse} td,th{border:1px solid #bbb;padding:4px 8px;vertical-align:top} th{background:#eef2f7}</style></head>'
         f'<body>{body}</body></html>')
 html = re.sub(r'>\s*\n\s*<', '><', html)
+# Reader-facing wording: the Doc is read by people, not by Claude in the repo
+for old, new in [
+    ('· design reference</p>', f'· design reference · updated {date.today():%B} {date.today().day}, {date.today().year}</p>'),
+    ('This file and the kit page', 'This document and the kit page'),
+    ('(on the live site, or <code>npm run dev</code> then http://localhost:5173/kit.html)', 'on the live site'),
+    ('(digest in <code>docs/RESOURCES.md</code> §2)', '(see Part 2)'),
+    ('Rules that protect your design', 'Rules that protect the design'),
+    ('marked <code>lang="ar"</code>; when Arabic shares a line with English or numbers, it is wrapped in isolates (<code>\u2068…\u2069</code>).',
+     'marked as Arabic; when Arabic shares a line with English or numbers, it is wrapped in Unicode isolates so the order never breaks.'),
+    ('(run <code>npm run tokens:swift -w app</code> after changing tokens)', '(made from the tokens)'),
+    ('(yours to decide)', "(the owner's to decide)"),
+    ('sources and her imam', "sources and a person's own imam"),
+]:
+    html = html.replace(old, new)
+html = re.sub(r'<p>Design skills mentioned alongside.*?</p>', '', html, flags=re.S)
 open(sys.argv[1], 'w', encoding='utf-8').write(html)
 print(f'{len(html)} bytes, {html.count("<table")} tables')
