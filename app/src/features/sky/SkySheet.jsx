@@ -5,7 +5,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { PRAYERS } from '@salat/shared/methods';
 import { partsIn } from '@salat/shared/schedule';
 import { sunAltitude, sunAzimuth, qiblaBearing } from '@salat/shared/solar';
-import { Button, Notice, Sheet, Slider } from '../../ui/index.jsx';
+import { moonAltAz, moonPhase } from '@salat/shared/moon';
+import { wallToDate } from '@salat/shared/schedule';
+import { Button, MoonPhase, Notice, Sheet, Slider } from '../../ui/index.jsx';
 import { compassName, fmtFull } from '../../core/format.js';
 import { SkyDome } from './SkyDome.jsx';
 
@@ -28,18 +30,24 @@ export default function SkySheet({ open, onClose, s, today }) {
   const qibla = useMemo(() => qiblaBearing(s.loc.lat, s.loc.lng), [s.loc]);
   const ticks = PRAYERS.filter((p) => Number.isFinite(today.hours[p.k]))
     .map((p) => ({ at: Math.round(today.hours[p.k] * 60), label: p.en, tone: isToday && today.hours[p.k] < nowHour ? 'done' : 'next' }));
+  const when = wallToDate(today.y, today.m, today.d, hour, today.zone);
+  const moon = moonPhase(when), moonAt = moonAltAz(s.loc.lat, s.loc.lng, when);
   const at = PRAYERS.find((p) => Math.abs(today.hours[p.k] * 60 - minute) <= 2);
 
   return (
     <Sheet open={open && shown} title="Sky Today" onClose={onClose}>
       {ok
-        ? <SkyDome loc={s.loc} day={today} hour={hour} nowHour={nowHour} fmt={s.fmt} qibla={qibla} theme={s.theme + JSON.stringify(s.custom)} onReady={setOk} living />
+        ? <SkyDome loc={s.loc} day={today} hour={hour} nowHour={nowHour} fmt={s.fmt} qibla={qibla} theme={s.theme + JSON.stringify(s.custom)} onReady={setOk} living moon />
         : <Notice tone="caution">3D is not available on this device. The sun arc on the main screen shows the same day.</Notice>}
       <div className="sky-readout">
         <div className="sky-time figures">{fmtFull(hour, s.fmt)}</div>
         <div className="t-caption">
           {at ? <b>{at.en} · </b> : null}
           {alt >= 0 ? `Sun ${alt.toFixed(0)}° high, ${compassName(az)} (${az.toFixed(0)}°)` : `Sun ${(-alt).toFixed(0)}° below the horizon, ${compassName(az)}`}
+        </div>
+        <div className="sky-moon t-caption">
+          <MoonPhase lit={moon.lit} waxing={moon.waxing} south={s.loc.lat < 0} label={moon.name} />
+          <span>{moon.name}, {Math.round(moon.lit * 100)}% lit · {moonAt.alt >= 0 ? `${moonAt.alt.toFixed(0)}° high, ${compassName(moonAt.az)}` : 'below the horizon'}</span>
         </div>
       </div>
       <Slider label="Time of day" min={0} max={1439} step={1} value={minute} onChange={setMinute} ticks={ticks}

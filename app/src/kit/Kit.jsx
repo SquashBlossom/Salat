@@ -165,8 +165,8 @@ export default function Kit() {
           </nav>
         </header>
 
-        <Section id="moon" eyebrow="3D sky · proposed Nov 6" title="The moon, with its phase"
-          lead="The moon at its real place in the living 3D sky, lit the way you would see it from the ground: its bright side always faces the sun. By day it is pale; at night its dark part shows faintly (earthshine). Move the day to watch the month go by. Its colour is new: Moon, a cool silver beside the warm Sun. The flat moon below can sit in lists and readouts.">
+        <Section id="moon" eyebrow="3D sky · chosen Nov 6" title="The moon, with its phase"
+          lead="The moon at its real place in the living 3D sky, lit the way you would see it from the ground: its bright side always faces the sun. By day it is pale; at night its dark part shows faintly (earthshine). Move the day to watch the month go by. Its colour is new: Moon, a cool silver beside the warm Sun. The flat moon below can sit in lists and readouts. Chosen by the designer on Nov 6 and used in the app (Sky Today).">
           <Suspense fallback={<p className="t-caption">Loading the moon…</p>}><MoonKit theme={theme} /></Suspense>
           <Say>Make the moon a little bigger</Say>
         </Section>
