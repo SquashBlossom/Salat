@@ -8,3 +8,4 @@
 | Nov 5 | Small buttons never shrink or cut their label (fix for iPad Safari) | Owner (reported) |
 | Nov 6 | The living 3D sky: the dome takes the real sky's colours for where the sun is, and real stars appear at -6°, -12°, -18° | Owner |
 | Nov 6 | The moon in the 3D sky at its real place and phase (bright side toward the sun), a Moon colour (cool silver) and a flat Moon phase component | Owner |
+| Nov 6 | The moon a little larger and easier to see: a soft glow (crescents too) and a faint rim around the whole disc | Owner |

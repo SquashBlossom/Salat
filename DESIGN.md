@@ -132,7 +132,7 @@ cal, compass, target, today, alert, globe, bell, lock, share, check, updown, mor
 | **Press** | shrinks to 97% while held | every button, chip and row |
 | **Ripple** | rings spread from the centre | the prayer moment (canvas) |
 | **Twinkle**, **Shooting star** | stars brighten and dim; a rare streak | the night sky (canvas) |
-| **Moon** | the 3D moon at its real place; its bright side always faces the sun; pale by day, earthshine at night | Sky Today (3D) |
+| **Moon** | the 3D moon at its real place, a little larger than the sun; its bright side always faces the sun; a soft glow and a faint rim (so a thin crescent still reads); pale by day, earthshine at night | Sky Today (3D) |
 | **Living sky** | the 3D dome takes the real sky's colours for where the sun is; real stars appear at -6°, -12°, -18° | Sky Today (3D) |
 
 Loops pause when the page is hidden. With Reduce Motion on, everything is still.

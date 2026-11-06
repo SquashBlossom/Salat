@@ -17,14 +17,17 @@ const FRAG = `
 uniform vec3 moon; uniform vec3 moonDark;
 uniform float lit; uniform float angle; uniform float night;
 varying vec2 vUv;
-const float DISC = 0.56; // the disc's radius inside the square; the rest is its soft halo
+const float DISC = 0.46; // the disc's radius inside the square; the rest is its soft halo
 void main() {
   float ca = cos(-angle), sa = sin(-angle);
   vec2 p = vec2(ca * vUv.x - sa * vUv.y, sa * vUv.x + ca * vUv.y) / DISC; // lit side toward +x
   float r = length(p);
   if (r > 1.0) {
-    // a faint halo at night, as bright as the moon is full
-    float h = pow(1.0 - smoothstep(1.0, 1.75, r), 2.0) * 0.22 * night * lit;
+    // A soft halo: wide and gentle, brighter at night and as the moon fills (a crescent still gets some).
+    float fall = 1.0 - smoothstep(1.0, 2.15, r);
+    float h = (0.10 * fall + 0.30 * pow(fall, 3.0)) * mix(0.35, 1.0, night) * (0.35 + 0.65 * lit);
+    // A faint rim just outside the edge, so the whole disc reads even when only a sliver is lit.
+    h += (1.0 - smoothstep(0.0, 0.09, r - 1.0)) * mix(0.12, 0.28, night);
     if (h <= 0.002) discard;
     gl_FragColor = vec4(moon * h, h);
     return;
@@ -49,7 +52,7 @@ export function createMoon(scene, { radius }) {
       lit: { value: 0.5 }, angle: { value: 0 }, night: { value: 1 },
     },
   });
-  const disc = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 1.6), mat); // disc ≈ 0.9 across, like the sun
+  const disc = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 2.4), mat); // disc ≈ 1.1 across, a little larger than the sun; the rest is halo
   disc.renderOrder = 2; // after the sky wall, stars and ground; the depth test still hides it behind solid things
   scene.add(disc);
   const moonDir = new THREE.Vector3(), sunDir = new THREE.Vector3();
