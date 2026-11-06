@@ -43,7 +43,7 @@ void main() {
 }`;
 
 /** Adds the moon to a scene. Returns { update, beforeRender, position, dispose }. */
-export function createMoon(scene, { radius }) {
+export function createMoon(scene, { radius, size = 2.4 }) {
   const mat = new THREE.ShaderMaterial({
     vertexShader: VERT, fragmentShader: FRAG, transparent: true, depthWrite: false,
     blending: THREE.CustomBlending, blendSrc: THREE.OneFactor, blendDst: THREE.OneMinusSrcAlphaFactor, // premultiplied
@@ -52,7 +52,7 @@ export function createMoon(scene, { radius }) {
       lit: { value: 0.5 }, angle: { value: 0 }, night: { value: 1 },
     },
   });
-  const disc = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 2.4), mat); // disc ≈ 1.1 across, a little larger than the sun; the rest is halo
+  const disc = new THREE.Mesh(new THREE.PlaneGeometry(size, size), mat); // disc ≈ 0.46 × size across (1.1 in the dome: a little larger than the sun); the rest is halo
   disc.renderOrder = 2; // after the sky wall, stars and ground; the depth test still hides it behind solid things
   scene.add(disc);
   const moonDir = new THREE.Vector3(), sunDir = new THREE.Vector3();

@@ -109,3 +109,27 @@
 .sky-actions{display:flex;align-items:center;gap:var(--sp-3)}
 .sky-actions .t-caption{flex:1;min-width:0}
 .hero-more{display:flex;justify-content:flex-end;margin:calc(-1 * var(--sp-2)) 0 var(--sp-1)}
+
+/* POINT AT THE SKY (full screen, over everything but the prayer moment) */
+.point-view{position:fixed;inset:0;z-index:var(--z-point);overflow:hidden;touch-action:none;color:var(--text);
+  background:linear-gradient(180deg,var(--sky-night-zenith) 0%,var(--sky-nautical-horizon) 100%)}
+.point-video,.point-gl{position:absolute;inset:0;width:100%;height:100%}
+.point-video{object-fit:cover}
+.point-gl canvas{display:block}
+.point-aim{position:absolute;left:50%;top:50%;width:var(--sp-6);height:var(--sp-6);margin:calc(var(--sp-6) / -2) 0 0 calc(var(--sp-6) / -2);
+  border:1.5px solid var(--text-2);border-radius:50%;pointer-events:none}
+.point-bar{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);
+  padding:calc(env(safe-area-inset-top) + var(--sp-2)) var(--gutter) var(--sp-2);background:var(--material);backdrop-filter:var(--blur-material);-webkit-backdrop-filter:var(--blur-material)}
+.point-intro{position:absolute;inset:0;display:grid;place-items:center;padding:var(--gutter)}
+.point-intro .card{max-width:420px}
+.point-intro-body{display:grid;gap:var(--sp-3)}
+.point-intro-body .t-small{color:var(--text-2)}
+.point-read{position:absolute;left:0;right:0;bottom:0;display:grid;gap:var(--sp-2);
+  padding:var(--sp-3) var(--gutter) calc(env(safe-area-inset-bottom) + var(--sp-3));background:var(--material);backdrop-filter:var(--blur-material);-webkit-backdrop-filter:var(--blur-material)}
+.point-facing{display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-3);flex-wrap:wrap}
+.point-facing .t-title-3{color:var(--now)}
+.point-on{color:var(--now);font-weight:var(--fw-semibold)}
+.point-bodies{display:flex;flex-wrap:wrap;gap:var(--sp-1) var(--sp-4);color:var(--text-2)}
+.point-moon{display:inline-flex;align-items:center;gap:var(--sp-1)}
+.point-view .sky-label.compass span{background:var(--material)}  /* readable over a camera picture */
+.point-view .sky-label.compass.minor{color:var(--text-2);font-size:var(--fs-label)}

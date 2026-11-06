@@ -8,6 +8,7 @@ import { METHODS } from '@salat/shared/methods';
 
 const SkyCompare = lazy(() => import('./SkyCompare.jsx'));
 const MoonKit = lazy(() => import('./MoonKit.jsx'));
+const PointKit = lazy(() => import('./PointKit.jsx'));
 
 /* What each kit component becomes in the Swift app. Same names, same behaviour. */
 const NATIVE = [
@@ -160,10 +161,16 @@ export default function Kit() {
             <Segmented label="Theme" options={THEMES.filter((t) => t.id !== 'custom').map((t) => [t.id, t.name])} value={theme} onChange={setTheme} />
           </div>
           <nav className="kit-nav" aria-label="Kit sections">
-            {[['moon', 'Moon'], ['sky', '3D sky'], ['colour', 'Colour'], ['type', 'Type'], ['space', 'Space & shape'], ['icons', 'Icons'], ['components', 'Components'], ['lists', 'Lists & menus'], ['motion', 'Motion'], ['patterns', 'Patterns'], ['native', 'Swift'], ['talk', 'Talking design']]
+            {[['point', 'Point at the sky'], ['moon', 'Moon'], ['sky', '3D sky'], ['colour', 'Colour'], ['type', 'Type'], ['space', 'Space & shape'], ['icons', 'Icons'], ['components', 'Components'], ['lists', 'Lists & menus'], ['motion', 'Motion'], ['patterns', 'Patterns'], ['native', 'Swift'], ['talk', 'Talking design']]
               .map(([id, t]) => <a key={id} href={'#' + id}>{t}</a>)}
           </nav>
         </header>
+
+        <Section id="point" eyebrow="3D sky · new Nov 6" title="Point at the sky"
+          lead="Hold up your iPad or phone: the camera shows the real sky, and Salat draws the sun's path with each prayer, the sun, the moon, the horizon with its compass points and the Qibla on top, following the device as it moves. The bar at the bottom says which way you face and how far to turn for the Qibla. Without motion sensors (on a computer, or if motion is refused) you drag to look around. Opens from Sky Today. Built from kit pieces only: Button, Card, Notice, MoonPhase, the sky labels.">
+          <Suspense fallback={<p className="t-caption">Loading…</p>}><PointKit /></Suspense>
+          <Say>Make the Qibla line taller</Say>
+        </Section>
 
         <Section id="moon" eyebrow="3D sky · chosen Nov 6" title="The moon, with its phase"
           lead="The moon at its real place in the living 3D sky, lit the way you would see it from the ground: its bright side always faces the sun. By day it is pale; at night its dark part shows faintly (earthshine). Move the day to watch the month go by. Its colour is new: Moon, a cool silver beside the warm Sun. The flat moon below can sit in lists and readouts. Chosen by the designer on Nov 6 and used in the app (Sky Today).">

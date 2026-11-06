@@ -10,6 +10,7 @@ import { wallToDate } from '@salat/shared/schedule';
 import { Button, MoonPhase, Notice, Sheet, Slider } from '../../ui/index.jsx';
 import { compassName, fmtFull } from '../../core/format.js';
 import { SkyDome } from './SkyDome.jsx';
+import PointView from './PointView.jsx';
 
 export default function SkySheet({ open, onClose, s, today }) {
   // Mount closed, then open on the next frame, so the sheet slides up the first time too.
@@ -22,6 +23,8 @@ export default function SkySheet({ open, onClose, s, today }) {
   const nowHour = isToday ? nowMin / 60 : 12;
   const [minute, setMinute] = useState(isToday ? nowMin : 12 * 60);
   const [ok, setOk] = useState(true);
+  const [point, setPoint] = useState(false);
+  useEffect(() => { if (!open) setPoint(false); }, [open]);
   useEffect(() => { if (open) setMinute(isToday ? nowMin : 12 * 60); }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const hour = minute / 60;
@@ -56,6 +59,8 @@ export default function SkySheet({ open, onClose, s, today }) {
         {isToday && <Button variant="tinted" size="sm" icon="today" onClick={() => setMinute(nowMin)}>Now</Button>}
         <span className="t-caption">Drag the sky to look around. Pinch to zoom. The dashed line on the ground points to the Qibla ({qibla.toFixed(0)}°).</span>
       </div>
+      {isToday && <Button variant="tinted" icon="target" onClick={() => setPoint(true)}>Point at the Sky</Button>}
+      <PointView open={point} onClose={() => setPoint(false)} s={s} today={today} />
     </Sheet>
   );
 }

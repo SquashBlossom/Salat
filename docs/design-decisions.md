@@ -9,3 +9,4 @@
 | Nov 6 | The living 3D sky: the dome takes the real sky's colours for where the sun is, and real stars appear at -6°, -12°, -18° | Owner |
 | Nov 6 | The moon in the 3D sky at its real place and phase (bright side toward the sun), a Moon colour (cool silver) and a flat Moon phase component | Owner |
 | Nov 6 | The moon a little larger and easier to see: a soft glow (crescents too) and a faint rim around the whole disc | Owner |
+| Nov 6 | Point at the sky: full-screen camera view with the sun's path and prayers, sun, moon, horizon, compass points and Qibla drawn on top; a bottom bar says which way you face and how far to turn for the Qibla; drag to look without motion sensors. Opens from Sky Today. First version, to try on the iPad | Owner asked |

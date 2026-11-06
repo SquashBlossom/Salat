@@ -157,7 +157,7 @@
   --sky-ground: #05080F;          /* below the horizon, beyond the ground disc */
 
   /* ---------- LAYERS ---------- */
-  --z-sky: 0; --z-page: 1; --z-scrim: 40; --z-sheet: 50; --z-menu: 55; --z-toast: 60; --z-moment: 80;
+  --z-sky: 0; --z-page: 1; --z-scrim: 40; --z-sheet: 50; --z-menu: 55; --z-toast: 60; --z-point: 70; --z-moment: 80;
 }
 
 /* Derived roles (same recipe in every theme) */

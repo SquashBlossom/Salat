@@ -23,7 +23,7 @@ A prayer-times app: Vite + React web app (`app/`), Node + SQLite server (`server
 - AR on iPhone: Safari has no WebXR AR, but the sky needs only orientation: camera feed (getUserMedia) + DeviceOrientation turning the Three.js camera works in Safari and in a WKWebView.
 - The owner works on an **iPad** (no Mac). At packaging: Swift Playgrounds on iPad can build a SwiftUI app; widgets / Live Activities likely need Xcode on a Mac.
 - Swift later: app project, local alerts (60 of iOS's 64), widgets, Live Activity. Swift 6 for Linux can run `swift test` in a cloud session (download from swift.org, verify the signature).
-- 3D sky dome done (lazy-loaded Three.js, `app/src/features/sky/`), with the living sky (real sky colours + 921 real stars, `livingSky.js`, `shared/stars.js`) chosen Nov 6. Moon with phase (`shared/moon.js`, `moon3d.js`, `MoonPhase`) chosen Nov 6, used in Sky Today. Next proposed: "Point at the sky" AR mode, then 3D Qibla.
+- 3D sky dome done (lazy-loaded Three.js, `app/src/features/sky/`), with the living sky (real sky colours + 921 real stars, `livingSky.js`, `shared/stars.js`) chosen Nov 6. Moon with phase (`shared/moon.js`, `moon3d.js`, `MoonPhase`) chosen Nov 6, used in Sky Today. "Point at the sky" first version built Nov 6 (`PointView.jsx`, `pointScene.js`; camera + DeviceOrientation, iOS heading via webkitCompassHeading offset): waiting for her test on the iPad, especially landscape and compass accuracy. Next proposed: 3D Qibla.
 - Next feature ideas: roadmap page, ten ideas; Gemma 4 E2B ("2B") is the chosen model.
 
 ## AI rules (Lacuna)

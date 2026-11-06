@@ -133,6 +133,7 @@ cal, compass, target, today, alert, globe, bell, lock, share, check, updown, mor
 | **Ripple** | rings spread from the centre | the prayer moment (canvas) |
 | **Twinkle**, **Shooting star** | stars brighten and dim; a rare streak | the night sky (canvas) |
 | **Moon** | the 3D moon at its real place, a little larger than the sun; its bright side always faces the sun; a soft glow and a faint rim (so a thin crescent still reads); pale by day, earthshine at night | Sky Today (3D) |
+| **Follow** | the view eases after the device as it turns (no jumps); drag to look when there is no motion | Point at the sky |
 | **Living sky** | the 3D dome takes the real sky's colours for where the sun is; real stars appear at -6°, -12°, -18° | Sky Today (3D) |
 
 Loops pause when the page is hidden. With Reduce Motion on, everything is still.
@@ -150,6 +151,7 @@ Loops pause when the page is hidden. With Reduce Motion on, everything is still.
 | The kit page | `app/src/kit/` → `/kit.html` |
 | Menus, lists, sheets | `app/src/ui/Menu.jsx`, `List.jsx`, `Sheet.jsx` |
 | The 3D sky, stars and moon | `app/src/features/sky/`, math in `shared/stars.js` and `shared/moon.js` |
+| Point at the sky | `app/src/features/sky/PointView.jsx` (camera, motion, words), `pointScene.js` (the scene around you) |
 | Swift tokens | `native/SalatTokens.swift` (run `npm run tokens:swift -w app` after changing tokens) |
 
 ## Open design questions (yours to decide)
