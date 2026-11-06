@@ -10,6 +10,8 @@ Read this first. Then `AGENTS.md` (rules), `DESIGN.md` (design language) and `do
 A prayer-times app: Vite + React web app (`app/`), Node + SQLite server (`server/`), shared prayer math (`shared/`). Two versions are planned: this web app, and a Swift app built from the same kit (`native/SalatTokens.swift` is generated from the tokens). Launch target: mid-December 2026. Plan: https://claude.ai/artifact/7VTCfrjSxemXXHhfoRuNHY
 
 ## How we work
+- **Keep the Google Doc "Design Documents" up to date** (owner's request, Nov 6): https://docs.google.com/document/d/1q7k921x4HhMnxdp66u6757VZQTSTcbTnaOlKAwx8pV4/edit (in her My Drive). It mirrors `DESIGN.md` + the design parts of `docs/RESOURCES.md` + a "Decisions on record" table. After any design decision or kit change, update `DESIGN.md` first, then rebuild and replace that Doc's content, and add a row to Decisions on record.
+- A separate general Doc, "Design Resources", holds design sites and principles for her daughter's own website (not Salat).
 - Everything on `main`. Commit small; **push without asking** after each working step: GitHub Actions tests it and publishes to https://squashblossom.github.io/Salat/ (kit: `/kit.html`).
 - Before pushing: `npm test`, build, and screenshots before/after for any visual change.
 - Layout and flow are best sketched in a design canvas first; behaviour in code (docs/RESOURCES.md §1).

@@ -29,6 +29,7 @@ Use named motions only (DESIGN.md table). Ease-out for entering; < 300 ms for in
 2. Build, then screenshot every affected screen at iPhone size **before and after**; compare; fix overflow and clipped text (labels end in "…", never wrap a button).
 3. If tokens changed: `npm run tokens:swift -w app` to refresh `native/SalatTokens.swift`.
 4. Commit one idea, push to `main` (publishes to GitHub Pages). Tell her in plain words what changed and where to see it.
+5. If a design decision or the kit changed: update the Google Doc "Design Documents" (link in CLAUDE.md) and add a row to its Decisions on record.
 
 ## Talking with her
 Short sentences, plain words, the answer first. Teach as you go (commit = sealed envelope, push = posted). Never blame her for not knowing a term; name it once and explain it.
