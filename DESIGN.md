@@ -62,7 +62,7 @@ Name the piece and what to change, using the words below. For example:
 
 ### Colour: one meaning each
 - **Now** (`--now`): the current prayer, the main action on a screen.
-- **Next** (`--next`): the coming prayer, the sun, the countdown when under 10 minutes.
+- **Next** (`--next`): the coming prayer, the sun's path, the countdown when under 10 minutes.
 - **Done** (`--done`): prayers already passed, the horizon line, a success.
 - **Sun** (`--sun`, `--sun-glow`, `--sun-rim`): the sun itself, in the arc and the 3D sky. Warm white (cream) with a glow in
   its path's colour and a thin edge; in Blossom the glow and edge are gold so it stays visible. Chosen by the owner, Nov 5.
