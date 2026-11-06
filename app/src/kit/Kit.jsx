@@ -159,15 +159,15 @@ export default function Kit() {
             <Segmented label="Theme" options={THEMES.filter((t) => t.id !== 'custom').map((t) => [t.id, t.name])} value={theme} onChange={setTheme} />
           </div>
           <nav className="kit-nav" aria-label="Kit sections">
-            {[['sky', '3D sky (proposed)'], ['colour', 'Colour'], ['type', 'Type'], ['space', 'Space & shape'], ['icons', 'Icons'], ['components', 'Components'], ['lists', 'Lists & menus'], ['motion', 'Motion'], ['patterns', 'Patterns'], ['native', 'Swift'], ['talk', 'Talking design']]
+            {[['sky', '3D sky'], ['colour', 'Colour'], ['type', 'Type'], ['space', 'Space & shape'], ['icons', 'Icons'], ['components', 'Components'], ['lists', 'Lists & menus'], ['motion', 'Motion'], ['patterns', 'Patterns'], ['native', 'Swift'], ['talk', 'Talking design']]
               .map(([id, t]) => <a key={id} href={'#' + id}>{t}</a>)}
           </nav>
         </header>
 
-        <Section id="sky" eyebrow="Proposed · waiting for the designer" title="A living 3D sky"
-          lead="The sky behind the 3D dome takes the real sky's colours for where the sun is (night, first light at Fajr, day, golden Maghrib), and the real bright stars appear in three steps as the sun sinks to 6°, 12° and 18° below the horizon (the angles the prayer times use). Pick a time or drag the slider; the classic look is on the left for comparison.">
+        <Section id="sky" eyebrow="3D sky · chosen Nov 6" title="The living 3D sky"
+          lead="The sky behind the 3D dome takes the real sky's colours for where the sun is (night, first light at Fajr, day, golden Maghrib), and the real bright stars appear in three steps as the sun sinks to 6°, 12° and 18° below the horizon (the angles the prayer times use). Chosen by the designer on Nov 6 and used in the app. The old classic look stays on the left for comparison.">
           <Suspense fallback={<p className="t-caption">Loading the 3D sky…</p>}><SkyCompare theme={theme} /></Suspense>
-          <Say>Use the living sky in the app</Say>
+          <Say>Make the noon sky a softer blue</Say>
         </Section>
 
         <Section id="colour" eyebrow="1 · Colour" title="Colour has one meaning each"

@@ -33,7 +33,7 @@ export default function SkySheet({ open, onClose, s, today }) {
   return (
     <Sheet open={open && shown} title="Sky Today" onClose={onClose}>
       {ok
-        ? <SkyDome loc={s.loc} day={today} hour={hour} nowHour={nowHour} fmt={s.fmt} qibla={qibla} theme={s.theme + JSON.stringify(s.custom)} onReady={setOk} />
+        ? <SkyDome loc={s.loc} day={today} hour={hour} nowHour={nowHour} fmt={s.fmt} qibla={qibla} theme={s.theme + JSON.stringify(s.custom)} onReady={setOk} living />
         : <Notice tone="caution">3D is not available on this device. The sun arc on the main screen shows the same day.</Notice>}
       <div className="sky-readout">
         <div className="sky-time figures">{fmtFull(hour, s.fmt)}</div>

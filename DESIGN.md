@@ -66,6 +66,8 @@ Name the piece and what to change, using the words below. For example:
 - **Done** (`--done`): prayers already passed, the horizon line, a success.
 - **Sun** (`--sun`, `--sun-glow`, `--sun-rim`): the sun itself, in the arc and the 3D sky. Warm white (cream) with a glow in
   its path's colour and a thin edge; in Blossom the glow and edge are gold so it stays visible. Chosen by the owner, Nov 5.
+- **Real sky** (`--sky-*`): the colours of the 3D sky, by stage: night, astronomical, nautical and civil twilight,
+  golden hour, day. The same in every theme, because it is the real sky. Chosen by the owner, Nov 6.
 - Calm roles: **bg** (page), **surface** / **surface-sunk** (a card's gradient), **line** / **line-strong**,
   **control** (button fill), **selected** (a chosen option), **text** / **text-2** / **text-3** / **label**.
 
@@ -126,6 +128,7 @@ cal, compass, target, today, alert, globe, bell, lock, share, check, updown, mor
 | **Press** | shrinks to 97% while held | every button, chip and row |
 | **Ripple** | rings spread from the centre | the prayer moment (canvas) |
 | **Twinkle**, **Shooting star** | stars brighten and dim; a rare streak | the night sky (canvas) |
+| **Living sky** | the 3D dome takes the real sky's colours for where the sun is; real stars appear at -6°, -12°, -18° | Sky Today (3D) |
 
 Loops pause when the page is hidden. With Reduce Motion on, everything is still.
 
