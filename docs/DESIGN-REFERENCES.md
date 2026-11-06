@@ -5,8 +5,8 @@ To let Claude browse them, add their domains under the session's Allowed domains
 
 | Gallery | What it shows | Use it for in Salat | When |
 |---|---|---|---|
-| Landbook | high-performing landing pages | the launch page | launch week |
-| Superhero | home-page top sections | the launch page's opening | launch week |
+| Land-book (land-book.com) | high-performing landing pages | the launch page | launch week |
+| Supahero (supahero.io) | home-page top sections | the launch page's opening | launch week |
 | Social Proof Examples | ~200 ways to show testimonials | friends' quotes on the launch page | launch week |
 | OG Image Gallery | link preview images | the card shown when the Salat link is shared | any time (small job) |
 | Posts.Design | social posts by style and colour | launch and Ramadan posts | launch, February |
